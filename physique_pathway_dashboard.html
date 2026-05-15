@@ -391,6 +391,64 @@ select.form-input{appearance:none;}
 .food-row-clickable:hover td:first-child{color:var(--red-light);cursor:pointer;}
 .food-row-clickable td:first-child::after{content:" ↗";font-size:9px;opacity:0;transition:opacity .15s;}
 .food-row-clickable:hover td:first-child::after{opacity:0.5;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--cb);border-radius:3px;}
+/* ── SUPPLEMENTS TAB ── */
+.supp-table{width:100%;border-collapse:collapse;}
+.supp-table th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--td);font-weight:700;padding:9px 14px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--cb);text-align:left;}
+.supp-table td{padding:9px 14px;border-bottom:1px solid rgba(52,77,92,.3);font-size:12px;vertical-align:middle;}
+.supp-table tr:last-child td{border-bottom:none;}
+.supp-table tr:hover td{background:rgba(255,255,255,.02);}
+.supp-type-health{background:rgba(26,158,110,.15);color:#3dd6a3;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;display:inline-block;}
+.supp-type-aux{background:rgba(212,134,15,.15);color:#f5b445;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;display:inline-block;}
+.supp-type-perf{background:rgba(26,127,191,.15);color:#5ab4f5;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;display:inline-block;}
+.supp-toggle{position:relative;width:32px;height:18px;flex-shrink:0;display:inline-block;}
+.supp-toggle input{opacity:0;width:0;height:0;}
+.supp-slider{position:absolute;inset:0;background:var(--cb);border-radius:9px;cursor:pointer;transition:.2s;}
+.supp-slider:before{content:"";position:absolute;width:12px;height:12px;left:3px;bottom:3px;background:var(--white);border-radius:50%;transition:.2s;}
+.supp-toggle input:checked+.supp-slider{background:var(--green);}
+.supp-toggle input:checked+.supp-slider:before{transform:translateX(14px);}
+/* ── TRAINING PLAN TAB ── */
+.tp-day{background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:12px;overflow:hidden;}
+.tp-day-header{background:rgba(0,0,0,.2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--cb);cursor:pointer;}
+.tp-day-name{font-family:var(--fd);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--white);}
+.tp-day-meta{font-size:11px;color:var(--td);}
+.tp-exercise-row{display:grid;grid-template-columns:1fr 60px 80px 70px 90px 36px;gap:8px;padding:8px 16px;border-bottom:1px solid rgba(52,77,92,.2);align-items:center;font-size:12px;}
+.tp-exercise-row:last-child{border-bottom:none;}
+.tp-ex-name{font-weight:600;color:var(--white);}
+.tp-ex-input{background:rgba(0,0,0,.25);border:1px solid var(--cb);border-radius:4px;color:var(--white);font-size:11px;font-family:var(--fd);padding:4px 7px;width:100%;text-align:center;}
+.tp-ex-input:focus{outline:none;border-color:var(--red);}
+.tp-header-row{display:grid;grid-template-columns:1fr 60px 80px 70px 90px 36px;gap:8px;padding:6px 16px;font-size:10px;color:var(--td);font-weight:700;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(52,77,92,.3);}
+.tp-add-ex{background:none;border:none;color:var(--td);font-size:11px;font-family:var(--fb);cursor:pointer;padding:8px 16px;width:100%;text-align:left;transition:color .15s;}
+.tp-add-ex:hover{color:var(--tm);}
+/* ── LOGBOOK ── */
+.lb-session{background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:12px;overflow:hidden;}
+.lb-session-header{background:rgba(0,0,0,.2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--cb);}
+.lb-session-title{font-family:var(--fd);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;}
+.lb-session-date{font-size:11px;color:var(--td);}
+.lb-ex-row{padding:8px 16px;border-bottom:1px solid rgba(52,77,92,.2);}
+.lb-ex-row:last-child{border-bottom:none;}
+.lb-ex-name{font-size:12px;font-weight:700;color:var(--white);margin-bottom:5px;}
+.lb-sets{display:flex;gap:6px;flex-wrap:wrap;}
+.lb-set{background:rgba(0,0,0,.25);border:1px solid var(--cb);border-radius:4px;padding:4px 8px;font-size:11px;color:var(--tm);font-family:var(--fd);}
+.lb-set.pr{border-color:rgba(212,134,15,.5);color:#f5b445;}
+/* ── GLOBAL DB VIEWS ── */
+.db-search{background:rgba(0,0,0,.25);border:1px solid var(--cb);border-radius:6px;color:var(--white);font-size:13px;font-family:var(--fb);padding:9px 14px;width:280px;}
+.db-search:focus{outline:none;border-color:var(--red);}
+.db-table{width:100%;border-collapse:collapse;}
+.db-table th{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--td);font-weight:700;padding:10px 14px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--cb);text-align:left;white-space:nowrap;}
+.db-table td{padding:9px 14px;border-bottom:1px solid rgba(52,77,92,.3);font-size:12px;vertical-align:middle;}
+.db-table tr:last-child td{border-bottom:none;}
+.db-table tr:hover td{background:rgba(255,255,255,.02);}
+.mg-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.04em;}
+.mg-Chest{background:rgba(26,127,191,.15);color:#5ab4f5;}
+.mg-Shoulders{background:rgba(180,80,220,.15);color:#d47fd4;}
+.mg-Back,.mg-Lats,.mg-UpperBack{background:rgba(26,158,110,.15);color:#3dd6a3;}
+.mg-Biceps{background:rgba(212,134,15,.15);color:#f5b445;}
+.mg-Triceps{background:rgba(200,100,50,.15);color:#ff9060;}
+.mg-Quads{background:rgba(165,28,48,.15);color:#ff6e7f;}
+.mg-Hamstrings{background:rgba(100,100,200,.15);color:#9090f0;}
+.mg-Glutes{background:rgba(180,100,180,.15);color:#d47fd4;}
+.mg-Calves{background:rgba(80,180,80,.15);color:#7fd47f;}
+.mg-Abs{background:rgba(150,150,150,.15);color:#aaa;}
 </style>
 </head>
 <body>
@@ -403,6 +461,8 @@ select.form-input{appearance:none;}
     <button class="nav-item active" onclick="showView('dashboard')">&#9646; Dashboard <span class="nb" id="nb-miss" style="display:none">0</span></button>
     <button class="nav-item" onclick="showView('payments')">&#9646; Payments <span class="nb" id="nb-pay" style="display:none;background:#d4860f">!</span></button>
     <button class="nav-item" onclick="showView('fooddb')">&#9646; Food Database</button>
+    <button class="nav-item" onclick="showView('suppdb')">&#9646; Supplement Database</button>
+    <button class="nav-item" onclick="showView('traindb')">&#9646; Exercise Library</button>
   </div>
   <div class="sb-clients">
     <div class="sb-label">Clients</div>
@@ -479,6 +539,42 @@ select.form-input{appearance:none;}
     </div>
 
     <!-- PAYMENTS -->
+    <!-- SUPPLEMENT DATABASE VIEW -->
+    <div class="view" id="view-suppdb">
+      <div class="content">
+        <div class="sh">
+          <span class="st">Supplement Database</span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input class="db-search" id="supp-search" placeholder="Search supplements…" oninput="renderSuppDB()">
+            <button class="btn btn-primary btn-sm" onclick="openAddSuppModal()">+ Add Supplement</button>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table class="db-table" id="supp-db-table"><thead><tr>
+          <th>Supplement</th><th>Daily Dose</th><th>Timing</th><th>Type</th><th>Purpose / Benefit</th><th style="width:80px">Actions</th>
+        </tr></thead><tbody id="supp-db-tbody"></tbody></table></div>
+      </div>
+    </div>
+    <!-- EXERCISE LIBRARY VIEW -->
+    <div class="view" id="view-traindb">
+      <div class="content">
+        <div class="sh">
+          <span class="st">Exercise Library</span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select class="form-input" id="ex-filter-mg" onchange="renderExerciseDB()" style="width:180px;padding:9px 12px">
+              <option value="">All Muscle Groups</option>
+              <option>Chest</option><option>Shoulders</option><option>Back</option><option>Lats</option>
+              <option>Biceps</option><option>Triceps</option><option>Hamstrings</option><option>Quads</option>
+              <option>Glutes</option><option>Calves</option><option>Abs</option>
+            </select>
+            <input class="db-search" id="ex-search" placeholder="Search exercises…" oninput="renderExerciseDB()">
+            <button class="btn btn-primary btn-sm" onclick="openAddExerciseModal()">+ Add Exercise</button>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table class="db-table" id="ex-db-table"><thead><tr>
+          <th>Exercise</th><th>Muscle Group</th><th>Rep Range</th><th>Substitution</th><th>Coaching Notes</th><th style="width:80px">Actions</th>
+        </tr></thead><tbody id="ex-db-tbody"></tbody></table></div>
+      </div>
+    </div>
     <div class="view" id="view-payments">
       <div class="stats-row" id="pay-stats" style="grid-template-columns:repeat(4,1fr)"></div>
       <div class="sh"><div class="st">Payment Tracker</div></div>
@@ -614,72 +710,35 @@ const AVC=[['#3a1a20','#ff6e7f'],['#0d2235','#5ab4f5'],['#1a2810','#3dd6a3'],
 
 let state = {
   clients: [
-    {id:1,name:'Marcus Webb',age:26,height:182,weight:94.2,goalWeight:88,phase:'cut',calories:2400,protein:220,carbs:220,fats:65,ciDay:'Friday',billing:'monthly',rate:1500,lastPay:'2025-04-01',
+    {id:1,name:'Teronne Fourie',age:30,height:178,weight:107.8,goalWeight:115,phase:'bulk',calories:3864,protein:233,carbs:564,fats:75,ciDay:'Saturday',billing:'monthly',rate:0,lastPay:'2026-05-01',
      phases:[
-       {phase:'bulk',startDate:'2024-01-01',endDate:'2024-08-31',startWeight:86.0,endWeight:97.2,targetWeight:98,weeks:35,notes:'Solid bulk, good strength gains.',calories:3800,protein:250,carbs:450,fats:100,mesocycle:'Push Pull Legs'},
-       {phase:'maintain',startDate:'2024-09-01',endDate:'2024-11-30',startWeight:97.2,endWeight:96.0,targetWeight:96,weeks:13,notes:'Maintenance between phases.',calories:3100,protein:240,carbs:310,fats:85,mesocycle:'Upper Lower'},
-       {phase:'cut',startDate:'2024-12-01',endDate:null,startWeight:96.0,endWeight:null,targetWeight:88,weeks:null,notes:'Current cut. Targeting 88kg.',calories:2400,protein:220,carbs:220,fats:65,mesocycle:'Upper Lower'},
+       {phase:'bulk',startDate:'2026-01-03',endDate:'2026-02-14',startWeight:102.0,endWeight:104.3,targetWeight:110,weeks:7,notes:'Muscle Gain Phase 1. Viral infection week 3 (deload). High E2 early, lowered volume and more RIR. TEST E + NPP + EQ + HGH + HUMALOG.',calories:3771,protein:257,carbs:502,fats:73,mesocycle:'Push Pull Legs'},
+       {phase:'maintain',startDate:'2026-02-21',endDate:'2026-04-11',startWeight:103.9,endWeight:103.5,targetWeight:103,weeks:8,notes:'Maintenance phase. TEST E only (TRT). Extreme fatigue and sickness week 1. Steady recomp across 8 weeks.',calories:3520,protein:227,carbs:492,fats:71,mesocycle:'Push Pull Legs'},
+       {phase:'bulk',startDate:'2026-04-18',endDate:null,startWeight:105.7,endWeight:null,targetWeight:115,weeks:null,notes:'Current Muscle Gain Phase. HGH added Apr 18. Mast E added May 16 @ 300mg. Ezetimibe 5mg + omegas 2g added. Bloods done May 9.',calories:3864,protein:233,carbs:564,fats:75,mesocycle:'Push Pull Legs'},
      ],
      dailyCheckins:[
-       {date:'2025-02-03',bodyWeight:94.2,nutritionAccuracy:100,cals:2400,pro:220,fats:65,cho:220,water:3.5,appetite:3,digestiveIssues:false,steps:10000,cardioMins:30,avgHR:125,training:'Lower A',motivation:4,performanceIncrease:true,muscleSoreness:3,energyLevels:4,stressLevels:2,illness:false,bpSys:122,bpDia:78,fastingGlucose:4.1,restingHR:58,sleepDuration:7,sleepQuality:4},
-       {date:'2025-02-04',bodyWeight:94.0,nutritionAccuracy:100,cals:2400,pro:220,fats:65,cho:220,water:4,appetite:4,digestiveIssues:false,steps:10000,cardioMins:30,avgHR:128,training:'Push A',motivation:4,performanceIncrease:true,muscleSoreness:2,energyLevels:4,stressLevels:2,illness:false,bpSys:120,bpDia:76,fastingGlucose:4.0,restingHR:57,sleepDuration:7.5,sleepQuality:4},
-       {date:'2025-02-05',bodyWeight:94.3,nutritionAccuracy:100,cals:2400,pro:218,fats:65,cho:222,water:3,appetite:3,digestiveIssues:false,steps:10000,cardioMins:30,avgHR:122,training:'Pull A',motivation:3,performanceIncrease:false,muscleSoreness:3,energyLevels:3,stressLevels:3,illness:false,bpSys:119,bpDia:77,fastingGlucose:4.2,restingHR:59,sleepDuration:6.5,sleepQuality:3},
-       {date:'2025-02-06',bodyWeight:94.1,nutritionAccuracy:95,cals:2100,pro:215,fats:63,cho:195,water:3.5,appetite:3,digestiveIssues:false,steps:8000,cardioMins:0,training:'Rest',motivation:3,performanceIncrease:false,muscleSoreness:4,energyLevels:3,stressLevels:3,illness:false,bpSys:121,bpDia:79,fastingGlucose:4.3,restingHR:60,sleepDuration:8,sleepQuality:4},
-       {date:'2025-02-07',bodyWeight:93.8,nutritionAccuracy:100,cals:2400,pro:220,fats:65,cho:220,water:4,appetite:4,digestiveIssues:false,steps:10000,cardioMins:30,avgHR:126,training:'Lower B',motivation:5,performanceIncrease:true,muscleSoreness:2,energyLevels:5,stressLevels:2,illness:false,bpSys:118,bpDia:75,fastingGlucose:3.9,restingHR:56,sleepDuration:7.5,sleepQuality:5},
-       {date:'2025-02-10',bodyWeight:93.6,nutritionAccuracy:100,cals:2400,pro:220,fats:65,cho:220,water:3.5,appetite:3,digestiveIssues:false,steps:10000,cardioMins:30,avgHR:130,training:'Lower A',motivation:4,performanceIncrease:true,muscleSoreness:3,energyLevels:4,stressLevels:2,illness:false,bpSys:120,bpDia:77,fastingGlucose:4.0,restingHR:57,sleepDuration:7,sleepQuality:4},
-       {date:'2025-02-11',bodyWeight:93.4,nutritionAccuracy:100,cals:2400,pro:222,fats:64,cho:218,water:4,appetite:4,digestiveIssues:false,steps:10000,cardioMins:30,avgHR:127,training:'Push A',motivation:4,performanceIncrease:true,muscleSoreness:2,energyLevels:4,stressLevels:2,illness:false,bpSys:119,bpDia:76,fastingGlucose:4.1,restingHR:56,sleepDuration:7.5,sleepQuality:4},
-       {date:'2025-02-12',bodyWeight:93.7,nutritionAccuracy:100,cals:2400,pro:219,fats:65,cho:221,water:3,appetite:3,digestiveIssues:true,digestiveDetails:'Bloating post-meal',steps:10000,cardioMins:30,avgHR:124,training:'Pull A',motivation:3,performanceIncrease:false,muscleSoreness:3,energyLevels:3,stressLevels:4,illness:false,bpSys:122,bpDia:78,fastingGlucose:4.2,restingHR:60,sleepDuration:6,sleepQuality:3},
+       {date:'2026-01-03',bodyWeight:102.0,nutritionAccuracy:97,cals:3771,pro:257,fats:73,cho:502,water:null,appetite:null,digestiveIssues:null,steps:4857,cardioMins:45,avgHR:84,training:'Meso Week 3',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:116,bpDia:74,fastingGlucose:3.4,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'High E2 (gyno). Super tired — lowered volume and more RIR.'},
+       {date:'2026-01-10',bodyWeight:102.6,nutritionAccuracy:97,cals:3700,pro:257,fats:73,cho:502,water:null,appetite:null,digestiveIssues:null,steps:4550,cardioMins:45,avgHR:70,training:'Meso Week 4',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:118,bpDia:80,fastingGlucose:3.6,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-01-17',bodyWeight:104.8,nutritionAccuracy:96,cals:3721,pro:257,fats:73,cho:502,water:null,appetite:null,digestiveIssues:null,steps:2743,cardioMins:15,avgHR:88,training:'Deload (Full)',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:true,bpSys:121,bpDia:71,fastingGlucose:3.6,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'SICK — viral infection.'},
+       {date:'2026-01-24',bodyWeight:103.6,nutritionAccuracy:95,cals:3700,pro:257,fats:73,cho:502,water:null,appetite:null,digestiveIssues:null,steps:4314,cardioMins:30,avgHR:68,training:'Meso Week 1',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:124,bpDia:70,fastingGlucose:4.0,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'Super tired — battling to go to the gym.'},
+       {date:'2026-01-31',bodyWeight:103.7,nutritionAccuracy:97,cals:3729,pro:257,fats:73,cho:502,water:null,appetite:null,digestiveIssues:null,steps:4458,cardioMins:55,avgHR:null,training:'Meso Week 2',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:null,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-02-07',bodyWeight:104.6,nutritionAccuracy:97,cals:3700,pro:257,fats:73,cho:502,water:null,appetite:null,digestiveIssues:null,steps:4714,cardioMins:75,avgHR:65,training:'Meso Week 3',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:3.7,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-02-14',bodyWeight:104.3,nutritionAccuracy:91,cals:3700,pro:257,fats:73,cho:502,water:null,appetite:null,digestiveIssues:null,steps:3729,cardioMins:75,avgHR:66,training:'Meso Week 4',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:115,bpDia:80,fastingGlucose:3.8,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-02-21',bodyWeight:103.9,nutritionAccuracy:89,cals:3694,pro:253,fats:73,cho:505,water:null,appetite:null,digestiveIssues:null,steps:3143,cardioMins:null,avgHR:69,training:'Deload (Full)',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:true,bpSys:101,bpDia:76,fastingGlucose:3.9,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'Extreme fatigue daily. Sick.'},
+       {date:'2026-02-28',bodyWeight:102.9,nutritionAccuracy:99,cals:3520,pro:227,fats:71,cho:492,water:null,appetite:null,digestiveIssues:null,steps:3686,cardioMins:60,avgHR:67,training:'Maint Week 1',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:3.9,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-03-07',bodyWeight:102.9,nutritionAccuracy:95,cals:3520,pro:227,fats:71,cho:492,water:null,appetite:null,digestiveIssues:null,steps:3480,cardioMins:58,avgHR:66,training:'Maint Week 2',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:4.0,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-03-14',bodyWeight:102.4,nutritionAccuracy:96,cals:3550,pro:228,fats:71,cho:499,water:null,appetite:null,digestiveIssues:null,steps:3357,cardioMins:60,avgHR:67,training:'Maint Week 3',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:125,bpDia:75,fastingGlucose:4.2,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-03-21',bodyWeight:102.4,nutritionAccuracy:93,cals:3550,pro:228,fats:71,cho:475,water:null,appetite:null,digestiveIssues:null,steps:3317,cardioMins:50,avgHR:65,training:'Maint Week 4',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:119,bpDia:66,fastingGlucose:4.5,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-03-28',bodyWeight:102.2,nutritionAccuracy:93,cals:3655,pro:229,fats:71,cho:523,water:null,appetite:null,digestiveIssues:null,steps:3760,cardioMins:50,avgHR:null,training:'Maint Week 5',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:null,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-04-04',bodyWeight:103.0,nutritionAccuracy:93,cals:3655,pro:229,fats:71,cho:523,water:null,appetite:null,digestiveIssues:null,steps:3400,cardioMins:50,avgHR:65,training:'Maint Week 6',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:4.2,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-04-11',bodyWeight:103.5,nutritionAccuracy:95,cals:3592,pro:228,fats:71,cho:509,water:null,appetite:null,digestiveIssues:null,steps:4420,cardioMins:30,avgHR:62,training:'Maint Week 7',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:116,bpDia:63,fastingGlucose:4.6,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-04-18',bodyWeight:105.7,nutritionAccuracy:89,cals:3565,pro:236,fats:71,cho:502,water:null,appetite:null,digestiveIssues:null,steps:3643,cardioMins:60,avgHR:63,training:'Bulk2 Week 1',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:123,bpDia:75,fastingGlucose:4.5,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'HGH added 4iu PM.'},
+       {date:'2026-04-25',bodyWeight:107.2,nutritionAccuracy:96,cals:3592,pro:228,fats:71,cho:509,water:null,appetite:null,digestiveIssues:null,steps:3800,cardioMins:45,avgHR:63,training:'Bulk2 Week 2',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:114,bpDia:75,fastingGlucose:4.3,restingHR:null,sleepDuration:null,sleepQuality:null,notes:''},
+       {date:'2026-05-02',bodyWeight:106.2,nutritionAccuracy:97,cals:3722,pro:231,fats:74,cho:537,water:null,appetite:null,digestiveIssues:null,steps:4250,cardioMins:null,avgHR:null,training:'Bulk2 Week 3',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:null,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'Added 50g carbs PWO.'},
+       {date:'2026-05-09',bodyWeight:107.5,nutritionAccuracy:97,cals:3680,pro:230,fats:74,cho:527,water:null,appetite:null,digestiveIssues:null,steps:4083,cardioMins:45,avgHR:65,training:'Bulk2 Week 4',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:118,bpDia:82,fastingGlucose:4.1,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'Bloods done.'},
+       {date:'2026-05-16',bodyWeight:107.8,nutritionAccuracy:null,cals:null,pro:null,fats:null,cho:null,water:null,appetite:null,digestiveIssues:null,steps:null,cardioMins:null,avgHR:null,training:'Bulk2 Week 5',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:null,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'Added 5mg ezetimibe, omegas to 2g, Mast E added @ 300mg.'},
      ],
-     checkins:[
-       {date:'2025-01-13',weight:95.8,waist:90,hips:100,arm:40,quad:62,energy:3,sleep:3,hunger:4,training:4,compliance:5,notes:'Starting cut, energy dipping.'},
-       {date:'2025-01-20',weight:95.1,waist:89.5,hips:99,arm:40,quad:62,energy:3,sleep:4,hunger:4,training:3,compliance:6,notes:'Stress at work.'},
-       {date:'2025-01-27',weight:94.6,waist:89,hips:99,arm:40.5,quad:62,energy:4,sleep:4,hunger:3,training:5,compliance:6,notes:'Best bench session in months.'},
-       {date:'2025-02-03',weight:94.2,waist:88,hips:98,arm:40.5,quad:61.5,energy:4,sleep:4,hunger:3,training:4,compliance:7,notes:'Feeling leaner. Good week.'},
-       {date:'2025-02-10',weight:93.6,waist:87.5,hips:98,arm:40.5,quad:61,energy:4,sleep:5,hunger:3,training:5,compliance:7,notes:'Cardio up, feeling it.'},
-     ]},
-    {id:2,name:'Priya Sharma',age:24,height:165,weight:61.8,goalWeight:58,phase:'prep',calories:1800,protein:165,carbs:140,fats:50,ciDay:'Saturday',billing:'monthly',rate:1800,lastPay:'2025-04-15',
-     phases:[
-       {phase:'bulk',startDate:'2024-03-01',endDate:'2024-08-31',startWeight:56.0,endWeight:64.8,targetWeight:65,weeks:26,notes:'Off season gain phase.',calories:2800,protein:180,carbs:340,fats:75,mesocycle:'Full Body 4x'},
-       {phase:'prep',startDate:'2024-09-01',endDate:null,startWeight:64.8,endWeight:null,targetWeight:58,weeks:null,notes:'Contest prep — show in ~3 weeks.',calories:1800,protein:165,carbs:140,fats:50,mesocycle:'PPL 6x'},
-     ],
-     checkins:[
-       {date:'2025-01-20',weight:63.2,waist:70,hips:90,arm:30,quad:55,energy:4,sleep:4,hunger:3,training:5,compliance:7,notes:'Stage ready energy.'},
-       {date:'2025-01-27',weight:62.5,waist:69,hips:89,arm:29.5,quad:54,energy:4,sleep:5,hunger:4,training:5,compliance:7,notes:'Peak week prep.'},
-       {date:'2025-02-03',weight:61.8,waist:68,hips:88,arm:29,quad:54,energy:5,sleep:5,hunger:3,training:5,compliance:7,notes:'Stage in 3 weeks!'},
-     ]},
-    {id:3,name:'Tyler Okonkwo',age:30,height:188,weight:108.4,goalWeight:115,phase:'bulk',calories:4200,protein:260,carbs:520,fats:110,ciDay:'Sunday',billing:'quarterly',rate:4000,lastPay:'2025-03-01',
-     phases:[
-       {phase:'bulk',startDate:'2023-06-01',endDate:'2024-05-31',startWeight:98.0,endWeight:110.5,targetWeight:115,weeks:52,notes:'Long bulk. Exceptional strength gains.',calories:4500,protein:280,carbs:560,fats:120,mesocycle:'Powerbuilding'},
-       {phase:'bulk',startDate:'2024-06-01',endDate:null,startWeight:104.0,endWeight:null,targetWeight:115,weeks:null,notes:'Continuation after deload.',calories:4200,protein:260,carbs:520,fats:110,mesocycle:'Powerbuilding'},
-     ],
-     checkins:[
-       {date:'2025-01-27',weight:106.2,waist:92,hips:108,arm:46,quad:68,energy:5,sleep:4,hunger:2,training:5,compliance:5,notes:'Squat hit 200kg.'},
-       {date:'2025-02-03',weight:108.4,waist:93,hips:109,arm:46.5,quad:68.5,energy:4,sleep:4,hunger:2,training:4,compliance:6,notes:'Eating is tough but pushing.'},
-     ]},
-    {id:4,name:'Savanna Fourie',age:22,height:168,weight:57.3,goalWeight:54,phase:'cut',calories:1650,protein:150,carbs:130,fats:48,ciDay:'Saturday',billing:'monthly',rate:1200,lastPay:'2025-03-25',
-     phases:[
-       {phase:'maintain',startDate:'2024-01-01',endDate:'2024-05-31',startWeight:57.0,endWeight:57.5,targetWeight:57,weeks:22,notes:'Maintaining after previous cut.',calories:1900,protein:155,carbs:195,fats:55,mesocycle:'Full Body 3x'},
-       {phase:'bulk',startDate:'2024-06-01',endDate:'2024-10-31',startWeight:57.5,endWeight:60.2,targetWeight:62,weeks:22,notes:'Mini bulk.',calories:2400,protein:165,carbs:285,fats:65,mesocycle:'Upper Lower'},
-       {phase:'cut',startDate:'2024-11-01',endDate:null,startWeight:60.2,endWeight:null,targetWeight:54,weeks:null,notes:'Current cut phase.',calories:1650,protein:150,carbs:130,fats:48,mesocycle:'Upper Lower'},
-     ],
-     checkins:[
-       {date:'2025-01-20',weight:58.8,waist:72,hips:91,arm:28,quad:52,energy:3,sleep:3,hunger:4,training:3,compliance:4,notes:'Struggled with diet this week.'},
-       {date:'2025-02-03',weight:57.3,waist:71,hips:90,arm:28,quad:52,energy:4,sleep:4,hunger:3,training:4,compliance:6,notes:'Back on track.'},
-     ]},
-    {id:5,name:'Brett Musgrave',age:34,height:185,weight:102.0,goalWeight:98,phase:'maintain',calories:3100,protein:240,carbs:300,fats:85,ciDay:'Friday',billing:'halfyearly',rate:7500,lastPay:'2025-01-01',
-     phases:[
-       {phase:'bulk',startDate:'2023-01-01',endDate:'2023-09-30',startWeight:90.0,endWeight:105.5,targetWeight:105,weeks:39,notes:'Big bulk year.',calories:3800,protein:255,carbs:440,fats:100,mesocycle:'Push Pull Legs'},
-       {phase:'cut',startDate:'2023-10-01',endDate:'2024-03-31',startWeight:105.5,endWeight:97.0,targetWeight:96,weeks:26,notes:'Cut went well.',calories:2500,protein:245,carbs:220,fats:68,mesocycle:'Upper Lower'},
-       {phase:'maintain',startDate:'2024-04-01',endDate:null,startWeight:97.0,endWeight:null,targetWeight:98,weeks:null,notes:'Maintaining. Slow recomp.',calories:3100,protein:240,carbs:300,fats:85,mesocycle:'Upper Lower'},
-     ],
-     checkins:[
-       {date:'2025-02-03',weight:102.0,waist:88,hips:104,arm:42,quad:64,energy:4,sleep:4,hunger:3,training:4,compliance:6,notes:'Holding well. Travel this week.'},
-     ]},
-    {id:6,name:'Liam Thomson',age:28,height:178,weight:81.5,goalWeight:78,phase:'cut',calories:2100,protein:200,carbs:190,fats:58,ciDay:'Friday',billing:'monthly',rate:1500,lastPay:'2025-04-01',checkins:[],
-     phases:[
-       {phase:'bulk',startDate:'2024-06-01',endDate:'2024-11-30',startWeight:77.0,endWeight:83.2,targetWeight:85,weeks:26,notes:'First bulk. Gained well.',calories:3200,protein:220,carbs:380,fats:90,mesocycle:'Push Pull Legs'},
-       {phase:'cut',startDate:'2024-12-01',endDate:null,startWeight:83.2,endWeight:null,targetWeight:78,weeks:null,notes:'Current cut phase.',calories:2100,protein:200,carbs:190,fats:58,mesocycle:'Upper Lower'},
-     ]},
+     checkins:[]},
   ],
 
   activeView:'dashboard',
@@ -1045,13 +1104,123 @@ function closeSubPopup(){
 // LOCALSTORAGE PERSISTENCE
 // ══════════════════════════════════════════
 
-const STORAGE_KEY = 'pp_coach_data_v1';
+// ── SUPPLEMENT DATABASE ──
+const SUPP_DB = [
+  {id:1,name:'Creatine Monohydrate',dose:'5g',timing:'Post Workout',type:'Performance',explanation:'Boosts strength, power output and muscle size'},
+  {id:2,name:'Omega-3',dose:'1g EPA/DHA',timing:'Split w/Meals',type:'Health',explanation:'Supports heart, brain, joint health and inflammation'},
+  {id:3,name:'Vitamin D3 & K2',dose:'2000iu/100mcg',timing:'PM',type:'Health',explanation:'Strong bones, hormone support and immune function'},
+  {id:4,name:'Magnesium Glycinate',dose:'250mg',timing:'PM',type:'Health',explanation:'Improves sleep quality and hormone balance'},
+  {id:5,name:'Zinc',dose:'25mg',timing:'PM',type:'Health',explanation:'Supports testosterone production and immune function'},
+  {id:6,name:'TUDCA',dose:'500mg',timing:'PM',type:'Health',explanation:'Liver protection — especially important on cycle'},
+  {id:7,name:'NAC',dose:'600mg',timing:'PM',type:'Health',explanation:'Antioxidant and detox support'},
+  {id:8,name:'Ashwagandha',dose:'600mg',timing:'PM',type:'Health',explanation:'Lowers cortisol, reduces stress and boosts recovery'},
+  {id:9,name:'Turmeric',dose:'500mg',timing:'PM',type:'Health',explanation:'Reduces inflammation and joint pain'},
+  {id:10,name:'Probiotic',dose:'10 bil/CFU',timing:'PM',type:'Health',explanation:'Supports gut health and digestion'},
+  {id:11,name:'L-Glutamine',dose:'5g',timing:'Post Workout',type:'Health',explanation:'Gut health and recovery support'},
+  {id:12,name:'Berberine',dose:'1000mg',timing:'Split AM/PM',type:'Auxiliary',explanation:'Helps control blood sugar levels'},
+  {id:13,name:'Tongkat Ali',dose:'200mg',timing:'PM',type:'Health',explanation:'Boosts testosterone and energy'},
+  {id:14,name:'Multivitamin',dose:'1 serving',timing:'PM',type:'Health',explanation:'Fills nutrient gaps in the diet'},
+  {id:15,name:'L-Theanine',dose:'200mg',timing:'PM',type:'Health',explanation:'Promotes calm and focus without drowsiness'},
+  {id:16,name:'Biotin',dose:'5mg',timing:'PM',type:'Health',explanation:'Supports hair, skin and nail health'},
+  {id:17,name:'CoQ10',dose:'200mg',timing:'PM',type:'Health',explanation:'Energy production and heart health'},
+  {id:18,name:'Astragalus Root',dose:'1000mg',timing:'PM',type:'Health',explanation:'Supports kidneys, immunity and longevity'},
+  {id:19,name:'MSM',dose:'1000mg',timing:'PM',type:'Health',explanation:'Reduces joint pain and inflammation'},
+  {id:20,name:'Red Rice Yeast Extract',dose:'600mg',timing:'PM',type:'Auxiliary',explanation:'Lowers LDL cholesterol naturally'},
+  {id:21,name:'Citrus Bergamot',dose:'500mg',timing:'PM',type:'Auxiliary',explanation:'Improves cholesterol and blood sugar'},
+  {id:22,name:'Vitamin C',dose:'500mg',timing:'PM',type:'Health',explanation:'Boosts immunity and acts as antioxidant'},
+  {id:23,name:'Melatonin',dose:'5mg',timing:'PM',type:'Health',explanation:'Regulates sleep and circadian rhythm'},
+  {id:24,name:'Selenium',dose:'200mcg',timing:'PM',type:'Health',explanation:'Thyroid, immune and fertility support'},
+  {id:25,name:'Digestive Enzymes',dose:'1 serving',timing:'With Meals',type:'Health',explanation:'Aids breakdown and absorption of nutrients'},
+  {id:26,name:'Metformin',dose:'500mg',timing:'PM',type:'Auxiliary',explanation:'Helps control blood sugar levels'},
+  {id:27,name:'HCL Betaine',dose:'650mg',timing:'With Meals',type:'Health',explanation:'Improves stomach acid and digestion'},
+  {id:28,name:'Lactase Enzymes',dose:'1 serving',timing:'With Meals',type:'Health',explanation:'Aids in breakdown of lactose'},
+  {id:29,name:'NPL Whey Protein',dose:'1 serving',timing:'Post Workout',type:'Performance',explanation:'High quality fast-digesting protein source'},
+  {id:30,name:'NPL Maltodextrin',dose:'50g',timing:'Post Workout',type:'Performance',explanation:'Fast-acting carbohydrate for post-workout glycogen replenishment'},
+  {id:31,name:'NPL BCAA/EAA',dose:'1 serving',timing:'Intra Workout',type:'Performance',explanation:'Supports muscle protein synthesis and reduces catabolism'},
+];
+
+// ── EXERCISE DATABASE ──
+const EXERCISE_DB = [
+  {id:1,name:'Bench Press',link:'',repRange:'6-12',muscleGroup:'Chest',substitution:'DB Bench Press',specs:''},
+  {id:2,name:'Mid Incline Bench Press',link:'',repRange:'6-12',muscleGroup:'Chest',substitution:'Mid Incline DB Press',specs:''},
+  {id:3,name:'Flat DB Press',link:'',repRange:'6-12',muscleGroup:'Chest',substitution:'Flat Press Machine',specs:''},
+  {id:4,name:'Low Incline DB Press',link:'',repRange:'6-12',muscleGroup:'Chest',substitution:'Low Incline Smith Press',specs:''},
+  {id:5,name:'Machine Flye',link:'',repRange:'12-16',muscleGroup:'Chest',substitution:'Flat DB Flys',specs:''},
+  {id:6,name:'Low Incline Smith Press',link:'',repRange:'6-12',muscleGroup:'Chest',substitution:'Low Incline DB Press',specs:''},
+  {id:7,name:'Deficit Push Up',link:'',repRange:'6-12',muscleGroup:'Chest',substitution:'Flat Press Machine',specs:''},
+  {id:8,name:'Machine Shoulder Press',link:'',repRange:'6-12',muscleGroup:'Shoulders',substitution:'DB Shoulder Press',specs:''},
+  {id:9,name:'Seated BB Shoulder Press',link:'',repRange:'6-12',muscleGroup:'Shoulders',substitution:'DB Shoulder Press',specs:''},
+  {id:10,name:'DB Shoulder Press',link:'',repRange:'6-12',muscleGroup:'Shoulders',substitution:'Machine Shoulder Press',specs:''},
+  {id:11,name:'DB Lateral Raises',link:'',repRange:'12-16',muscleGroup:'Shoulders',substitution:'Cable Lateral Raises',specs:''},
+  {id:12,name:'Cable Lateral Raises',link:'',repRange:'16-20',muscleGroup:'Shoulders',substitution:'DB Lateral Raises',specs:''},
+  {id:13,name:'Face Pulls',link:'',repRange:'12-16',muscleGroup:'Shoulders',substitution:'Single Arm Reverse Cable Flye',specs:''},
+  {id:14,name:'Single Arm Reverse Cable Flye',link:'',repRange:'16-20',muscleGroup:'Shoulders',substitution:'Face Pulls',specs:''},
+  {id:15,name:'DB Rear Delt Flyes',link:'',repRange:'16-20',muscleGroup:'Shoulders',substitution:'Face Pulls',specs:''},
+  {id:16,name:'Rear Delt Cable Crossovers',link:'',repRange:'12-16',muscleGroup:'Shoulders',substitution:'Face Pulls',specs:''},
+  {id:17,name:'DB Front Raise',link:'',repRange:'12-16',muscleGroup:'Shoulders',substitution:'Cable Front Raise',specs:''},
+  {id:18,name:'Cable Front Raise',link:'',repRange:'12-16',muscleGroup:'Shoulders',substitution:'DB Front Raise',specs:''},
+  {id:19,name:'Cable Upright Row',link:'',repRange:'12-16',muscleGroup:'Shoulders',substitution:'BB Upright Row',specs:''},
+  {id:20,name:'BB Upright Row',link:'',repRange:'12-16',muscleGroup:'Shoulders',substitution:'Cable Upright Row',specs:''},
+  {id:21,name:'Chest Supported T-Bar Rows',link:'',repRange:'6-12',muscleGroup:'Back',substitution:'Machine Rows (Overhand Grip)',specs:'Don\'t allow chest to leave pad'},
+  {id:22,name:'Bent Over BB Row',link:'',repRange:'6-12',muscleGroup:'Back',substitution:'Chest Supported T-Bar Rows',specs:''},
+  {id:23,name:'Chest Supported DB Row',link:'',repRange:'6-12',muscleGroup:'Back',substitution:'Chest Supported T-Bar Rows',specs:''},
+  {id:24,name:'Seated Cable Low Row',link:'',repRange:'6-12',muscleGroup:'Back',substitution:'Cable Chest Supported Low Row',specs:'Elbows to hips'},
+  {id:25,name:'Machine Rows (Overhand Grip)',link:'',repRange:'6-12',muscleGroup:'Back',substitution:'Chest Supported T-Bar Rows',specs:''},
+  {id:26,name:'Lat Pull Downs',link:'',repRange:'6-12',muscleGroup:'Lats',substitution:'Assisted Pull Ups',specs:'Grip just wider than shoulder width'},
+  {id:27,name:'Single Arm Pulldown',link:'',repRange:'6-12',muscleGroup:'Lats',substitution:'Lat Pull Downs',specs:'Elbow to hip'},
+  {id:28,name:'Assisted Pull Ups',link:'',repRange:'6-12',muscleGroup:'Lats',substitution:'Lat Pull Downs',specs:''},
+  {id:29,name:'Cable Chest Supported Low Row',link:'',repRange:'6-12',muscleGroup:'Lats',substitution:'Seated Cable Low Row',specs:'Elbow to hip'},
+  {id:30,name:'Narrow Supinated Pull Downs',link:'',repRange:'6-12',muscleGroup:'Lats',substitution:'V Bar Pulldown',specs:'Tuck and keep elbows close to body'},
+  {id:31,name:'V Bar Pulldown',link:'',repRange:'6-12',muscleGroup:'Lats',substitution:'Narrow Supinated Pull Downs',specs:''},
+  {id:32,name:'Cable Pullovers',link:'',repRange:'6-12',muscleGroup:'Lats',substitution:'Seated Cable Low Row',specs:''},
+  {id:33,name:'EZ Bar Preacher Curls',link:'',repRange:'6-12',muscleGroup:'Biceps',substitution:'BB Curls',specs:''},
+  {id:34,name:'DB Preacher Curls',link:'',repRange:'6-12',muscleGroup:'Biceps',substitution:'BB Curls',specs:''},
+  {id:35,name:'DB Hammer Curls',link:'',repRange:'6-12',muscleGroup:'Biceps',substitution:'BB Curls',specs:''},
+  {id:36,name:'BB Curls',link:'',repRange:'6-12',muscleGroup:'Biceps',substitution:'EZ Bar Preacher Curls',specs:''},
+  {id:37,name:'Incline DB Curls',link:'',repRange:'6-12',muscleGroup:'Biceps',substitution:'Behind Body Cable Curls',specs:''},
+  {id:38,name:'Behind Body Cable Curls',link:'',repRange:'6-12',muscleGroup:'Biceps',substitution:'Incline DB Curls',specs:''},
+  {id:39,name:'Close Grip Press',link:'',repRange:'6-12',muscleGroup:'Triceps',substitution:'Overhead Tricep Extension',specs:''},
+  {id:40,name:'Push Downs',link:'',repRange:'6-12',muscleGroup:'Triceps',substitution:'Overhead Tricep Extension',specs:''},
+  {id:41,name:'Overhead Tricep Extension',link:'',repRange:'6-12',muscleGroup:'Triceps',substitution:'Push Downs',specs:''},
+  {id:42,name:'Skull Crushers',link:'',repRange:'12-16',muscleGroup:'Triceps',substitution:'JM Press',specs:''},
+  {id:43,name:'JM Press',link:'',repRange:'6-12',muscleGroup:'Triceps',substitution:'Close Grip Press',specs:''},
+  {id:44,name:'BB Romanian Deadlift',link:'',repRange:'6-12',muscleGroup:'Hamstrings',substitution:'DB Romanian Deadlift',specs:'Hips back, engage hams and then hinge'},
+  {id:45,name:'DB Romanian Deadlift',link:'',repRange:'6-12',muscleGroup:'Hamstrings',substitution:'BB Romanian Deadlift',specs:'Hips back, engage hams and then hinge'},
+  {id:46,name:'Lying Ham Curl',link:'',repRange:'6-12',muscleGroup:'Hamstrings',substitution:'Seated Ham Curl',specs:''},
+  {id:47,name:'Seated Ham Curl',link:'',repRange:'6-12',muscleGroup:'Hamstrings',substitution:'Lying Ham Curl',specs:'Hinge at hips to lengthen hams'},
+  {id:48,name:'Standing Ham Curl',link:'',repRange:'6-12',muscleGroup:'Hamstrings',substitution:'Seated Ham Curl',specs:''},
+  {id:49,name:'Barbell Squat (High Bar)',link:'',repRange:'6-12',muscleGroup:'Quads',substitution:'Smith Squat (Quad Bias)',specs:''},
+  {id:50,name:'Smith Squat (Quad Bias)',link:'',repRange:'6-12',muscleGroup:'Quads',substitution:'Hack Squat',specs:''},
+  {id:51,name:'Hack Squat',link:'',repRange:'6-12',muscleGroup:'Quads',substitution:'Smith Squat (Quad Bias)',specs:''},
+  {id:52,name:'Leg Press (Quad Bias)',link:'',repRange:'6-12',muscleGroup:'Quads',substitution:'Smith Squat (Quad Bias)',specs:'Feet lower on the pad'},
+  {id:53,name:'Walking Lunges',link:'',repRange:'12-16',muscleGroup:'Quads',substitution:'DB Bulgarian Split Squats',specs:''},
+  {id:54,name:'Leg Extensions',link:'',repRange:'12-16',muscleGroup:'Quads',substitution:'None',specs:''},
+  {id:55,name:'DB Bulgarian Split Squats',link:'',repRange:'6-12',muscleGroup:'Quads',substitution:'Smith Bulgarian Split Squats',specs:''},
+  {id:56,name:'Smith Bulgarian Split Squats',link:'',repRange:'6-12',muscleGroup:'Quads',substitution:'DB Bulgarian Split Squats',specs:''},
+  {id:57,name:'Front Foot Elevated Split Squat',link:'',repRange:'6-12',muscleGroup:'Quads',substitution:'Walking Lunges',specs:''},
+  {id:58,name:'Hip Thrusts',link:'',repRange:'6-12',muscleGroup:'Glutes',substitution:'DB/BB Smith Variation',specs:''},
+  {id:59,name:'Step Ups (Glute Bias)',link:'',repRange:'6-12',muscleGroup:'Glutes',substitution:'Front Foot Elevated Split Squat',specs:''},
+  {id:60,name:'Deficit Sumo Deadlift',link:'',repRange:'6-12',muscleGroup:'Glutes',substitution:'Sumo Squats',specs:''},
+  {id:61,name:'Hip Abductor',link:'',repRange:'12-16',muscleGroup:'Glutes',substitution:'Hip Thrusts',specs:''},
+  {id:62,name:'Kick Backs',link:'',repRange:'12-16',muscleGroup:'Glutes',substitution:'Hip Abductor',specs:''},
+  {id:63,name:'Sumo Squats',link:'',repRange:'6-12',muscleGroup:'Glutes',substitution:'Deficit Sumo Deadlift',specs:''},
+  {id:64,name:'Standing Calf Raises',link:'',repRange:'12-16',muscleGroup:'Calves',substitution:'Donkey Calf Raises',specs:''},
+  {id:65,name:'Rope Cable Crunch',link:'',repRange:'12-16',muscleGroup:'Abs',substitution:'Decline Sit Up',specs:''},
+  {id:66,name:'Candlestick Crunch',link:'',repRange:'12-16',muscleGroup:'Abs',substitution:'Leg Raise Variation',specs:''},
+  {id:67,name:'Leg Raise',link:'',repRange:'12-16',muscleGroup:'Abs',substitution:'None',specs:''},
+];
+
+const STORAGE_KEY = 'pp_coach_data_v2';
 const STORAGE_FOODDB_KEY = 'pp_food_db_v1';
+const STORAGE_SUPPDB_KEY = 'pp_supp_db_v1';
+const STORAGE_EXDB_KEY = 'pp_exercise_db_v1';
 
 function saveToStorage(){
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.clients));
     localStorage.setItem(STORAGE_FOODDB_KEY, JSON.stringify(FOOD_DB));
+    localStorage.setItem(STORAGE_SUPPDB_KEY, JSON.stringify(SUPP_DB));
+    localStorage.setItem(STORAGE_EXDB_KEY, JSON.stringify(EXERCISE_DB));
     // Flash save indicator
     const ind = document.getElementById('save-indicator');
     if(ind){ ind.style.display=''; ind.style.color='#3dd6a3'; setTimeout(()=>{ ind.style.color='var(--td)'; setTimeout(()=>{ ind.style.display='none'; },1000); },800); }
@@ -1267,8 +1436,8 @@ function renderClientPage(id, activeTab='overview'){
     <div class="kpi ${pay.label==='Overdue'?'hl':''}"><div class="kpi-label">Next Payment</div><div class="kpi-val ${pay.label==='Overdue'?'red':pay.label==='Due Soon'?'amber':'green'}" style="font-size:16px">${fmtShort(np)}</div><div class="kpi-sub"><span class="sb ${pay.cls}" style="font-size:10px;padding:2px 6px">${pay.label}</span></div></div>
   </div>`;
 
-  const tabs=['overview','checkins','progression','meal-plan','training','payments'];
-  const tabLabels={overview:'Overview',checkins:'Check-ins',progression:'Progression','meal-plan':'Meal Plan',training:'Training',payments:'Payments'};
+  const tabs=['overview','checkins','progression','meal-plan','supplements','training','logbook','payments'];
+  const tabLabels={overview:'Overview',checkins:'Check-ins',progression:'Progression','meal-plan':'Meal Plan',supplements:'Supplements',training:'Training',logbook:'Logbook',payments:'Payments'};
 
   const tabBtns=tabs.map(t=>{
     const active=t===activeTab?'active':'';
@@ -1331,14 +1500,14 @@ function renderClientTab(tab, c){
 function renderOverviewTab(c){
   const dc=c.dailyCheckins||[];
   const last=dc[dc.length-1];
-  const weights=dc.filter(x=>x.bodyWeight).slice(-12);
-  const mx=Math.max(...weights.map(x=>x.bodyWeight)),mn=Math.min(...weights.map(x=>x.bodyWeight)),rng=mx-mn||1;
-  const chartHTML=weights.length?`<div class="wt-chart">${weights.map(x=>{const h=Math.round(((x.bodyWeight-mn)/rng)*70+18);return`<div class="wt-bar-wrap"><div class="wt-val-lbl">${x.bodyWeight}</div><div class="wt-bar" style="height:${h}px" title="${x.date}: ${x.bodyWeight}kg"></div><div class="wt-lbl">${x.date.slice(5)}</div></div>`;}).join('')}</div>`:'<p style="color:var(--td);font-size:12px;padding:20px 0">No check-in data yet</p>';
+  const curYear=new Date().getFullYear().toString();
+  const weights=dc.filter(x=>x.bodyWeight&&x.date.startsWith(curYear));
+  const chartHTML=buildWeightSVG(weights,curYear);
   const bioHTML=last?['muscleSoreness','energyLevels','stressLevels'].map(k=>{const label={muscleSoreness:'Soreness',energyLevels:'Energy',stressLevels:'Stress'}[k];const v=last[k];return`<div class="bio-row"><span class="bio-label">${label}</span><div class="bio-track"><div class="bio-fill" style="width:${v*20}%;background:${bioColor(v)}"></div></div><span class="bio-val" style="color:${bioColor(v)}">${v}/5</span></div>`;}).join(''):'<p style="font-size:12px;color:var(--td)">No data</p>';
 
   return`<div class="two-col">
     <div class="left-col">
-      <div class="panel"><div class="panel-header"><span class="panel-title">Weight Trend (last 12 entries)</span></div><div class="panel-body">${chartHTML}</div></div>
+      <div class="panel"><div class="panel-header"><span class="panel-title">Weight Progression — ${curYear}</span></div><div class="panel-body">${chartHTML}</div></div>
       <div class="panel"><div class="panel-header"><span class="panel-title">Recent Check-ins</span><button class="btn btn-ghost btn-sm" onclick="switchClientTab('checkins',document.querySelector('.client-tab:nth-child(2)'),${c.id})">See all →</button></div>
         <div class="panel-body np">
           <div style="display:grid;grid-template-columns:80px 65px 60px 50px 50px 1fr;gap:8px;padding:8px 14px;font-size:10px;color:var(--td);font-weight:700;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(52,77,92,.3)">
@@ -2140,13 +2309,15 @@ function showView(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const titles={dashboard:'DASHBOARD',client:'CLIENT',payments:'PAYMENTS','client-checkin':'CHECK-IN',fooddb:'FOOD DATABASE'};
+  const titles={dashboard:'DASHBOARD',client:'CLIENT',payments:'PAYMENTS','client-checkin':'CHECK-IN',fooddb:'FOOD DATABASE',suppdb:'SUPPLEMENT DATABASE',traindb:'EXERCISE LIBRARY'};
   if(name!=='client'&&name!=='client-checkin') document.getElementById('topbar-title').textContent=titles[name]||name.toUpperCase();
   document.getElementById('back-btn').style.display=(name==='client'||name==='client-checkin')?'':'none';
   state.activeView=name;
   if(name==='dashboard'){state.selectedClientId=null;document.querySelectorAll('.nav-item')[0].classList.add('active');}
   if(name==='payments')document.querySelectorAll('.nav-item')[1].classList.add('active');
   if(name==='fooddb'){document.querySelectorAll('.nav-item')[2].classList.add('active');renderFoodDB();}
+  if(name==='suppdb'){document.querySelectorAll('.nav-item')[3].classList.add('active');renderSuppDB();}
+  if(name==='traindb'){document.querySelectorAll('.nav-item')[4].classList.add('active');renderExerciseDB();}
   if(name==='client'||name==='client-checkin'){
     const c=state.clients.find(x=>x.id===state.selectedClientId);
     if(c&&name==='client') document.getElementById('topbar-title').textContent=c.name.toUpperCase();
@@ -2202,8 +2373,8 @@ function renderClientPage(id, activeTab='overview'){
     <div class="kpi"><div class="kpi-label">Check-ins</div><div class="kpi-val">${dc.length}</div><div class="kpi-sub">days logged</div></div>
     <div class="kpi ${pay.label==='Overdue'?'hl':''}"><div class="kpi-label">Next Payment</div><div class="kpi-val ${pay.label==='Overdue'?'red':pay.label==='Due Soon'?'amber':'green'}" style="font-size:16px">${fmtShort(np)}</div><div class="kpi-sub"><span class="sb ${pay.cls}" style="font-size:10px;padding:2px 6px">${pay.label}</span></div></div>
   </div>`;
-  const tabs=['overview','checkins','progression','meal-plan','training','payments'];
-  const tabLabels={overview:'Overview',checkins:'Check-ins',progression:'Progression','meal-plan':'Meal Plan',training:'Training',payments:'Payments'};
+  const tabs=['overview','checkins','progression','meal-plan','supplements','training','logbook','payments'];
+  const tabLabels={overview:'Overview',checkins:'Check-ins',progression:'Progression','meal-plan':'Meal Plan',supplements:'Supplements',training:'Training',logbook:'Logbook',payments:'Payments'};
   const tabBtns=tabs.map(t=>{const active=t===activeTab?'active':'';return '<button class="client-tab '+active+'" onclick="switchClientTab(\''+t+'\',this,'+id+')">'+tabLabels[t]+'</button>';}).join('');
   document.getElementById('client-page-content').innerHTML=`
     <div class="client-hero">
@@ -2238,18 +2409,21 @@ function renderClientTab(tab, c){
   else if(tab==='progression') el.innerHTML=renderProgressionTab(c);
   else if(tab==='meal-plan') el.innerHTML=renderMealPlanTab(c);
   else if(tab==='payments') el.innerHTML=renderPaymentsTab(c);
+  else if(tab==='supplements') { el.innerHTML=renderSupplementsTab(c); }
+  else if(tab==='training') { el.innerHTML=renderTrainingTab(c); }
+  else if(tab==='logbook') { el.innerHTML=renderLogbookTab(c); }
   else el.innerHTML=`<div style="text-align:center;padding:50px;color:var(--td)"><p style="font-size:14px;margin-bottom:14px">Module coming soon</p></div>`;
 }
 
 function renderOverviewTab(c){
   const dc=c.dailyCheckins||[];const last=dc[dc.length-1];
-  const weights=dc.filter(x=>x.bodyWeight).slice(-12);
-  const mx=Math.max(...weights.map(x=>x.bodyWeight),0),mn=Math.min(...weights.map(x=>x.bodyWeight),999),rng=mx-mn||1;
-  const chartHTML=weights.length?`<div class="wt-chart">${weights.map(x=>{const h=Math.round(((x.bodyWeight-mn)/rng)*70+18);return`<div class="wt-bar-wrap"><div class="wt-val-lbl">${x.bodyWeight}</div><div class="wt-bar" style="height:${h}px"></div><div class="wt-lbl">${x.date.slice(5)}</div></div>`;}).join('')}</div>`:'<p style="color:var(--td);font-size:12px;padding:20px 0">No check-in data yet</p>';
+  const curYear=new Date().getFullYear().toString();
+  const weights=dc.filter(x=>x.bodyWeight&&x.date.startsWith(curYear));
+  const chartHTML=buildWeightSVG(weights,curYear);
   const bioHTML=last?['muscleSoreness','energyLevels','stressLevels'].map(k=>{const label={muscleSoreness:'Soreness',energyLevels:'Energy',stressLevels:'Stress'}[k];const v=last[k];return v?`<div class="bio-row"><span class="bio-label">${label}</span><div class="bio-track"><div class="bio-fill" style="width:${v*20}%;background:${bioColor(v)}"></div></div><span class="bio-val" style="color:${bioColor(v)}">${v}/5</span></div>`:''}).join(''):'<p style="font-size:12px;color:var(--td)">No data</p>';
   return`<div class="two-col">
     <div class="left-col">
-      <div class="panel"><div class="panel-header"><span class="panel-title">Weight Trend</span></div><div class="panel-body">${chartHTML}</div></div>
+      <div class="panel"><div class="panel-header"><span class="panel-title">Weight Progression — ${curYear}</span></div><div class="panel-body">${chartHTML}</div></div>
       <div class="panel"><div class="panel-header"><span class="panel-title">Recent Check-ins</span></div>
         <div class="panel-body np">
           <div style="display:grid;grid-template-columns:80px 65px 60px 50px 50px 1fr;gap:8px;padding:8px 14px;font-size:10px;color:var(--td);font-weight:700;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(52,77,92,.3)"><span>Date</span><span>Weight</span><span>Steps</span><span>Energy</span><span>Sleep</span><span>Notes</span></div>
@@ -2416,6 +2590,447 @@ function submitClientCheckin(clientId,date){
   document.getElementById('ci-form-body').style.display='none';
   document.getElementById('ci-success').style.display='block';
   renderAll();
+}
+
+// ── WEIGHT PROGRESSION SVG CHART ──
+function buildWeightSVG(weights, year){
+  if(!weights.length) return `<div style="background:#000;border-radius:0 0 6px 6px;height:200px;display:flex;align-items:center;justify-content:center;color:#3d5060;font-size:12px">No ${year} check-in data yet</div>`;
+  const W=800,H=200,padL=48,padR=16,padT=28,padB=24;
+  const chartW=W-padL-padR,chartH=H-padT-padB;
+  const vals=weights.map(x=>x.bodyWeight);
+  const rawMin=Math.min(...vals),rawMax=Math.max(...vals),range=rawMax-rawMin||2;
+  const yMin=Math.floor((rawMin-range*0.15)*2)/2;
+  const yMax=Math.ceil((rawMax+range*0.08)*2)/2;
+  const yRange=yMax-yMin||1;
+  const toX=i=>padL+(i/Math.max(weights.length-1,1))*chartW;
+  const toY=v=>padT+chartH*(1-(v-yMin)/yRange);
+  // Gridlines
+  const numGrid=5;
+  const gridLines=Array.from({length:numGrid+1},(_,i)=>{
+    const v=yMin+(i/numGrid)*yRange;const y=toY(v);
+    return `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W-padR}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="${(padL-6).toFixed(0)}" y="${(y+4).toFixed(1)}" fill="#4a6070" font-size="9" text-anchor="end" font-family="Barlow,sans-serif">${v.toFixed(1)}</text>`;
+  }).join('');
+  // Points
+  const pts=weights.map((w,i)=>[toX(i),toY(w.bodyWeight)]);
+  const polyPts=pts.map(p=>`${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+  const bottomY=(padT+chartH).toFixed(1);
+  const areaD=`M ${pts[0][0].toFixed(1)},${bottomY} `+pts.map(p=>`L ${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ')+` L ${pts[pts.length-1][0].toFixed(1)},${bottomY} Z`;
+  // X labels
+  const labelEvery=Math.max(1,Math.ceil(weights.length/10));
+  const xLabels=weights.map((w,i)=>{
+    if(i%labelEvery!==0&&i!==weights.length-1)return '';
+    const parts=w.date.split('-');
+    return `<text x="${pts[i][0].toFixed(1)}" y="${H-5}" fill="#3d5060" font-size="8.5" text-anchor="middle" font-family="Barlow,sans-serif">${parts[1]}/${parts[2]}</text>`;
+  }).join('');
+  // Dots
+  const dots=pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5" fill="#7a0d1a" stroke="#c42238" stroke-width="1.5"/>`).join('');
+  const gid='wg'+Date.now().toString(36);
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:200px;display:block;background:#000;border-radius:0 0 6px 6px" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A51C30" stop-opacity="0.55"/><stop offset="100%" stop-color="#A51C30" stop-opacity="0.03"/></linearGradient></defs>
+    <text x="${padL}" y="17" fill="#8a9daa" font-size="9.5" font-weight="700" letter-spacing="2" font-family="Barlow Condensed,sans-serif">WEIGHT PROGRESSION</text>
+    ${gridLines}
+    <path d="${areaD}" fill="url(#${gid})"/>
+    <polyline points="${polyPts}" fill="none" stroke="#A51C30" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}
+    ${xLabels}
+  </svg>`;
+}
+
+// ── RENDER SUPPLEMENT DATABASE VIEW ──
+function renderSuppDB(){
+  const q=(document.getElementById('supp-search')||{}).value||'';
+  const tbody=document.getElementById('supp-db-tbody');if(!tbody)return;
+  const rows=SUPP_DB.filter(s=>!q||s.name.toLowerCase().includes(q.toLowerCase())||s.explanation.toLowerCase().includes(q.toLowerCase()));
+  tbody.innerHTML=rows.map(s=>{
+    const tc=s.type==='Health'?'supp-type-health':s.type==='Auxiliary'?'supp-type-aux':'supp-type-perf';
+    return`<tr><td style="font-weight:600;color:var(--white)">${s.name}</td><td style="font-family:var(--fd);font-weight:700">${s.dose}</td><td style="color:var(--tm)">${s.timing}</td><td><span class="${tc}">${s.type}</span></td><td style="color:var(--td);font-size:11px">${s.explanation}</td><td><button class="fdb-edit-btn" onclick="alert('Edit coming soon')">Edit</button></td></tr>`;
+  }).join('');
+}
+function openAddSuppModal(){ alert('Add supplement form — coming soon'); }
+
+// ── RENDER EXERCISE LIBRARY VIEW ──
+function renderExerciseDB(){
+  const q=(document.getElementById('ex-search')||{}).value||'';
+  const mg=(document.getElementById('ex-filter-mg')||{}).value||'';
+  const tbody=document.getElementById('ex-db-tbody');if(!tbody)return;
+  const rows=EXERCISE_DB.filter(e=>{
+    const mq=!mg||e.muscleGroup===mg||e.muscleGroup.includes(mg);
+    const sq=!q||e.name.toLowerCase().includes(q.toLowerCase())||e.muscleGroup.toLowerCase().includes(q.toLowerCase());
+    return mq&&sq;
+  });
+  const mgClass=mg=>('mg-'+(mg||'').replace(/\s+/g,''));
+  tbody.innerHTML=rows.map(e=>`<tr>
+    <td style="font-weight:600;color:var(--white)">${e.name}</td>
+    <td><span class="mg-badge ${mgClass(e.muscleGroup)}">${e.muscleGroup}</span></td>
+    <td style="font-family:var(--fd);font-weight:700;color:var(--tm)">${e.repRange}</td>
+    <td style="color:var(--td);font-size:11px">${e.substitution||'—'}</td>
+    <td style="color:var(--td);font-size:11px">${e.specs||'—'}</td>
+    <td><button class="fdb-edit-btn" onclick="alert('Edit coming soon')">Edit</button></td>
+  </tr>`).join('');
+}
+function openAddExerciseModal(){ alert('Add exercise form — coming soon'); }
+
+// ── RENDER SUPPLEMENTS TAB (per client) ──
+function renderSupplementsTab(c){
+  if(!c.supplements) c.supplements=[];
+  const rows=c.supplements;
+  const tableRows=rows.length?rows.map((s,i)=>{
+    const tc=s.type==='Health'?'supp-type-health':s.type==='Auxiliary'?'supp-type-aux':'supp-type-perf';
+    return`<tr>
+      <td style="font-weight:600;color:var(--white)">${s.name}</td>
+      <td style="font-family:var(--fd);font-weight:700">${s.dose}</td>
+      <td style="color:var(--tm)">${s.timing}</td>
+      <td><span class="${tc}">${s.type||'Health'}</span></td>
+      <td style="color:var(--td);font-size:11px">${s.purpose||''}</td>
+      <td><label class="supp-toggle"><input type="checkbox" ${s.active!==false?'checked':''} onchange="toggleClientSupp(${c.id},${i},this.checked)"><span class="supp-slider"></span></label></td>
+      <td><button class="fdb-del-btn" onclick="removeClientSupp(${c.id},${i})">✕</button></td>
+    </tr>`;
+  }).join(''):`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--td)">No supplements added yet. Use the button above to build this client's protocol.</td></tr>`;
+
+  return`<div>
+    <div class="sh" style="margin-bottom:14px">
+      <span class="st">Supplement Protocol</span>
+      <button class="btn btn-primary btn-sm" onclick="openAddSuppToClient(${c.id})">+ Add Supplement</button>
+    </div>
+    <div class="tbl-wrap"><table class="supp-table">
+      <thead><tr><th>Supplement</th><th>Dose</th><th>Timing</th><th>Type</th><th>Purpose</th><th style="width:50px">Active</th><th style="width:40px"></th></tr></thead>
+      <tbody>${tableRows}</tbody>
+    </table></div>
+    <div style="margin-top:16px">
+      <div class="panel"><div class="panel-header"><span class="panel-title">Active Summary</span></div>
+      <div class="panel-body">
+        ${rows.filter(s=>s.active!==false).length?`<div style="display:flex;flex-wrap:wrap;gap:8px">${rows.filter(s=>s.active!==false).map(s=>`<div style="background:rgba(0,0,0,.2);border:1px solid var(--cb);border-radius:6px;padding:8px 12px;font-size:12px"><div style="font-weight:700;color:var(--white)">${s.name}</div><div style="font-size:10px;color:var(--td);margin-top:2px">${s.dose} · ${s.timing}</div></div>`).join('')}</div>`:'<p style="color:var(--td);font-size:12px">No active supplements</p>'}
+      </div></div>
+    </div>
+  </div>`;
+}
+function toggleClientSupp(clientId,idx,val){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.supplements)return;
+  c.supplements[idx].active=val;saveToStorage();
+}
+function removeClientSupp(clientId,idx){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.supplements)return;
+  if(!confirm('Remove this supplement?'))return;
+  c.supplements.splice(idx,1);saveToStorage();
+  renderClientTab('supplements',c);
+}
+let addSuppClientId=null;
+function openAddSuppToClient(clientId){
+  addSuppClientId=clientId;
+  const c=state.clients.find(x=>x.id===clientId);
+  const existing=new Set((c.supplements||[]).map(s=>s.name));
+  const opts=SUPP_DB.filter(s=>!existing.has(s.name)).map(s=>`<option value="${s.id}">${s.name} — ${s.dose}</option>`).join('');
+  const html=`<div style="position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:flex;align-items:center;justify-content:center;padding:20px" id="add-supp-overlay" onclick="if(event.target===this)closeAddSuppOverlay()">
+    <div style="background:var(--cl);border:1px solid var(--cb);border-radius:10px;width:100%;max-width:460px;padding:24px">
+      <div style="font-family:var(--fd);font-size:16px;font-weight:800;margin-bottom:16px">Add Supplement to Protocol</div>
+      <div class="form-group"><label class="form-label">Select from Database</label>
+        <select class="form-input" id="add-supp-select" onchange="prefillSuppFields(this.value)">
+          <option value="">— Pick from database —</option>${opts}
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="add-supp-name" placeholder="e.g. Creatine Monohydrate"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Dose</label><input class="form-input" id="add-supp-dose" placeholder="e.g. 5g"></div>
+        <div class="form-group"><label class="form-label">Timing</label><input class="form-input" id="add-supp-timing" placeholder="e.g. Post Workout"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Type</label>
+          <select class="form-input" id="add-supp-type"><option>Health</option><option>Performance</option><option>Auxiliary</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Purpose</label><input class="form-input" id="add-supp-purpose" placeholder="Brief note"></div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+        <button class="btn btn-ghost btn-sm" onclick="closeAddSuppOverlay()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="confirmAddSuppToClient()">Add to Protocol</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend',html);
+}
+function prefillSuppFields(suppId){
+  if(!suppId)return;
+  const s=SUPP_DB.find(x=>x.id===parseInt(suppId));if(!s)return;
+  document.getElementById('add-supp-name').value=s.name;
+  document.getElementById('add-supp-dose').value=s.dose;
+  document.getElementById('add-supp-timing').value=s.timing;
+  document.getElementById('add-supp-type').value=s.type;
+  document.getElementById('add-supp-purpose').value=s.explanation;
+}
+function closeAddSuppOverlay(){const el=document.getElementById('add-supp-overlay');if(el)el.remove();}
+function confirmAddSuppToClient(){
+  const name=document.getElementById('add-supp-name').value.trim();
+  if(!name)return alert('Enter supplement name.');
+  const c=state.clients.find(x=>x.id===addSuppClientId);if(!c)return;
+  if(!c.supplements)c.supplements=[];
+  c.supplements.push({name,dose:document.getElementById('add-supp-dose').value.trim(),timing:document.getElementById('add-supp-timing').value.trim(),type:document.getElementById('add-supp-type').value,purpose:document.getElementById('add-supp-purpose').value.trim(),active:true});
+  saveToStorage();closeAddSuppOverlay();renderClientTab('supplements',c);
+}
+
+// ── RENDER TRAINING PLAN TAB (per client) ──
+function renderTrainingTab(c){
+  if(!c.trainingPlan) c.trainingPlan={split:'',days:[]};
+  const tp=c.trainingPlan;
+  const defaultSplits=['Push/Pull/Legs','Upper/Lower','Full Body','Push A/Pull A/Legs A/Push B/Pull B/Legs B','Bro Split'];
+
+  const daysHTML=tp.days.length?tp.days.map((day,di)=>{
+    const exRows=day.exercises.map((ex,ei)=>`
+      <div class="tp-exercise-row">
+        <span class="tp-ex-name">${ex.name}</span>
+        <input class="tp-ex-input" value="${ex.sets||''}" placeholder="Sets" onchange="updateTPExercise(${c.id},${di},${ei},'sets',this.value)" title="Sets">
+        <input class="tp-ex-input" value="${ex.reps||''}" placeholder="6-12" onchange="updateTPExercise(${c.id},${di},${ei},'reps',this.value)" title="Rep Range">
+        <input class="tp-ex-input" value="${ex.rpe||''}" placeholder="RPE 8" onchange="updateTPExercise(${c.id},${di},${ei},'rpe',this.value)" title="RPE / Intensity">
+        <input class="tp-ex-input" value="${ex.notes||''}" placeholder="Notes" onchange="updateTPExercise(${c.id},${di},${ei},'notes',this.value)" title="Notes">
+        <button style="background:none;border:none;color:var(--td);cursor:pointer;font-size:16px;padding:0" onclick="removeTPExercise(${c.id},${di},${ei})" title="Remove">✕</button>
+      </div>`).join('');
+    return`<div class="tp-day">
+      <div class="tp-day-header">
+        <span class="tp-day-name">${day.name||'Day '+(di+1)}</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="tp-day-meta">${day.exercises.length} exercises</span>
+          <button class="btn btn-ghost btn-sm" onclick="removeTPDay(${c.id},${di})">Remove Day</button>
+        </div>
+      </div>
+      ${day.exercises.length?`<div class="tp-header-row"><span>Exercise</span><span style="text-align:center">Sets</span><span style="text-align:center">Reps</span><span style="text-align:center">RPE</span><span style="text-align:center">Notes</span><span></span></div>${exRows}`:'' }
+      <button class="tp-add-ex" onclick="openAddExToDay(${c.id},${di})">+ Add Exercise</button>
+    </div>`;
+  }).join(''):`<div style="text-align:center;padding:40px;color:var(--td)"><p style="margin-bottom:12px">No training days added yet.</p><button class="btn btn-ghost btn-sm" onclick="addTPDay(${c.id})">Add First Day</button></div>`;
+
+  return`<div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="st">Training Program</span>
+        <select class="form-input" style="width:220px;padding:7px 10px;font-size:12px" onchange="updateTPSplit(${c.id},this.value)">
+          <option value="">— Select Training Split —</option>
+          ${defaultSplits.map(s=>`<option value="${s}" ${tp.split===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="addTPDay(${c.id})">+ Add Day</button>
+    </div>
+    ${daysHTML}
+  </div>`;
+}
+function updateTPSplit(clientId,val){
+  const c=state.clients.find(x=>x.id===clientId);if(!c)return;
+  if(!c.trainingPlan)c.trainingPlan={split:'',days:[]};
+  c.trainingPlan.split=val;saveToStorage();
+}
+function addTPDay(clientId){
+  const c=state.clients.find(x=>x.id===clientId);if(!c)return;
+  if(!c.trainingPlan)c.trainingPlan={split:'',days:[]};
+  const dayNames=['Push A','Pull A','Legs A','Push B','Pull B','Legs B','Upper','Lower','Full Body'];
+  const used=c.trainingPlan.days.map(d=>d.name);
+  const nextName=dayNames.find(n=>!used.includes(n))||'Day '+(c.trainingPlan.days.length+1);
+  c.trainingPlan.days.push({name:nextName,exercises:[]});
+  saveToStorage();renderClientTab('training',c);
+}
+function removeTPDay(clientId,di){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.trainingPlan)return;
+  if(!confirm('Remove this training day?'))return;
+  c.trainingPlan.days.splice(di,1);saveToStorage();renderClientTab('training',c);
+}
+function updateTPExercise(clientId,di,ei,field,val){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.trainingPlan)return;
+  c.trainingPlan.days[di].exercises[ei][field]=val;saveToStorage();
+}
+function removeTPExercise(clientId,di,ei){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.trainingPlan)return;
+  c.trainingPlan.days[di].exercises.splice(ei,1);saveToStorage();renderClientTab('training',c);
+}
+let addExContext={clientId:null,di:null};
+function openAddExToDay(clientId,di){
+  addExContext={clientId,di};
+  const mgGroups=[...new Set(EXERCISE_DB.map(e=>e.muscleGroup))].sort();
+  const html=`<div style="position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:flex;align-items:center;justify-content:center;padding:20px" id="add-ex-overlay" onclick="if(event.target===this)closeAddExOverlay()">
+    <div style="background:var(--cl);border:1px solid var(--cb);border-radius:10px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto;padding:24px">
+      <div style="font-family:var(--fd);font-size:16px;font-weight:800;margin-bottom:14px">Add Exercise</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <select class="form-input" id="add-ex-mg" onchange="filterAddExList()" style="flex:0 0 180px">
+          <option value="">All Muscle Groups</option>
+          ${mgGroups.map(mg=>`<option>${mg}</option>`).join('')}
+        </select>
+        <input class="form-input" id="add-ex-search" placeholder="Search…" oninput="filterAddExList()" style="flex:1">
+      </div>
+      <div id="add-ex-list" style="max-height:320px;overflow-y:auto;border:1px solid var(--cb);border-radius:6px"></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--cb)">
+        <div style="font-size:11px;color:var(--td);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:700">Or add custom exercise</div>
+        <div style="display:flex;gap:8px">
+          <input class="form-input" id="add-ex-custom" placeholder="Exercise name" style="flex:1">
+          <button class="btn btn-ghost btn-sm" onclick="addCustomExToDay()">Add Custom</button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:14px">
+        <button class="btn btn-ghost btn-sm" onclick="closeAddExOverlay()">Close</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend',html);
+  filterAddExList();
+}
+function filterAddExList(){
+  const mg=(document.getElementById('add-ex-mg')||{}).value||'';
+  const q=(document.getElementById('add-ex-search')||{}).value||'';
+  const list=document.getElementById('add-ex-list');if(!list)return;
+  const rows=EXERCISE_DB.filter(e=>{
+    const mq=!mg||e.muscleGroup===mg;
+    const sq=!q||e.name.toLowerCase().includes(q.toLowerCase());
+    return mq&&sq;
+  });
+  list.innerHTML=rows.map(e=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid rgba(52,77,92,.2);cursor:pointer" onclick="selectExForDay(${e.id})" onmouseenter="this.style.background='rgba(255,255,255,.03)'" onmouseleave="this.style.background=''">
+    <div><div style="font-size:12px;font-weight:600;color:var(--white)">${e.name}</div><div style="font-size:10px;color:var(--td);margin-top:2px">${e.muscleGroup} · ${e.repRange}</div></div>
+    <button class="btn btn-primary btn-sm" style="flex-shrink:0">Add</button>
+  </div>`).join('')||'<div style="padding:16px;color:var(--td);font-size:12px;text-align:center">No exercises found</div>';
+}
+function selectExForDay(exId){
+  const ex=EXERCISE_DB.find(x=>x.id===exId);if(!ex)return;
+  const c=state.clients.find(x=>x.id===addExContext.clientId);if(!c||!c.trainingPlan)return;
+  c.trainingPlan.days[addExContext.di].exercises.push({name:ex.name,sets:4,reps:ex.repRange,rpe:'',notes:''});
+  saveToStorage();closeAddExOverlay();renderClientTab('training',c);
+}
+function addCustomExToDay(){
+  const name=(document.getElementById('add-ex-custom')||{}).value.trim();
+  if(!name)return;
+  const c=state.clients.find(x=>x.id===addExContext.clientId);if(!c||!c.trainingPlan)return;
+  c.trainingPlan.days[addExContext.di].exercises.push({name,sets:3,reps:'8-12',rpe:'',notes:''});
+  saveToStorage();closeAddExOverlay();renderClientTab('training',c);
+}
+function closeAddExOverlay(){const el=document.getElementById('add-ex-overlay');if(el)el.remove();}
+
+// ── RENDER LOGBOOK TAB (per client) ──
+function renderLogbookTab(c){
+  if(!c.logbook)c.logbook=[];
+  const sessions=c.logbook.slice().reverse();
+
+  const sessHTML=sessions.length?sessions.map((sess,si)=>{
+    const ri=c.logbook.length-1-si;
+    const exHTML=sess.entries.map(ex=>{
+      const setsHTML=ex.sets.map((s,setIdx)=>{
+        const isPR=setIdx===ex.sets.length-1&&ex.sets.length>1&&s.weight>Math.max(...ex.sets.slice(0,-1).map(x=>x.weight||0));
+        return`<span class="lb-set${isPR?' pr':''}" title="${isPR?'PR!':''}">${s.reps}×${s.weight}${s.unit||'kg'}${s.rpe?` @${s.rpe}`:''}</span>`;
+      }).join('');
+      return`<div class="lb-ex-row"><div class="lb-ex-name">${ex.name}</div><div class="lb-sets">${setsHTML}</div></div>`;
+    }).join('');
+    return`<div class="lb-session">
+      <div class="lb-session-header">
+        <div><span class="lb-session-title">${sess.session||'Session'}</span><span class="lb-session-date" style="margin-left:10px">${sess.date}</span></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" onclick="addExToLogSession(${c.id},${ri})">+ Exercise</button>
+          <button class="fdb-del-btn" onclick="removeLogSession(${c.id},${ri})">✕</button>
+        </div>
+      </div>
+      ${exHTML||'<div style="padding:12px 16px;color:var(--td);font-size:12px">No exercises logged yet — click + Exercise</div>'}
+    </div>`;
+  }).join(''):`<div style="text-align:center;padding:40px;color:var(--td)"><p style="margin-bottom:12px">No sessions logged yet.</p><p style="font-size:12px;margin-bottom:16px">Log the first training session below.</p></div>`;
+
+  return`<div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <span class="st">Training Logbook</span>
+      <button class="btn btn-primary btn-sm" onclick="addLogSession(${c.id})">+ Log Session</button>
+    </div>
+    ${sessHTML}
+  </div>`;
+}
+function addLogSession(clientId){
+  const c=state.clients.find(x=>x.id===clientId);if(!c)return;
+  if(!c.logbook)c.logbook=[];
+  const today=new Date().toISOString().split('T')[0];
+  const tp=c.trainingPlan;
+  const dayNames=tp&&tp.days?tp.days.map(d=>d.name):['Push A','Pull A','Legs A','Upper','Lower','Full Body'];
+  const opts=dayNames.map(n=>`<option>${n}</option>`).join('');
+  const html=`<div style="position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:flex;align-items:center;justify-content:center;padding:20px" id="add-log-overlay" onclick="if(event.target===this)closeAddLogOverlay()">
+    <div style="background:var(--cl);border:1px solid var(--cb);border-radius:10px;width:100%;max-width:400px;padding:24px">
+      <div style="font-family:var(--fd);font-size:16px;font-weight:800;margin-bottom:16px">Log Training Session</div>
+      <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="log-date" type="date" value="${today}"></div>
+      <div class="form-group"><label class="form-label">Session</label>
+        <select class="form-input" id="log-session">${opts}<option value="custom">Custom…</option></select>
+      </div>
+      <div class="form-group" id="log-custom-wrap" style="display:none"><label class="form-label">Custom Name</label><input class="form-input" id="log-custom-name" placeholder="e.g. Chest & Tris"></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+        <button class="btn btn-ghost btn-sm" onclick="closeAddLogOverlay()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="confirmAddLogSession(${clientId})">Create Session</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend',html);
+  document.getElementById('log-session').addEventListener('change',function(){document.getElementById('log-custom-wrap').style.display=this.value==='custom'?'':'none';});
+}
+function confirmAddLogSession(clientId){
+  const c=state.clients.find(x=>x.id===clientId);if(!c)return;
+  const date=document.getElementById('log-date').value;
+  const selVal=document.getElementById('log-session').value;
+  const session=selVal==='custom'?document.getElementById('log-custom-name').value.trim():selVal;
+  if(!session)return alert('Enter session name.');
+  // Pre-populate with exercises from training plan if available
+  let entries=[];
+  if(c.trainingPlan&&c.trainingPlan.days){
+    const day=c.trainingPlan.days.find(d=>d.name===session);
+    if(day)entries=day.exercises.map(ex=>({name:ex.name,sets:[]}));
+  }
+  c.logbook.push({date,session,entries});
+  c.logbook.sort((a,b)=>a.date.localeCompare(b.date));
+  saveToStorage();closeAddLogOverlay();renderClientTab('logbook',c);
+}
+function closeAddLogOverlay(){const el=document.getElementById('add-log-overlay');if(el)el.remove();}
+function removeLogSession(clientId,idx){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.logbook)return;
+  if(!confirm('Delete this session log?'))return;
+  c.logbook.splice(idx,1);saveToStorage();renderClientTab('logbook',c);
+}
+function addExToLogSession(clientId,sessionIdx){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.logbook)return;
+  const sess=c.logbook[sessionIdx];
+  const mgGroups=[...new Set(EXERCISE_DB.map(e=>e.muscleGroup))].sort();
+  addExContext={clientId,di:sessionIdx};
+  const html=`<div style="position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:flex;align-items:center;justify-content:center;padding:20px" id="add-log-ex-overlay" onclick="if(event.target===this)this.remove()">
+    <div style="background:var(--cl);border:1px solid var(--cb);border-radius:10px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto;padding:24px">
+      <div style="font-family:var(--fd);font-size:16px;font-weight:800;margin-bottom:14px">Add Exercise to Log</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <select class="form-input" id="laex-mg" onchange="filterLogExList()" style="flex:0 0 180px"><option value="">All Groups</option>${mgGroups.map(mg=>`<option>${mg}</option>`).join('')}</select>
+        <input class="form-input" id="laex-search" placeholder="Search…" oninput="filterLogExList()" style="flex:1">
+      </div>
+      <div id="laex-list" style="max-height:280px;overflow-y:auto;border:1px solid var(--cb);border-radius:6px"></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--cb);display:flex;gap:8px">
+        <input class="form-input" id="laex-custom" placeholder="Custom exercise name…" style="flex:1">
+        <button class="btn btn-ghost btn-sm" onclick="addCustomLogEx(${clientId},${sessionIdx})">Add</button>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="btn btn-ghost btn-sm" onclick="document.getElementById('add-log-ex-overlay').remove()">Close</button></div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend',html);filterLogExList();
+}
+function filterLogExList(){
+  const mg=(document.getElementById('laex-mg')||{}).value||'';
+  const q=(document.getElementById('laex-search')||{}).value||'';
+  const list=document.getElementById('laex-list');if(!list)return;
+  const rows=EXERCISE_DB.filter(e=>(!mg||e.muscleGroup===mg)&&(!q||e.name.toLowerCase().includes(q.toLowerCase())));
+  list.innerHTML=rows.map(e=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid rgba(52,77,92,.2)" onmouseenter="this.style.background='rgba(255,255,255,.03)'" onmouseleave="this.style.background=''">
+    <div><div style="font-size:12px;font-weight:600;color:var(--white)">${e.name}</div><div style="font-size:10px;color:var(--td)">${e.muscleGroup}</div></div>
+    <button class="btn btn-primary btn-sm" onclick="selectLogEx(${addExContext.clientId},${addExContext.di},'${e.name.replace(/'/g,"\\'")}')">Add</button>
+  </div>`).join('')||'<div style="padding:16px;color:var(--td);font-size:12px;text-align:center">No exercises found</div>';
+}
+function selectLogEx(clientId,sessionIdx,exName){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.logbook)return;
+  c.logbook[sessionIdx].entries.push({name:exName,sets:[]});
+  saveToStorage();document.getElementById('add-log-ex-overlay').remove();
+  promptLogSets(clientId,sessionIdx,c.logbook[sessionIdx].entries.length-1);
+}
+function addCustomLogEx(clientId,sessionIdx){
+  const name=(document.getElementById('laex-custom')||{}).value.trim();if(!name)return;
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.logbook)return;
+  c.logbook[sessionIdx].entries.push({name,sets:[]});
+  saveToStorage();document.getElementById('add-log-ex-overlay').remove();
+  promptLogSets(clientId,sessionIdx,c.logbook[sessionIdx].entries.length-1);
+}
+function promptLogSets(clientId,sessionIdx,exIdx){
+  const c=state.clients.find(x=>x.id===clientId);if(!c)return;
+  const ex=c.logbook[sessionIdx].entries[exIdx];
+  const addSet=()=>{
+    const w=prompt(`${ex.name} — Enter weight for Set ${ex.sets.length+1} (kg):`);if(w===null)return finishSets();
+    const r=prompt(`${ex.name} — Reps completed for Set ${ex.sets.length+1}:`);if(r===null)return finishSets();
+    ex.sets.push({weight:parseFloat(w)||0,reps:parseInt(r)||0,unit:'kg'});
+    if(confirm('Add another set?'))addSet();else finishSets();
+  };
+  const finishSets=()=>{saveToStorage();renderClientTab('logbook',c);};
+  addSet();
 }
 
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
