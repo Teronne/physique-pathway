@@ -407,18 +407,38 @@ select.form-input{appearance:none;}
 .supp-toggle input:checked+.supp-slider{background:var(--green);}
 .supp-toggle input:checked+.supp-slider:before{transform:translateX(14px);}
 /* ── TRAINING PLAN TAB ── */
-.tp-day{background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:12px;overflow:hidden;}
-.tp-day-header{background:rgba(0,0,0,.2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--cb);cursor:pointer;}
+.tp-day{background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:14px;overflow:hidden;}
+.tp-day-header{background:rgba(0,0,0,.25);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--cb);}
 .tp-day-name{font-family:var(--fd);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--white);}
 .tp-day-meta{font-size:11px;color:var(--td);}
-.tp-exercise-row{display:grid;grid-template-columns:1fr 60px 80px 70px 90px 36px;gap:8px;padding:8px 16px;border-bottom:1px solid rgba(52,77,92,.2);align-items:center;font-size:12px;}
-.tp-exercise-row:last-child{border-bottom:none;}
-.tp-ex-name{font-weight:600;color:var(--white);}
+.tp-table{width:100%;border-collapse:collapse;font-size:12px;}
+.tp-table th{padding:6px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--td);border-bottom:1px solid rgba(52,77,92,.4);white-space:nowrap;}
+.tp-table td{padding:9px 12px;border-bottom:1px solid rgba(52,77,92,.18);vertical-align:middle;}
+.tp-table tr:last-child td{border-bottom:none;}
+.tp-table tr:hover td{background:rgba(255,255,255,.025);}
+.tp-ord{font-family:var(--fd);font-weight:800;font-size:13px;color:var(--red);width:28px;text-align:center;}
+.tp-mg{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+.tp-mg-chest{background:rgba(185,28,28,.18);color:#f87171;}
+.tp-mg-shoulders{background:rgba(124,58,237,.18);color:#c4b5fd;}
+.tp-mg-triceps{background:rgba(249,115,22,.18);color:#fdba74;}
+.tp-mg-lats{background:rgba(16,185,129,.18);color:#6ee7b7;}
+.tp-mg-upperback{background:rgba(20,184,166,.18);color:#5eead4;}
+.tp-mg-biceps{background:rgba(59,130,246,.18);color:#93c5fd;}
+.tp-mg-quads{background:rgba(234,179,8,.18);color:#fde047;}
+.tp-mg-hamstrings{background:rgba(239,68,68,.18);color:#fca5a5;}
+.tp-mg-glutes{background:rgba(236,72,153,.18);color:#f9a8d4;}
+.tp-mg-calves{background:rgba(107,114,128,.18);color:#d1d5db;}
+.tp-ex-name{font-weight:700;color:var(--white);font-size:12px;}
+.tp-ex-sub{font-size:10px;color:var(--td);margin-top:2px;}
+.tp-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;background:rgba(52,77,92,.5);color:var(--tm);white-space:nowrap;}
+.tp-rir{font-size:11px;font-weight:700;color:#fbbf24;}
+.tp-specs{font-size:10px;color:var(--td);font-style:italic;}
 .tp-ex-input{background:rgba(0,0,0,.25);border:1px solid var(--cb);border-radius:4px;color:var(--white);font-size:11px;font-family:var(--fd);padding:4px 7px;width:100%;text-align:center;}
 .tp-ex-input:focus{outline:none;border-color:var(--red);}
-.tp-header-row{display:grid;grid-template-columns:1fr 60px 80px 70px 90px 36px;gap:8px;padding:6px 16px;font-size:10px;color:var(--td);font-weight:700;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(52,77,92,.3);}
-.tp-add-ex{background:none;border:none;color:var(--td);font-size:11px;font-family:var(--fb);cursor:pointer;padding:8px 16px;width:100%;text-align:left;transition:color .15s;}
+.tp-add-ex{background:none;border:none;color:var(--td);font-size:11px;font-family:var(--fb);cursor:pointer;padding:10px 18px;width:100%;text-align:left;transition:color .15s;border-top:1px solid rgba(52,77,92,.25);}
 .tp-add-ex:hover{color:var(--tm);}
+.tp-vol-row{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px;border-top:1px solid var(--cb);}
+.tp-vol-chip{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;background:rgba(52,77,92,.4);color:var(--tm);}
 /* ── LOGBOOK ── */
 .lb-session{background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:12px;overflow:hidden;}
 .lb-session-header{background:rgba(0,0,0,.2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--cb);}
@@ -738,7 +758,45 @@ let state = {
        {date:'2026-05-09',bodyWeight:107.5,nutritionAccuracy:97,cals:3680,pro:230,fats:74,cho:527,water:null,appetite:null,digestiveIssues:null,steps:4083,cardioMins:45,avgHR:65,training:'Bulk2 Week 4',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:118,bpDia:82,fastingGlucose:4.1,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'Bloods done.'},
        {date:'2026-05-16',bodyWeight:107.8,nutritionAccuracy:null,cals:null,pro:null,fats:null,cho:null,water:null,appetite:null,digestiveIssues:null,steps:null,cardioMins:null,avgHR:null,training:'Bulk2 Week 5',motivation:null,performanceIncrease:null,muscleSoreness:null,energyLevels:null,stressLevels:null,illness:false,bpSys:null,bpDia:null,fastingGlucose:null,restingHR:null,sleepDuration:null,sleepQuality:null,notes:'Added 5mg ezetimibe, omegas to 2g, Mast E added @ 300mg.'},
      ],
-     checkins:[]},
+     checkins:[],
+     trainingPlan:{
+       split:'Lower / Push / Pull / Upper',
+       days:[
+         {name:'Monday — Lower',exercises:[
+           {order:'A',muscleGroup:'Hamstrings',name:'Seated Ham Curl',sets:3,reps:'12-16',rpe:'0-1 RIR',typeOfSet:'Working Set',substitution:'Lying Ham Curl',specs:'Hinge at hips to lengthen hams'},
+           {order:'B',muscleGroup:'Quads',name:'Smith Squat (Quad Bias)',sets:2,reps:'6-12',rpe:'0-1 RIR',typeOfSet:'Working Set',substitution:'Hack Squat',specs:''},
+           {order:'C',muscleGroup:'Quads',name:'Leg Press (Quad Bias)',sets:3,reps:'6-12',rpe:'0-1 RIR',typeOfSet:'Working Set',substitution:'Smith Squat (Quad Bias)',specs:'Feet lower on the pad'},
+           {order:'D',muscleGroup:'Quads',name:'Leg Extensions',sets:3,reps:'12-16',rpe:'0-1 RIR',typeOfSet:'Working Set',substitution:'None',specs:''},
+           {order:'E',muscleGroup:'Hamstrings',name:'BB Romanian Deadlift',sets:2,reps:'6-12',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'DB Romanian Deadlift',specs:'Hips back, engage hams and then hinge'},
+           {order:'F',muscleGroup:'Glutes',name:'Hip Abductor',sets:2,reps:'12-16',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'Hip Thrusts',specs:''},
+         ]},
+         {name:'Tuesday — Push',exercises:[
+           {order:'A',muscleGroup:'Chest',name:'Machine Flye',sets:2,reps:'12-16',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'Flat DB Flys',specs:''},
+           {order:'B',muscleGroup:'Chest',name:'Smith Press',sets:3,reps:'6-12',rpe:'0-2 RIR',typeOfSet:'Working Set',substitution:'Flat DB Press',specs:''},
+           {order:'C',muscleGroup:'Triceps',name:'JM Press',sets:3,reps:'6-12',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'Close Grip Press',specs:''},
+           {order:'D',muscleGroup:'Shoulders',name:'Cable Lateral Raises',sets:4,reps:'16-20',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'DB Lateral Raises',specs:'Cable at hip height'},
+           {order:'E',muscleGroup:'Triceps',name:'Overhead Tricep Extension',sets:3,reps:'6-12',rpe:'0-2 RIR',typeOfSet:'Working Set',substitution:'Push Downs',specs:''},
+           {order:'F',muscleGroup:'Chest',name:'Deficit Push Up',sets:3,reps:'12-16',rpe:'0-1 RIR',typeOfSet:'Working Set',substitution:'Flat Press Machine',specs:''},
+         ]},
+         {name:'Wednesday — Pull',exercises:[
+           {order:'A',muscleGroup:'Lats',name:'Single Arm Pulldown',sets:3,reps:'6-12',rpe:'0-1 RIR',typeOfSet:'Working Set',substitution:'Lat Pull Downs',specs:'Elbow to hip'},
+           {order:'B',muscleGroup:'Biceps',name:'Incline DB Curls',sets:3,reps:'6-12',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'Behind Body Cable Curls',specs:''},
+           {order:'C',muscleGroup:'Upper Back',name:'Chest Supported DB Row',sets:3,reps:'6-12',rpe:'0-2 RIR',typeOfSet:'Working Set',substitution:'Chest Supported T Bar Rows',specs:''},
+           {order:'D',muscleGroup:'Lats',name:'Seated Cable Low Row',sets:3,reps:'6-12',rpe:'0-1 RIR',typeOfSet:'Working Set',substitution:'Cable Chest Supported Low Row',specs:'Elbows to hips'},
+           {order:'E',muscleGroup:'Shoulders',name:'Single Arm Reverse Cable Flye',sets:2,reps:'16-20',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'Face Pulls',specs:''},
+           {order:'F',muscleGroup:'Biceps',name:'DB Preacher Curls',sets:3,reps:'6-12',rpe:'0 RIR',typeOfSet:'Working Set',substitution:'BB Curls',specs:''},
+         ]},
+         {name:'Friday — Upper',exercises:[
+           {order:'A',muscleGroup:'Lats',name:'Lat Pull Downs',sets:3,reps:'6-12',rpe:'',typeOfSet:'Working Set',substitution:'Assisted Pull Ups',specs:'Grip just wider than shoulder width'},
+           {order:'B',muscleGroup:'Chest',name:'Low Incline DB Press',sets:2,reps:'6-12',rpe:'',typeOfSet:'Working Set',substitution:'Low Incline Smith Press',specs:''},
+           {order:'C',muscleGroup:'Shoulders',name:'DB Lateral Raises',sets:4,reps:'6-12',rpe:'',typeOfSet:'Working Set',substitution:'Cable Lateral Raises',specs:''},
+           {order:'D',muscleGroup:'Triceps',name:'Overhead Tricep Extension',sets:4,reps:'6-12',rpe:'',typeOfSet:'Working Set',substitution:'Push Downs',specs:''},
+           {order:'E',muscleGroup:'Biceps',name:'DB Preacher Curls',sets:4,reps:'6-12',rpe:'',typeOfSet:'Working Set',substitution:'BB Curls',specs:''},
+           {order:'F',muscleGroup:'Chest',name:'Machine Flye',sets:2,reps:'12-16',rpe:'',typeOfSet:'Working Set',substitution:'Flat DB Flys',specs:''},
+           {order:'G',muscleGroup:'Lats',name:'Cable Chest Supported Low Row',sets:3,reps:'6-12',rpe:'',typeOfSet:'Working Set',substitution:'Seated Cable Low Row',specs:'Elbow to hip'},
+         ]},
+       ]
+     }},
   ],
 
   activeView:'dashboard',
@@ -2770,42 +2828,91 @@ function confirmAddSuppToClient(){
 function renderTrainingTab(c){
   if(!c.trainingPlan) c.trainingPlan={split:'',days:[]};
   const tp=c.trainingPlan;
-  const defaultSplits=['Push/Pull/Legs','Upper/Lower','Full Body','Push A/Pull A/Legs A/Push B/Pull B/Legs B','Bro Split'];
+  const defaultSplits=['Lower / Push / Pull / Upper','Push/Pull/Legs','Upper/Lower','Full Body','Bro Split'];
+
+  // Volume summary across all days
+  const volMap={};
+  tp.days.forEach(day=>{
+    (day.exercises||[]).forEach(ex=>{
+      const mg=(ex.muscleGroup||'Other').trim();
+      volMap[mg]=(volMap[mg]||0)+(parseInt(ex.sets)||0);
+    });
+  });
+  const volHTML=Object.keys(volMap).length?`<div class="tp-vol-row">${Object.entries(volMap).sort((a,b)=>b[1]-a[1]).map(([mg,sets])=>`<span class="tp-vol-chip">${mg}: ${sets} sets</span>`).join('')}</div>`:'';
+
+  function mgClass(mg){
+    const m=(mg||'').toLowerCase().replace(/\s+/g,'');
+    if(m.includes('chest'))return'chest';
+    if(m.includes('shoulder'))return'shoulders';
+    if(m.includes('tricep'))return'triceps';
+    if(m.includes('lat'))return'lats';
+    if(m.includes('upper')&&m.includes('back'))return'upperback';
+    if(m.includes('bicep'))return'biceps';
+    if(m.includes('quad'))return'quads';
+    if(m.includes('ham'))return'hamstrings';
+    if(m.includes('glute'))return'glutes';
+    if(m.includes('calf')||m.includes('calve'))return'calves';
+    return'chest';
+  }
 
   const daysHTML=tp.days.length?tp.days.map((day,di)=>{
-    const exRows=day.exercises.map((ex,ei)=>`
-      <div class="tp-exercise-row">
-        <span class="tp-ex-name">${ex.name}</span>
-        <input class="tp-ex-input" value="${ex.sets||''}" placeholder="Sets" onchange="updateTPExercise(${c.id},${di},${ei},'sets',this.value)" title="Sets">
-        <input class="tp-ex-input" value="${ex.reps||''}" placeholder="6-12" onchange="updateTPExercise(${c.id},${di},${ei},'reps',this.value)" title="Rep Range">
-        <input class="tp-ex-input" value="${ex.rpe||''}" placeholder="RPE 8" onchange="updateTPExercise(${c.id},${di},${ei},'rpe',this.value)" title="RPE / Intensity">
-        <input class="tp-ex-input" value="${ex.notes||''}" placeholder="Notes" onchange="updateTPExercise(${c.id},${di},${ei},'notes',this.value)" title="Notes">
-        <button style="background:none;border:none;color:var(--td);cursor:pointer;font-size:16px;padding:0" onclick="removeTPExercise(${c.id},${di},${ei})" title="Remove">✕</button>
-      </div>`).join('');
+    const exRows=(day.exercises||[]).map((ex,ei)=>`
+      <tr>
+        <td class="tp-ord">${ex.order||String.fromCharCode(65+ei)}</td>
+        <td><span class="tp-mg tp-mg-${mgClass(ex.muscleGroup)}">${ex.muscleGroup||'—'}</span></td>
+        <td>
+          <div class="tp-ex-name">${ex.name}</div>
+          ${ex.substitution?`<div class="tp-ex-sub">↔ ${ex.substitution}</div>`:''}
+          ${ex.specs?`<div class="tp-specs">${ex.specs}</div>`:''}
+        </td>
+        <td style="text-align:center;font-weight:700;color:var(--white)">${ex.sets||'—'}</td>
+        <td><span class="tp-badge">${ex.reps||'—'}</span></td>
+        <td class="tp-rir">${ex.rpe||'—'}</td>
+        <td style="font-size:10px;color:var(--td)">${ex.typeOfSet||'Working Set'}</td>
+        <td style="text-align:center">
+          <button style="background:none;border:none;color:var(--td);cursor:pointer;font-size:13px;padding:0;line-height:1" onclick="removeTPExercise(${c.id},${di},${ei})" title="Remove">✕</button>
+        </td>
+      </tr>`).join('');
     return`<div class="tp-day">
       <div class="tp-day-header">
-        <span class="tp-day-name">${day.name||'Day '+(di+1)}</span>
-        <div style="display:flex;gap:8px;align-items:center">
-          <span class="tp-day-meta">${day.exercises.length} exercises</span>
-          <button class="btn btn-ghost btn-sm" onclick="removeTPDay(${c.id},${di})">Remove Day</button>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="tp-day-name">${day.name||'Day '+(di+1)}</span>
+          <span class="tp-day-meta">${(day.exercises||[]).length} exercises</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" onclick="openAddExToDay(${c.id},${di})">+ Exercise</button>
+          <button class="btn btn-ghost btn-sm" onclick="removeTPDay(${c.id},${di})">Remove</button>
         </div>
       </div>
-      ${day.exercises.length?`<div class="tp-header-row"><span>Exercise</span><span style="text-align:center">Sets</span><span style="text-align:center">Reps</span><span style="text-align:center">RPE</span><span style="text-align:center">Notes</span><span></span></div>${exRows}`:'' }
+      ${(day.exercises||[]).length?`
+      <div style="overflow-x:auto">
+        <table class="tp-table">
+          <thead><tr>
+            <th>#</th><th>Muscle</th><th>Exercise</th><th style="text-align:center">Sets</th>
+            <th>Reps</th><th>RIR</th><th>Type</th><th></th>
+          </tr></thead>
+          <tbody>${exRows}</tbody>
+        </table>
+      </div>`:'<div style="padding:16px 18px;color:var(--td);font-size:12px">No exercises yet.</div>'}
       <button class="tp-add-ex" onclick="openAddExToDay(${c.id},${di})">+ Add Exercise</button>
     </div>`;
-  }).join(''):`<div style="text-align:center;padding:40px;color:var(--td)"><p style="margin-bottom:12px">No training days added yet.</p><button class="btn btn-ghost btn-sm" onclick="addTPDay(${c.id})">Add First Day</button></div>`;
+  }).join(''):`<div style="text-align:center;padding:48px;color:var(--td)"><p style="margin-bottom:12px;font-size:13px">No training days yet.</p><button class="btn btn-ghost btn-sm" onclick="addTPDay(${c.id})">Add First Day</button></div>`;
 
   return`<div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
       <div style="display:flex;align-items:center;gap:12px">
         <span class="st">Training Program</span>
-        <select class="form-input" style="width:220px;padding:7px 10px;font-size:12px" onchange="updateTPSplit(${c.id},this.value)">
-          <option value="">— Select Training Split —</option>
+        <span style="font-size:11px;color:var(--td);font-weight:600;padding:3px 10px;background:rgba(52,77,92,.4);border-radius:4px">${tp.split||'No split set'}</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <select class="form-input" style="width:200px;padding:6px 10px;font-size:11px" onchange="updateTPSplit(${c.id},this.value)">
+          <option value="">— Change Split —</option>
           ${defaultSplits.map(s=>`<option value="${s}" ${tp.split===s?'selected':''}>${s}</option>`).join('')}
         </select>
+        <button class="btn btn-primary btn-sm" onclick="addTPDay(${c.id})">+ Add Day</button>
       </div>
-      <button class="btn btn-primary btn-sm" onclick="addTPDay(${c.id})">+ Add Day</button>
     </div>
+    ${tp.days.length?`<div style="background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:14px"><div style="padding:8px 18px 0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--td)">Weekly Volume</div>${volHTML}</div>`:''}
     ${daysHTML}
   </div>`;
 }
@@ -2817,7 +2924,7 @@ function updateTPSplit(clientId,val){
 function addTPDay(clientId){
   const c=state.clients.find(x=>x.id===clientId);if(!c)return;
   if(!c.trainingPlan)c.trainingPlan={split:'',days:[]};
-  const dayNames=['Push A','Pull A','Legs A','Push B','Pull B','Legs B','Upper','Lower','Full Body'];
+  const dayNames=['Monday — Lower','Tuesday — Push','Wednesday — Pull','Friday — Upper','Push A','Pull A','Legs A','Upper','Lower','Full Body'];
   const used=c.trainingPlan.days.map(d=>d.name);
   const nextName=dayNames.find(n=>!used.includes(n))||'Day '+(c.trainingPlan.days.length+1);
   c.trainingPlan.days.push({name:nextName,exercises:[]});
@@ -2883,7 +2990,7 @@ function filterAddExList(){
 function selectExForDay(exId){
   const ex=EXERCISE_DB.find(x=>x.id===exId);if(!ex)return;
   const c=state.clients.find(x=>x.id===addExContext.clientId);if(!c||!c.trainingPlan)return;
-  c.trainingPlan.days[addExContext.di].exercises.push({name:ex.name,sets:4,reps:ex.repRange,rpe:'',notes:''});
+  c.trainingPlan.days[addExContext.di].exercises.push({order:String.fromCharCode(65+c.trainingPlan.days[addExContext.di].exercises.length),muscleGroup:ex.muscleGroup||'',name:ex.name,sets:4,reps:ex.repRange,rpe:'',typeOfSet:'Working Set',substitution:'',specs:''});
   saveToStorage();closeAddExOverlay();renderClientTab('training',c);
 }
 function addCustomExToDay(){
