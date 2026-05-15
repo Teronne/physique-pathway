@@ -459,6 +459,27 @@ select.form-input{appearance:none;}
 .tp-target-input::-webkit-inner-spin-button,.tp-target-input::-webkit-outer-spin-button{-webkit-appearance:none;}
 .tp-target-input:focus{outline:none;border-bottom-color:var(--red);}
 .tp-target-unit{font-size:11px;color:var(--td);font-weight:600;align-self:flex-end;padding-bottom:4px;}
+/* Schedule table */
+.tp-sched-table{width:100%;border-collapse:collapse;}
+.tp-sched-table th{padding:7px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--td);border-bottom:1px solid rgba(52,77,92,.4);white-space:nowrap;}
+.tp-sched-table td{padding:9px 14px;border-bottom:1px solid rgba(52,77,92,.12);vertical-align:middle;}
+.tp-sched-table tr:last-child td{border-bottom:none;}
+.tp-sched-table tr.training td{background:rgba(165,28,48,.04);}
+.tp-sched-pill{display:inline-block;font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:.08em;padding:3px 8px;border-radius:4px;min-width:38px;text-align:center;}
+.tp-sched-pill.training{background:rgba(165,28,48,.22);color:#f87171;}
+.tp-sched-pill.rest{background:rgba(52,77,92,.35);color:var(--td);}
+.tp-sched-day{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);}
+.tp-sched-sel{background:rgba(0,0,0,.3);border:1px solid var(--cb);border-radius:4px;color:var(--white);font-size:11px;font-family:var(--fb);padding:5px 8px;min-width:190px;cursor:pointer;}
+.tp-sched-sel:focus{outline:none;border-color:var(--red);}
+.tp-sched-num{background:transparent;border:none;border-bottom:1px solid rgba(52,77,92,.5);color:var(--white);font-size:14px;font-family:var(--fd);font-weight:700;width:66px;padding:2px 4px;text-align:center;-moz-appearance:textfield;}
+.tp-sched-num::-webkit-inner-spin-button,.tp-sched-num::-webkit-outer-spin-button{-webkit-appearance:none;}
+.tp-sched-num:focus{outline:none;border-bottom-color:var(--red);}
+.tp-sched-unit{font-size:10px;color:var(--td);margin-left:3px;}
+.tp-hr-range{display:flex;align-items:center;gap:4px;}
+.tp-csess-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(52,77,92,.4);border:1px solid var(--cb);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;color:var(--tm);margin:3px 3px 3px 0;}
+.tp-csess-tag.plan{opacity:.6;cursor:default;}
+.tp-csess-tag button{background:none;border:none;color:var(--td);cursor:pointer;font-size:12px;padding:0;line-height:1;}
+.tp-csess-tag button:hover{color:var(--red);}
 /* ── LOGBOOK ── */
 .lb-session{background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:12px;overflow:hidden;}
 .lb-session-header{background:rgba(0,0,0,.2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--cb);}
@@ -817,20 +838,16 @@ let state = {
          ]},
        ],
        weekSchedule:{
-         mon:{session:'Monday — Lower'},
-         tue:{session:'Tuesday — Push'},
-         wed:{session:'Wednesday — Pull'},
-         thu:{session:''},
-         fri:{session:'Friday — Upper'},
-         sat:{session:''},
-         sun:{session:''},
+         mon:{session:'Monday — Lower',  stepsTarget:5000, cardioMins:45, cardioHRMin:120, cardioHRMax:145},
+         tue:{session:'Tuesday — Push',  stepsTarget:5000, cardioMins:30, cardioHRMin:120, cardioHRMax:145},
+         wed:{session:'Wednesday — Pull',stepsTarget:5000, cardioMins:30, cardioHRMin:120, cardioHRMax:145},
+         thu:{session:'',                stepsTarget:8000, cardioMins:0,  cardioHRMin:0,   cardioHRMax:0},
+         fri:{session:'Friday — Upper',  stepsTarget:5000, cardioMins:45, cardioHRMin:120, cardioHRMax:145},
+         sat:{session:'',                stepsTarget:10000,cardioMins:0,  cardioHRMin:0,   cardioHRMax:0},
+         sun:{session:'',                stepsTarget:8000, cardioMins:0,  cardioHRMin:0,   cardioHRMax:0},
        },
-       targets:{
-         stepsPerDay:5000,
-         cardioMins:45,
-         cardioHRMin:120,
-         cardioHRMax:145,
-       }
+       customSessions:[],
+       targets:{stepsPerDay:5000,cardioMins:45,cardioHRMin:120,cardioHRMax:145}
      }},
   ],
 
@@ -1303,7 +1320,7 @@ const EXERCISE_DB = [
   {id:67,name:'Leg Raise',link:'',repRange:'12-16',muscleGroup:'Abs',substitution:'None',specs:''},
 ];
 
-const STORAGE_KEY = 'pp_coach_data_v4';
+const STORAGE_KEY = 'pp_coach_data_v5';
 const STORAGE_FOODDB_KEY = 'pp_food_db_v1';
 const STORAGE_SUPPDB_KEY = 'pp_supp_db_v1';
 const STORAGE_EXDB_KEY = 'pp_exercise_db_v1';
@@ -2864,6 +2881,52 @@ function confirmAddSuppToClient(){
   saveToStorage();closeAddSuppOverlay();renderClientTab('supplements',c);
 }
 
+// ── TRAINING WEIGHT / PHASE CHART ──
+function buildTrainingChart(c){
+  const dc=c.dailyCheckins||[];
+  const yr=new Date().getFullYear().toString();
+  const weights=dc.filter(x=>x.bodyWeight&&x.date.startsWith(yr));
+  if(weights.length<2)return'<p style="color:rgba(255,255,255,.25);text-align:center;padding:28px;font-size:12px">Not enough check-in data to display chart.</p>';
+  const W=800,H=195,PL=46,PR=14,PT=16,PB=26;
+  const cw=W-PL-PR,ch=H-PT-PB;
+  const vals=weights.map(x=>x.bodyWeight);
+  const mn=Math.min(...vals)-1.5,mx=Math.max(...vals)+1.5,rng=mx-mn;
+  const dates=weights.map(x=>new Date(x.date).getTime());
+  const d0=Math.min(...dates),d1=Math.max(...dates),dr=d1-d0||1;
+  const xOf=d=>PL+Math.round((d-d0)/dr*cw);
+  const yOf=v=>PT+Math.round((1-(v-mn)/rng)*ch);
+  // Phase colour bands
+  const pCols={bulk:'rgba(74,222,128,.07)',maintain:'rgba(96,165,250,.07)',cut:'rgba(251,113,133,.07)',prep:'rgba(251,191,36,.07)',deload:'rgba(156,163,175,.05)'};
+  const pLbls={bulk:'BULK',maintain:'MAINTENANCE',cut:'CUT',prep:'PREP',deload:'DELOAD'};
+  const bands=(c.phases||[]).filter(p=>p.startDate).map(p=>{
+    const ps=Math.max(new Date(p.startDate).getTime(),d0);
+    const pe=p.endDate?Math.min(new Date(p.endDate).getTime(),d1):d1;
+    if(ps>=d1||pe<=d0)return'';
+    const x1=xOf(ps),x2=xOf(pe);
+    return`<rect x="${x1}" y="${PT}" width="${Math.max(2,x2-x1)}" height="${ch}" fill="${pCols[p.phase]||'rgba(255,255,255,.04)'}"/><text x="${x1+5}" y="${PT+10}" fill="rgba(255,255,255,.18)" font-size="8" font-family="Inter,sans-serif" font-weight="800" letter-spacing="0.08em">${pLbls[p.phase]||p.phase.toUpperCase()}</text>`;
+  }).join('');
+  // Y-axis grid
+  const grids=[0,.25,.5,.75,1].map(f=>{
+    const v=mn+rng*f,y=yOf(v);
+    return`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="rgba(255,255,255,.05)" stroke-width="1"/><text x="${PL-5}" y="${y+3.5}" fill="rgba(255,255,255,.28)" font-size="9" text-anchor="end" font-family="Inter,sans-serif">${v.toFixed(1)}</text>`;
+  }).join('');
+  // Month labels
+  const mons=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const seenM=new Set();
+  const mlbls=weights.map(w=>{const d=new Date(w.date),m=d.getMonth();if(seenM.has(m))return'';seenM.add(m);return`<text x="${xOf(d.getTime())}" y="${H-5}" fill="rgba(255,255,255,.32)" font-size="9.5" text-anchor="middle" font-family="Inter,sans-serif">${mons[m]}</text>`;}).join('');
+  // Fill + line
+  const pts=weights.map(w=>`${xOf(new Date(w.date).getTime())},${yOf(w.bodyWeight)}`).join(' ');
+  const f0=`${xOf(d0)},${H-PB}`,f1=`${xOf(d1)},${H-PB}`;
+  const gid='tcg'+Date.now().toString(36);
+  // Dots + last label
+  const dots=weights.map((w,i)=>{
+    const x=xOf(new Date(w.date).getTime()),y=yOf(w.bodyWeight);
+    const lbl=i===weights.length-1?`<text x="${x}" y="${y-8}" fill="#f87171" font-size="10" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700">${w.bodyWeight}kg</text>`:'';
+    return`<circle cx="${x}" cy="${y}" r="3" fill="#7a0d1a" stroke="#c42238" stroke-width="1.5"/>${lbl}`;
+  }).join('');
+  return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A51C30" stop-opacity=".5"/><stop offset="100%" stop-color="#A51C30" stop-opacity=".02"/></linearGradient></defs><rect width="${W}" height="${H}" fill="#0a0a0a"/>${bands}${grids}${mlbls}<polygon points="${f0} ${pts} ${f1}" fill="url(#${gid})"/><polyline points="${pts}" fill="none" stroke="#A51C30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>${dots}</svg>`;
+}
+
 // ── VOLUME GRAPH ──
 function buildVolumeGraph(tp){
   const mgColors={'Chest':'#f87171','Shoulders':'#c4b5fd','Triceps':'#fdba74','Lats':'#6ee7b7','Upper Back':'#5eead4','Biceps':'#93c5fd','Quads':'#fde047','Hamstrings':'#fca5a5','Glutes':'#f9a8d4','Calves':'#d1d5db','Abs':'#94a3b8'};
@@ -2887,49 +2950,69 @@ function buildVolumeGraph(tp){
 function renderTrainingTab(c){
   if(!c.trainingPlan) c.trainingPlan={split:'',days:[]};
   const tp=c.trainingPlan;
-  if(!tp.weekSchedule) tp.weekSchedule={mon:{session:''},tue:{session:''},wed:{session:''},thu:{session:''},fri:{session:''},sat:{session:''},sun:{session:''}};
-  if(!tp.targets) tp.targets={stepsPerDay:8000,cardioMins:45,cardioHRMin:120,cardioHRMax:145};
+  const defDay={session:'',stepsTarget:5000,cardioMins:0,cardioHRMin:120,cardioHRMax:145};
+  if(!tp.weekSchedule) tp.weekSchedule={mon:{...defDay},tue:{...defDay},wed:{...defDay},thu:{...defDay},fri:{...defDay},sat:{...defDay},sun:{...defDay}};
+  if(!tp.customSessions) tp.customSessions=[];
   const defaultSplits=['Lower / Push / Pull / Upper','Push/Pull/Legs','Upper/Lower','Full Body','Bro Split'];
-  const ws=tp.weekSchedule; const tg=tp.targets;
+  const ws=tp.weekSchedule;
+  const allSessions=[...(tp.days||[]).map(d=>d.name),...(tp.customSessions||[])];
 
-  // Weekly Schedule
-  const dayKeys=['mon','tue','wed','thu','fri','sat','sun'];
-  const dayLbls={mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
-  const schedHTML=`<div style="background:var(--cl);border:1px solid var(--cb);border-radius:8px;padding:14px 16px;margin-bottom:14px">
-    <div class="tp-section-head">Weekly Schedule</div>
-    <div class="tp-week-grid">${dayKeys.map(d=>{
-      const sess=(ws[d]||{}).session||'';const isT=!!sess;
-      const opts=`<option value="">Rest Day</option>${(tp.days||[]).map(day=>`<option value="${day.name}"${sess===day.name?' selected':''}>${day.name}</option>`).join('')}`;
-      return`<div class="tp-day-card ${isT?'training':'rest'}"><div class="tp-day-lbl">${dayLbls[d]}</div><div class="tp-day-type">${isT?'TRAIN':'REST'}</div><select class="tp-day-sel" onchange="updateWeekDay(${c.id},'${d}',this.value)">${opts}</select></div>`;
-    }).join('')}</div>
+  // ── Weight/phase chart ──
+  const chartHTML=`<div style="background:#0a0a0a;border:1px solid var(--cb);border-radius:8px;padding:14px 18px 10px;margin-bottom:14px">
+    <div class="tp-section-head" style="margin-bottom:10px">Weight Progression — ${new Date().getFullYear()}</div>
+    ${buildTrainingChart(c)}
   </div>`;
 
-  // Targets
-  const targHTML=`<div style="background:var(--cl);border:1px solid var(--cb);border-radius:8px;padding:14px 16px;margin-bottom:14px">
-    <div class="tp-section-head">Daily Targets</div>
-    <div class="tp-targets-row">
-      <div class="tp-target-box">
-        <div class="tp-target-lbl">Steps / Day</div>
-        <div class="tp-target-val"><input class="tp-target-input" type="number" value="${tg.stepsPerDay||8000}" onchange="updateTrainingTarget(${c.id},'stepsPerDay',this.value)" min="0" step="500"><span class="tp-target-unit">steps</span></div>
-      </div>
-      <div class="tp-target-box">
-        <div class="tp-target-lbl">Cardio Duration</div>
-        <div class="tp-target-val"><input class="tp-target-input" type="number" value="${tg.cardioMins||45}" onchange="updateTrainingTarget(${c.id},'cardioMins',this.value)" min="0" step="5"><span class="tp-target-unit">min</span></div>
-      </div>
-      <div class="tp-target-box">
-        <div class="tp-target-lbl">Cardio HR Zone</div>
-        <div class="tp-target-val"><input class="tp-target-input" style="width:58px" type="number" value="${tg.cardioHRMin||120}" onchange="updateTrainingTarget(${c.id},'cardioHRMin',this.value)" min="60" max="220"><span class="tp-target-unit" style="margin:0 4px">–</span><input class="tp-target-input" style="width:58px" type="number" value="${tg.cardioHRMax||145}" onchange="updateTrainingTarget(${c.id},'cardioHRMax',this.value)" min="60" max="220"><span class="tp-target-unit">bpm</span></div>
-      </div>
+  // ── Weekly schedule table ──
+  const dayKeys=['mon','tue','wed','thu','fri','sat','sun'];
+  const dayFull={mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
+  const schedRows=dayKeys.map(d=>{
+    const day=Object.assign({},defDay,ws[d]||{});
+    const sess=day.session||''; const isT=!!sess;
+    const opts=`<option value="">Rest Day</option>${allSessions.map(s=>`<option value="${s}"${sess===s?' selected':''}>${s}</option>`).join('')}`;
+    const hrCell=isT
+      ?`<div class="tp-hr-range"><input class="tp-sched-num" style="width:52px" type="number" value="${day.cardioHRMin||120}" onchange="updateWeekDay(${c.id},'${d}','cardioHRMin',this.value)" min="60" max="220"><span style="color:var(--td);font-size:11px;padding:0 2px">–</span><input class="tp-sched-num" style="width:52px" type="number" value="${day.cardioHRMax||145}" onchange="updateWeekDay(${c.id},'${d}','cardioHRMax',this.value)" min="60" max="220"><span class="tp-sched-unit">bpm</span></div>`
+      :`<span style="color:var(--td);font-size:11px">—</span>`;
+    return`<tr class="${isT?'training':'rest'}">
+      <td><span class="tp-sched-pill ${isT?'training':'rest'}">${d.toUpperCase()}</span></td>
+      <td class="tp-sched-day">${dayFull[d]}</td>
+      <td><select class="tp-sched-sel" onchange="updateWeekDay(${c.id},'${d}','session',this.value)">${opts}</select></td>
+      <td><input class="tp-sched-num" type="number" value="${day.stepsTarget||0}" onchange="updateWeekDay(${c.id},'${d}','stepsTarget',this.value)" min="0" step="500"><span class="tp-sched-unit">steps</span></td>
+      <td><input class="tp-sched-num" type="number" value="${day.cardioMins||0}" onchange="updateWeekDay(${c.id},'${d}','cardioMins',this.value)" min="0" step="5"><span class="tp-sched-unit">min</span></td>
+      <td>${hrCell}</td>
+    </tr>`;
+  }).join('');
+
+  const csessPanel=`<div id="csess-${c.id}" style="display:none;padding:10px 16px 12px;border-bottom:1px solid var(--cb)">
+    <div style="font-size:10px;color:var(--td);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Sessions available in dropdown</div>
+    <div style="margin-bottom:10px">${(tp.days||[]).map(d=>`<span class="tp-csess-tag plan">${d.name}</span>`).join('')}${(tp.customSessions||[]).map((s,i)=>`<span class="tp-csess-tag">${s}<button onclick="removeCustomSession(${c.id},${i})" title="Remove">✕</button></span>`).join('')}</div>
+    <div style="display:flex;gap:8px">
+      <input class="form-input" id="csess-inp-${c.id}" placeholder="Add custom session name…" style="flex:1;padding:5px 10px;font-size:11px" onkeydown="if(event.key==='Enter')addCustomSession(${c.id})">
+      <button class="btn btn-primary btn-sm" onclick="addCustomSession(${c.id})">+ Add</button>
     </div>
   </div>`;
 
-  // Volume graph
+  const schedHTML=`<div style="background:var(--cl);border:1px solid var(--cb);border-radius:8px;margin-bottom:14px;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px">
+      <div class="tp-section-head" style="margin:0">Weekly Schedule & Targets</div>
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('csess-${c.id}').style.display=document.getElementById('csess-${c.id}').style.display==='none'?'block':'none'" style="font-size:10px">✏ Edit Sessions</button>
+    </div>
+    ${csessPanel}
+    <div style="overflow-x:auto">
+      <table class="tp-sched-table">
+        <thead><tr><th></th><th></th><th>Session</th><th>Steps Target</th><th>Cardio</th><th>HR Zone</th></tr></thead>
+        <tbody>${schedRows}</tbody>
+      </table>
+    </div>
+  </div>`;
+
+  // ── Volume graph ──
   const volGraphHTML=`<div style="background:var(--cl);border:1px solid var(--cb);border-radius:8px;padding:14px 18px 12px;margin-bottom:14px">
     <div class="tp-section-head">Volume Analysis — Weekly Sets</div>
     ${buildVolumeGraph(tp)}
   </div>`;
 
-  // Exercise days
+  // ── Exercise days ──
   function mgClass(mg){const m=(mg||'').toLowerCase().replace(/\s+/g,'');if(m.includes('chest'))return'chest';if(m.includes('shoulder'))return'shoulders';if(m.includes('tricep'))return'triceps';if(m.includes('lat'))return'lats';if(m.includes('upper')&&m.includes('back'))return'upperback';if(m.includes('bicep'))return'biceps';if(m.includes('quad'))return'quads';if(m.includes('ham'))return'hamstrings';if(m.includes('glute'))return'glutes';if(m.includes('calf')||m.includes('calve'))return'calves';return'chest';}
   const daysHTML=tp.days.length?tp.days.map((day,di)=>{
     const exRows=(day.exercises||[]).map((ex,ei)=>`<tr><td class="tp-ord">${ex.order||String.fromCharCode(65+ei)}</td><td><span class="tp-mg tp-mg-${mgClass(ex.muscleGroup)}">${ex.muscleGroup||'—'}</span></td><td><div class="tp-ex-name">${ex.name}</div>${ex.substitution?`<div class="tp-ex-sub">↔ ${ex.substitution}</div>`:''}${ex.specs?`<div class="tp-specs">${ex.specs}</div>`:''}</td><td style="text-align:center;font-weight:700;color:var(--white)">${ex.sets||'—'}</td><td><span class="tp-badge">${ex.reps||'—'}</span></td><td class="tp-rir">${ex.rpe||'—'}</td><td style="font-size:10px;color:var(--td)">${ex.typeOfSet||'Working Set'}</td><td style="text-align:center"><button style="background:none;border:none;color:var(--td);cursor:pointer;font-size:13px;padding:0;line-height:1" onclick="removeTPExercise(${c.id},${di},${ei})">✕</button></td></tr>`).join('');
@@ -2937,7 +3020,7 @@ function renderTrainingTab(c){
   }).join(''):`<div style="text-align:center;padding:48px;color:var(--td)"><p style="margin-bottom:12px;font-size:13px">No training days yet.</p><button class="btn btn-ghost btn-sm" onclick="addTPDay(${c.id})">Add First Day</button></div>`;
 
   return`<div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
       <div style="display:flex;align-items:center;gap:12px">
         <span class="st">Training Program</span>
         <span style="font-size:11px;color:var(--td);font-weight:600;padding:3px 10px;background:rgba(52,77,92,.4);border-radius:4px">${tp.split||'No split set'}</span>
@@ -2950,8 +3033,7 @@ function renderTrainingTab(c){
         <button class="btn btn-primary btn-sm" onclick="addTPDay(${c.id})">+ Add Day</button>
       </div>
     </div>
-    ${schedHTML}${targHTML}${volGraphHTML}
-    ${daysHTML}
+    ${chartHTML}${schedHTML}${volGraphHTML}${daysHTML}
   </div>`;
 }
 function updateTPSplit(clientId,val){
@@ -2959,10 +3041,28 @@ function updateTPSplit(clientId,val){
   if(!c.trainingPlan)c.trainingPlan={split:'',days:[]};
   c.trainingPlan.split=val;saveToStorage();renderClientTab('training',c);
 }
-function updateWeekDay(clientId,day,session){
+function updateWeekDay(clientId,day,field,val){
   const c=state.clients.find(x=>x.id===clientId);if(!c||!c.trainingPlan)return;
   if(!c.trainingPlan.weekSchedule)c.trainingPlan.weekSchedule={};
-  c.trainingPlan.weekSchedule[day]={session};
+  if(!c.trainingPlan.weekSchedule[day])c.trainingPlan.weekSchedule[day]={};
+  const numeric=['stepsTarget','cardioMins','cardioHRMin','cardioHRMax'];
+  c.trainingPlan.weekSchedule[day][field]=numeric.includes(field)?parseFloat(val)||0:val;
+  saveToStorage();
+  if(field==='session') renderClientTab('training',c);
+}
+function toggleCustomSessions(clientId){const el=document.getElementById('csess-'+clientId);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+function addCustomSession(clientId){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.trainingPlan)return;
+  const inp=document.getElementById('csess-inp-'+clientId);
+  if(!inp||!inp.value.trim())return;
+  if(!c.trainingPlan.customSessions)c.trainingPlan.customSessions=[];
+  const name=inp.value.trim();
+  if(!c.trainingPlan.customSessions.includes(name))c.trainingPlan.customSessions.push(name);
+  saveToStorage();renderClientTab('training',c);
+}
+function removeCustomSession(clientId,idx){
+  const c=state.clients.find(x=>x.id===clientId);if(!c||!c.trainingPlan)return;
+  c.trainingPlan.customSessions.splice(idx,1);
   saveToStorage();renderClientTab('training',c);
 }
 function updateTrainingTarget(clientId,field,val){
