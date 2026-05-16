@@ -1320,7 +1320,7 @@ const EXERCISE_DB = [
   {id:67,name:'Leg Raise',link:'',repRange:'12-16',muscleGroup:'Abs',substitution:'None',specs:''},
 ];
 
-const STORAGE_KEY = 'pp_coach_data_v5';
+const STORAGE_KEY = 'pp_coach_data_v6';
 const STORAGE_FOODDB_KEY = 'pp_food_db_v1';
 const STORAGE_SUPPDB_KEY = 'pp_supp_db_v1';
 const STORAGE_EXDB_KEY = 'pp_exercise_db_v1';
@@ -2929,21 +2929,54 @@ function buildTrainingChart(c){
 
 // ── VOLUME GRAPH ──
 function buildVolumeGraph(tp){
-  const mgColors={'Chest':'#f87171','Shoulders':'#c4b5fd','Triceps':'#fdba74','Lats':'#6ee7b7','Upper Back':'#5eead4','Biceps':'#93c5fd','Quads':'#fde047','Hamstrings':'#fca5a5','Glutes':'#f9a8d4','Calves':'#d1d5db','Abs':'#94a3b8'};
+  const MG_ORDER=[
+    {key:'Chest',      abbr:'CHEST', col:'#f87171'},
+    {key:'Triceps',    abbr:'TRIC',  col:'#fdba74'},
+    {key:'Shoulders',  abbr:'SHLD',  col:'#c4b5fd'},
+    {key:'Lats',       abbr:'LATS',  col:'#6ee7b7'},
+    {key:'Upper Back', abbr:'U.BCK', col:'#5eead4'},
+    {key:'Biceps',     abbr:'BIC',   col:'#93c5fd'},
+    {key:'Quads',      abbr:'QUADS', col:'#fde047'},
+    {key:'Hamstrings', abbr:'HAMS',  col:'#fca5a5'},
+    {key:'Glutes',     abbr:'GLUTE', col:'#f9a8d4'},
+    {key:'Calves',     abbr:'CALV',  col:'#d1d5db'},
+  ];
   const volMap={};
-  (tp.days||[]).forEach(day=>{(day.exercises||[]).forEach(ex=>{const mg=(ex.muscleGroup||'Other').trim();volMap[mg]=(volMap[mg]||0)+(parseInt(ex.sets)||0);});});
-  const entries=Object.entries(volMap).sort((a,b)=>b[1]-a[1]);
-  if(!entries.length)return'<p style="color:var(--td);text-align:center;padding:20px 0;font-size:12px">No exercises in plan yet.</p>';
-  const maxS=Math.max(...entries.map(([,v])=>v));
-  const LBL=115,BAR=360,ROW=30,PT=8,PB=8;
-  const H=entries.length*ROW+PT+PB;const W=LBL+BAR+70;
-  const bars=entries.map(([mg,sets],i)=>{
-    const bw=Math.max(6,Math.round((sets/maxS)*BAR));
-    const y=PT+i*ROW;const cy=y+ROW/2;
-    const col=mgColors[mg]||'#94a3b8';
-    return`<text x="${LBL-8}" y="${cy+4}" text-anchor="end" fill="rgba(255,255,255,.65)" font-size="11" font-family="Inter,sans-serif" font-weight="600">${mg}</text><rect x="${LBL}" y="${y+6}" width="${bw}" height="${ROW-12}" rx="3" fill="${col}" opacity=".8"/><text x="${LBL+bw+8}" y="${cy+4}" fill="${col}" font-size="11" font-weight="800" font-family="Inter,sans-serif">${sets}</text>`;
+  (tp.days||[]).forEach(day=>{(day.exercises||[]).forEach(ex=>{
+    const mg=(ex.muscleGroup||'Other').trim();
+    volMap[mg]=(volMap[mg]||0)+(parseInt(ex.sets)||0);
+  });});
+  const data=MG_ORDER.map(m=>({...m,sets:volMap[m.key]||0})).filter(m=>m.sets>0);
+  if(!data.length)return'<p style="color:var(--td);text-align:center;padding:20px 0;font-size:12px">No exercises in plan yet.</p>';
+  const W=560,H=190;
+  const PL=36,PR=20,PT=30,PB=42;
+  const cW=W-PL-PR,cH=H-PT-PB;
+  const maxS=Math.max(...data.map(d=>d.sets));
+  const gridMax=Math.ceil(maxS/3)*3||6;
+  const n=data.length;
+  // Point positions
+  const pts=data.map((d,i)=>({...d,x:PL+(n===1?cW/2:(i/(n-1))*cW),y:PT+cH-(d.sets/gridMax)*cH}));
+  // Smooth bezier path
+  const tension=0.35;
+  let curvePath='M'+pts[0].x.toFixed(1)+','+pts[0].y.toFixed(1);
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[i],p1=pts[i+1],dx=(p1.x-p0.x)*tension;
+    curvePath+=` C${(p0.x+dx).toFixed(1)},${p0.y.toFixed(1)} ${(p1.x-dx).toFixed(1)},${p1.y.toFixed(1)} ${p1.x.toFixed(1)},${p1.y.toFixed(1)}`;
+  }
+  const fillPath=curvePath+` L${pts[pts.length-1].x.toFixed(1)},${PT+cH} L${pts[0].x.toFixed(1)},${PT+cH} Z`;
+  // Grid lines
+  const gridSteps=3;
+  const gridLines=Array.from({length:gridSteps+1},(_,k)=>{
+    const v=Math.round(gridMax*(k/gridSteps));
+    const gy=PT+cH-(v/gridMax)*cH;
+    return`<line x1="${PL}" y1="${gy.toFixed(1)}" x2="${W-PR}" y2="${gy.toFixed(1)}" stroke="rgba(255,255,255,.06)" stroke-width="1"/><text x="${PL-5}" y="${(gy+4).toFixed(1)}" fill="rgba(255,255,255,.3)" font-size="9" text-anchor="end" font-family="Inter,sans-serif">${v}</text>`;
   }).join('');
-  return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:560px;display:block;overflow:visible">${bars}</svg>`;
+  // Dots + value labels
+  const dotsHTML=pts.map(p=>`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="5" fill="#0d0d0d" stroke="${p.col}" stroke-width="2.5"/><text x="${p.x.toFixed(1)}" y="${(p.y-11).toFixed(1)}" fill="${p.col}" font-size="10" text-anchor="middle" font-weight="700" font-family="Inter,sans-serif">${p.sets}</text>`).join('');
+  // X axis labels
+  const xLabels=pts.map(p=>`<text x="${p.x.toFixed(1)}" y="${H-8}" fill="rgba(255,255,255,.4)" font-size="9" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" letter-spacing=".03em">${p.abbr}</text>`).join('');
+  const gid='vg'+Date.now().toString(36);
+  return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A51C30" stop-opacity=".55"/><stop offset="100%" stop-color="#A51C30" stop-opacity=".03"/></linearGradient></defs><rect width="${W}" height="${H}" fill="#0a0a0a"/>${gridLines}<path d="${fillPath}" fill="url(#${gid})"/><path d="${curvePath}" fill="none" stroke="#A51C30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>${dotsHTML}${xLabels}</svg>`;
 }
 
 // ── RENDER TRAINING PLAN TAB (per client) ──
@@ -2956,12 +2989,6 @@ function renderTrainingTab(c){
   const defaultSplits=['Lower / Push / Pull / Upper','Push/Pull/Legs','Upper/Lower','Full Body','Bro Split'];
   const ws=tp.weekSchedule;
   const allSessions=[...(tp.days||[]).map(d=>d.name),...(tp.customSessions||[])];
-
-  // ── Weight/phase chart ──
-  const chartHTML=`<div style="background:#0a0a0a;border:1px solid var(--cb);border-radius:8px;padding:14px 18px 10px;margin-bottom:14px">
-    <div class="tp-section-head" style="margin-bottom:10px">Weight Progression — ${new Date().getFullYear()}</div>
-    ${buildTrainingChart(c)}
-  </div>`;
 
   // ── Weekly schedule table ──
   const dayKeys=['mon','tue','wed','thu','fri','sat','sun'];
@@ -3007,8 +3034,8 @@ function renderTrainingTab(c){
   </div>`;
 
   // ── Volume graph ──
-  const volGraphHTML=`<div style="background:var(--cl);border:1px solid var(--cb);border-radius:8px;padding:14px 18px 12px;margin-bottom:14px">
-    <div class="tp-section-head">Volume Analysis — Weekly Sets</div>
+  const volGraphHTML=`<div style="background:#0a0a0a;border:1px solid var(--cb);border-radius:8px;padding:14px 18px 10px;margin-bottom:14px">
+    <div class="tp-section-head" style="margin-bottom:10px">Volume — Sets per Muscle Group</div>
     ${buildVolumeGraph(tp)}
   </div>`;
 
@@ -3033,7 +3060,7 @@ function renderTrainingTab(c){
         <button class="btn btn-primary btn-sm" onclick="addTPDay(${c.id})">+ Add Day</button>
       </div>
     </div>
-    ${chartHTML}${schedHTML}${volGraphHTML}${daysHTML}
+    ${schedHTML}${volGraphHTML}${daysHTML}
   </div>`;
 }
 function updateTPSplit(clientId,val){
