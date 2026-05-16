@@ -220,6 +220,46 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter'
 select option{background:#1a1a1a}
 .divider{height:1px;background:var(--border);margin:8px 0}
 .chip{display:inline-block;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(255,255,255,.07);color:var(--t2);border:1px solid var(--border2)}
+/* ── DESKTOP SIDEBAR ── */
+.sidebar{display:none}
+@media(min-width:900px){
+  body{background:#040404}
+  #app{max-width:100%;flex-direction:row;height:100vh;box-shadow:none}
+  .sidebar{display:flex;flex-direction:column;width:240px;min-width:240px;height:100vh;background:var(--card);border-right:1px solid var(--border);position:fixed;left:0;top:0;z-index:200;overflow:hidden}
+  .sb-logo{padding:22px 20px 6px;font-size:15px;font-weight:900;letter-spacing:-.4px}.sb-logo span{color:var(--red)}
+  .sb-ver{font-size:9px;color:var(--t4);padding:0 20px 12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+  .sb-client{padding:10px 12px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:6px}
+  .sb-sel{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-size:12px;font-weight:600;padding:8px 10px;font-family:'Inter',sans-serif;margin-bottom:8px}
+  .sb-btns{display:flex;gap:6px}
+  .sb-nav{flex:1;padding:4px 8px;overflow-y:auto}
+  .sni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;cursor:pointer;color:var(--t3);font-size:12px;font-weight:600;transition:.15s;border:none;background:none;font-family:'Inter',sans-serif;width:100%;text-align:left;margin-bottom:1px}
+  .sni svg{width:17px;height:17px;stroke-width:1.8;flex-shrink:0}
+  .sni:hover{background:rgba(255,255,255,.05);color:var(--t2)}
+  .sni.on{background:var(--red-dim);color:var(--red)}
+  .sni .sni-dot{width:5px;height:5px;border-radius:50%;background:currentColor;margin-left:auto;flex-shrink:0;opacity:.6}
+  .sb-sect{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t4);padding:10px 12px 4px}
+  .sb-foot{padding:12px;border-top:1px solid var(--border)}
+  .hdr{display:none!important}
+  .nav{display:none!important}
+  .main{margin-left:240px;padding:24px 28px 28px;height:100vh;max-width:none}
+  .modal{border-radius:16px;max-width:580px;margin:auto}
+  .modal-bg{align-items:center}
+  .hero-name{font-size:26px}
+  .pg-v{font-size:24px}
+}
+@media(max-width:899px){.sidebar{display:none}}
+/* ── SUPPLEMENTS / PED / NEEDS ── */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{padding:9px 12px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t4);border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle}
+.tbl tr:last-child td{border:none}
+.tbl tr:hover td{background:rgba(255,255,255,.02)}
+.pg-ttl{font-size:20px;font-weight:900;letter-spacing:-.4px;margin-bottom:14px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 20px}
+.na-val{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:12px}
+.na-lbl2{font-size:10px;font-weight:700;color:var(--t4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.bloodwork-marker{text-align:center;padding:9px 12px;font-weight:700}
 </style>
 </head>
 <body>
@@ -252,6 +292,48 @@ select option{background:#1a1a1a}
 
 <!-- ═══ APP ═══ -->
 <div id="app">
+  <!-- Desktop Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sb-logo">Physique<span>Pathway</span></div>
+    <div class="sb-ver">Coaching Platform</div>
+    <div class="sb-client">
+      <select class="sb-sel" id="sbClientSel" onchange="switchClient(+this.value)"></select>
+      <div class="sb-btns">
+        <button class="btn btn-g btn-sm" id="sbCoachBtn" onclick="toggleCoach()" style="flex:1;font-size:11px">🔒 Coach Mode</button>
+        <button class="btn btn-r btn-sm co" id="sbAddBtn" onclick="openAddClient()" style="display:none;font-size:11px">+ Client</button>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sect">Client</div>
+      <button class="sni on" data-tab="overview" onclick="switchTab('overview')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Dashboard
+      </button>
+      <button class="sni" data-tab="nutrition" onclick="switchTab('nutrition')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Meal Plan
+      </button>
+      <button class="sni" data-tab="training" onclick="switchTab('training')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 5v14M18 5v14M6 8H4a1 1 0 00-1 1v6a1 1 0 001 1h2M18 8h2a1 1 0 011 1v6a1 1 0 01-1 1h-2M6 12h12"/></svg>Training Plan
+      </button>
+      <button class="sni" data-tab="supplements" onclick="switchTab('supplements')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7z"/></svg>Supplements
+      </button>
+      <button class="sni" data-tab="ped" onclick="switchTab('ped')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>PED Tracking
+      </button>
+      <div class="sb-sect">Tracking</div>
+      <button class="sni" data-tab="checkin" onclick="switchTab('checkin')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Check-in
+      </button>
+      <button class="sni" data-tab="progress" onclick="switchTab('progress')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Progression
+      </button>
+      <div class="sb-sect">Assessment</div>
+      <button class="sni" data-tab="needs" onclick="switchTab('needs')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Needs Analysis
+      </button>
+    </nav>
+    <div class="sb-foot"><div style="font-size:10px;color:var(--t4);text-align:center">Physique Pathway v2.0</div></div>
+  </div>
   <!-- Header -->
   <div class="hdr">
     <div class="hdr-logo">Physique<span>Pathway</span></div>
@@ -272,6 +354,12 @@ select option{background:#1a1a1a}
     <div class="pnl" id="pnl-checkin"></div>
     <!-- PROGRESS -->
     <div class="pnl" id="pnl-progress"></div>
+    <!-- SUPPLEMENTS -->
+    <div class="pnl" id="pnl-supplements"></div>
+    <!-- PED TRACKING -->
+    <div class="pnl" id="pnl-ped"></div>
+    <!-- NEEDS ANALYSIS -->
+    <div class="pnl" id="pnl-needs"></div>
   </div>
 
   <!-- Bottom nav -->
@@ -369,6 +457,86 @@ select option{background:#1a1a1a}
     <div class="ci-field"><label class="ci-lbl">Notes</label><textarea class="ci-inp" id="ci-notes" rows="3" placeholder="Any additional comments…" style="resize:none"></textarea></div>
     <button class="ci-btn" onclick="saveCheckIn()">Save Check-in</button>
     <button class="btn btn-g btn-full" style="margin-top:8px" onclick="closeModal('checkin')">Cancel</button>
+  </div>
+</div>
+
+<!-- Add Supplement Modal -->
+<div class="modal-bg hide" id="modal-addsupp">
+  <div class="modal">
+    <div class="modal-hdl"></div>
+    <div class="modal-ttl">Add Supplement</div>
+    <div class="fg"><label class="fl">Name</label><input class="fi" id="as-name" placeholder="e.g. Creatine Monohydrate"></div>
+    <div class="row">
+      <div class="fg" style="flex:1"><label class="fl">Dose</label><input class="fi" id="as-dose" placeholder="e.g. 5g"></div>
+      <div class="fg" style="flex:1"><label class="fl">Category</label><select class="fi-sel fi" id="as-cat"><option value="daily">Daily</option><option value="pre">Pre-workout</option><option value="post">Post-workout</option><option value="evening">Evening</option><option value="other">Other</option></select></div>
+    </div>
+    <div class="fg"><label class="fl">Timing</label><input class="fi" id="as-timing" placeholder="e.g. Post-workout / Morning with food"></div>
+    <div class="fg"><label class="fl">Purpose</label><input class="fi" id="as-purpose" placeholder="e.g. Strength & power output"></div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="as-notes" placeholder="Optional notes"></div>
+    <div class="row" style="margin-top:4px">
+      <button class="btn btn-g btn-full" onclick="closeModal('addsupp')">Cancel</button>
+      <button class="btn btn-r btn-full" onclick="saveAddSupp()">Add</button>
+    </div>
+  </div>
+</div>
+<!-- Edit Cycle Modal -->
+<div class="modal-bg hide" id="modal-editcycle">
+  <div class="modal">
+    <div class="modal-hdl"></div>
+    <div class="modal-ttl">Edit Current Cycle</div>
+    <div class="fg"><label class="fl">Cycle Name</label><input class="fi" id="ec-name" placeholder="e.g. Lean Bulk Cycle 1"></div>
+    <div class="fg"><label class="fl">Status</label><select class="fi-sel fi" id="ec-status"><option value="active">On Cycle</option><option value="pct">PCT</option><option value="off">Off Cycle</option></select></div>
+    <div class="row">
+      <div class="fg" style="flex:1"><label class="fl">Start Date</label><input class="fi" id="ec-start" type="date"></div>
+      <div class="fg" style="flex:1"><label class="fl">End Date</label><input class="fi" id="ec-end" type="date"></div>
+    </div>
+    <div class="fg"><label class="fl">PCT Protocol</label><input class="fi" id="ec-pct" placeholder="e.g. Nolvadex 40/40/20/20 × 4 weeks"></div>
+    <div class="fg"><label class="fl">Notes</label><textarea class="fi" id="ec-notes" rows="3" style="resize:none"></textarea></div>
+    <div class="row" style="margin-top:4px">
+      <button class="btn btn-g btn-full" onclick="closeModal('editcycle')">Cancel</button>
+      <button class="btn btn-r btn-full" onclick="saveEditCycle()">Save</button>
+    </div>
+  </div>
+</div>
+<!-- Add Compound Modal -->
+<div class="modal-bg hide" id="modal-addcompound">
+  <div class="modal">
+    <div class="modal-hdl"></div>
+    <div class="modal-ttl">Add Compound</div>
+    <div class="fg"><label class="fl">Compound Name</label><input class="fi" id="cp-name" placeholder="e.g. Testosterone Enanthate"></div>
+    <div class="row">
+      <div class="fg" style="flex:1"><label class="fl">Dose</label><input class="fi" id="cp-dose" placeholder="e.g. 500mg"></div>
+      <div class="fg" style="flex:1"><label class="fl">Route</label><select class="fi-sel fi" id="cp-route"><option>Injectable</option><option>Oral</option><option>Topical</option></select></div>
+    </div>
+    <div class="fg"><label class="fl">Frequency</label><input class="fi" id="cp-freq" placeholder="e.g. Twice/week (E3.5D)"></div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="cp-notes" placeholder="e.g. 250mg Mon + 250mg Thu"></div>
+    <div class="row" style="margin-top:4px">
+      <button class="btn btn-g btn-full" onclick="closeModal('addcompound')">Cancel</button>
+      <button class="btn btn-r btn-full" onclick="saveAddCompound()">Add</button>
+    </div>
+  </div>
+</div>
+<!-- Add Bloodwork Modal -->
+<div class="modal-bg hide" id="modal-addbw">
+  <div class="modal">
+    <div class="modal-hdl"></div>
+    <div class="modal-ttl">Log Bloodwork</div>
+    <div class="fg"><label class="fl">Date</label><input class="fi" id="bw-date" type="date"></div>
+    <div class="three-col" style="gap:0 12px">
+      <div class="fg"><label class="fl">Total T (ng/dL)</label><input class="fi" id="bw-tt" type="number" placeholder="800"></div>
+      <div class="fg"><label class="fl">Free T (pg/mL)</label><input class="fi" id="bw-ft" type="number" placeholder="18"></div>
+      <div class="fg"><label class="fl">E2 (pg/mL)</label><input class="fi" id="bw-e2" type="number" placeholder="28"></div>
+    </div>
+    <div class="three-col" style="gap:0 12px">
+      <div class="fg"><label class="fl">Hematocrit (%)</label><input class="fi" id="bw-hct" type="number" placeholder="44"></div>
+      <div class="fg"><label class="fl">AST</label><input class="fi" id="bw-ast" type="number" placeholder="25"></div>
+      <div class="fg"><label class="fl">ALT</label><input class="fi" id="bw-alt" type="number" placeholder="28"></div>
+    </div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="bw-notes" placeholder="e.g. Pre-cycle baseline"></div>
+    <div class="row" style="margin-top:4px">
+      <button class="btn btn-g btn-full" onclick="closeModal('addbw')">Cancel</button>
+      <button class="btn btn-r btn-full" onclick="saveAddBloodwork()">Save</button>
+    </div>
   </div>
 </div>
 
@@ -550,6 +718,46 @@ const defaultClients = [
       ],
     },
     checkIns:[],
+    supplements:[
+      {id:1,name:'Creatine Monohydrate',dose:'5g',timing:'Post-workout',purpose:'Strength & power output',category:'post',notes:''},
+      {id:2,name:'Omega-3 Fish Oil',dose:'3g',timing:'With meals',purpose:'Joint health, anti-inflammatory',category:'daily',notes:''},
+      {id:3,name:'Vitamin D3 + K2',dose:'5000IU / 100mcg',timing:'Morning with food',purpose:'General health, hormones',category:'daily',notes:''},
+      {id:4,name:'Magnesium Glycinate',dose:'400mg',timing:'Before bed',purpose:'Sleep quality & recovery',category:'evening',notes:''},
+      {id:5,name:'Caffeine + L-Theanine',dose:'200mg / 400mg',timing:'30 min pre-workout',purpose:'Focus & performance',category:'pre',notes:''},
+      {id:6,name:'NPL Platinum Whey',dose:'1 scoop (30g)',timing:'Post-workout',purpose:'Hit daily protein target',category:'post',notes:''},
+    ],
+    pedTracking:{
+      status:'active',
+      currentCycle:{
+        name:'Cycle 1 — Lean Bulk',startDate:'2026-01-03',endDate:'2026-04-25',
+        compounds:[
+          {name:'Testosterone Enanthate',dose:'500mg',frequency:'Twice/week (E3.5D)',route:'Injectable',notes:'250mg Mon + 250mg Thu'},
+        ],
+        pct:'Nolvadex 40/40/20/20mg × 4 weeks',
+        notes:'First cycle. Monitor BP and E2 levels. Bloodwork every 8 weeks.',
+      },
+      bloodwork:[
+        {date:'2026-01-02',totalTest:'480',freeTest:'12.1',estradiol:'22',hematocrit:'43',ast:'24',alt:'27',notes:'Pre-cycle baseline'},
+        {date:'2026-03-01',totalTest:'1840',freeTest:'38.2',estradiol:'44',hematocrit:'47',ast:'31',alt:'33',notes:'Week 8 — E2 elevated, consider AI'},
+      ],
+    },
+    needsAnalysis:{
+      assessmentDate:'2026-01-03',
+      occupation:'Sales professional',activityLevel:'Moderately active (desk job)',
+      stressLevel:'Moderate',sleepAvg:7,
+      trainingAge:'3 years',trainingFrequency:'4×/week',
+      trainingHistory:'Started with basic PPL. Progressed to LPPU. Consistent for 18 months.',
+      injuryHistory:'Minor lower back strain 2024 — fully resolved. No current issues.',
+      equipment:'Full commercial gym access',
+      currentCalories:3200,currentProtein:180,
+      dietaryRestrictions:'None',supplementHistory:'Creatine, protein powder, basic vitamins',
+      primaryGoal:'Build lean muscle — target 115kg at similar body fat',
+      timeframe:'12 months',targetWeight:115,
+      strengths:'Excellent training consistency, strong lower body base, responds well to volume',
+      weaknesses:'Upper back lagging, weekend nutrition compliance inconsistent',
+      recommendations:'Prioritise upper back volume. Implement structured carb cycling. Weekly WhatsApp check-ins.',
+      coachNotes:'Highly motivated client. Needs accountability on nutrition side. PED protocol conservative — monitor bloods every 8 weeks.',
+    },
   }
 ];
 
@@ -601,6 +809,8 @@ function enterCoachMode(){
   document.getElementById('coachBtn').classList.add('coach-on');
   document.getElementById('coachBtn').textContent='🔓';
   document.getElementById('addClientBtn').style.display='flex';
+  const sb=document.getElementById('sbCoachBtn');if(sb){sb.textContent='🔓 Coach Mode';sb.className='btn btn-r btn-sm';sb.style.flex='1';sb.style.fontSize='11px';}
+  const sbAdd=document.getElementById('sbAddBtn');if(sbAdd)sbAdd.style.display='flex';
   init();
 }
 function enterClientMode(){
@@ -609,11 +819,13 @@ function enterClientMode(){
   document.getElementById('app').style.display='flex';
   document.getElementById('coachBtn').textContent='🔒';
   document.getElementById('addClientBtn').style.display='none';
+  const sb=document.getElementById('sbCoachBtn');if(sb){sb.textContent='🔒 Coach Mode';sb.className='btn btn-g btn-sm';sb.style.flex='1';sb.style.fontSize='11px';}
+  const sbAdd=document.getElementById('sbAddBtn');if(sbAdd)sbAdd.style.display='none';
   init();
 }
 function toggleCoach(){
   if(!isCoach){pin='';updateDots();document.getElementById('auth').style.display='flex';document.getElementById('app').style.display='none';}
-  else{isCoach=false;document.body.classList.remove('coach');document.getElementById('coachBtn').classList.remove('coach-on');document.getElementById('coachBtn').textContent='🔒';document.getElementById('addClientBtn').style.display='none';renderAll();}
+  else{isCoach=false;document.body.classList.remove('coach');document.getElementById('coachBtn').classList.remove('coach-on');document.getElementById('coachBtn').textContent='🔒';document.getElementById('addClientBtn').style.display='none';const sb=document.getElementById('sbCoachBtn');if(sb){sb.textContent='🔒 Coach Mode';sb.className='btn btn-g btn-sm';sb.style.flex='1';sb.style.fontSize='11px';}const sbAdd=document.getElementById('sbAddBtn');if(sbAdd)sbAdd.style.display='none';renderAll();}
 }
 document.addEventListener('keydown',e=>{
   if(document.getElementById('auth').style.display==='none')return;
@@ -628,11 +840,14 @@ function switchTab(t){
   document.querySelectorAll('.pnl').forEach(p=>p.classList.remove('on'));
   document.getElementById('pnl-'+t).classList.add('on');
   document.querySelectorAll('.ni').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+  document.querySelectorAll('.sni').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
   document.getElementById('mainScroll').scrollTop=0;
   renderTab(t);
 }
 function switchClient(id){
   activeCId=id;activeNutTab='moderate';openMeals={};openDays={};
+  const sel=document.getElementById('clientSel');if(sel)sel.value=id;
+  const ssel=document.getElementById('sbClientSel');if(ssel)ssel.value=id;
   renderAll();
 }
 function client(){return state.clients.find(c=>c.id===activeCId)||state.clients[0];}
@@ -642,9 +857,8 @@ function init(){
   buildClientSel();activeCId=state.clients[0]?.id||1;renderAll();
 }
 function buildClientSel(){
-  const sel=document.getElementById('clientSel');
-  sel.innerHTML=state.clients.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
-  sel.value=activeCId;
+  const opts=state.clients.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  ['clientSel','sbClientSel'].forEach(id=>{const el=document.getElementById(id);if(el){el.innerHTML=opts;el.value=activeCId;}});
 }
 function renderAll(){switchTab(activeTab);}
 function renderTab(t){
@@ -655,6 +869,9 @@ function renderTab(t){
   else if(t==='training')renderTraining(c);
   else if(t==='checkin')renderCheckIn(c);
   else if(t==='progress')renderProgress(c);
+  else if(t==='supplements')renderSupplements(c);
+  else if(t==='ped')renderPED(c);
+  else if(t==='needs')renderNeeds(c);
 }
 
 // ══════════════════════════════════════════
@@ -997,15 +1214,41 @@ function renderProgress(c){
   const start=checkins[0];
   const totalChg=last&&start?(last.bodyWeight-start.bodyWeight).toFixed(1):null;
   const avg4=checkins.slice(-4);
-  const avg4Wt=avg4.length?( avg4.reduce((a,w)=>a+w.bodyWeight,0)/avg4.length).toFixed(1):null;
+  const avg4Wt=avg4.length?(avg4.reduce((a,w)=>a+w.bodyWeight,0)/avg4.length).toFixed(1):null;
   const avgNutr=cis.length?(cis.slice(-4).reduce((a,ci)=>a+(ci.nutritionAccuracy||0),0)/Math.min(4,cis.length)).toFixed(1):null;
   const avgSleep=cis.length?(cis.slice(-4).reduce((a,ci)=>a+(ci.sleep||0),0)/Math.min(4,cis.length)).toFixed(1):null;
+  const avgTraining=cis.length?(cis.slice(-4).reduce((a,ci)=>a+(ci.trainingPerformance||0),0)/Math.min(4,cis.length)).toFixed(1):null;
+  const avgWater=cis.length?(cis.slice(-4).reduce((a,ci)=>a+(ci.waterIntake||0),0)/Math.min(4,cis.length)).toFixed(1):null;
+  // weekly averages table from check-ins
+  const weekRows=cis.slice().reverse().map((ci,i,arr)=>{
+    const prev=arr[i+1];
+    const chg=prev?(ci.bodyWeight-prev.bodyWeight).toFixed(1):null;
+    const chgCol=chg===null?'var(--t3)':parseFloat(chg)>0?'#f87171':'#4ade80';
+    const chgTxt=chg===null?'—':(parseFloat(chg)>0?'+':'')+chg+'kg';
+    const nColor=ci.nutritionAccuracy>=7?'#4ade80':ci.nutritionAccuracy<=4?'#f87171':'#fbbf24';
+    const sColor=ci.sleep>=7?'#4ade80':ci.sleep<6?'#f87171':'#fbbf24';
+    const tColor=ci.trainingPerformance>=7?'#4ade80':ci.trainingPerformance<=4?'#f87171':'#fbbf24';
+    return`<tr>
+      <td style="color:var(--t3)">${fmtDate(ci.date)}</td>
+      <td style="font-weight:800;font-size:13px">${ci.bodyWeight}kg</td>
+      <td style="text-align:center;color:${chgCol};font-weight:700">${chgTxt}</td>
+      <td style="text-align:center;color:${nColor};font-weight:700">${ci.nutritionAccuracy||'—'}/10</td>
+      <td style="text-align:center">${ci.waterIntake||'—'}L</td>
+      <td style="text-align:center;color:${sColor};font-weight:700">${ci.sleep||'—'}h</td>
+      <td style="text-align:center;color:${tColor};font-weight:700">${ci.trainingPerformance||'—'}/10</td>
+      <td style="text-align:center;font-size:11px;color:var(--t3)">${ci.cardio||'—'}</td>
+      <td style="font-size:10px;color:var(--t4)">${ci.digestion||'—'}</td>
+    </tr>`;
+  }).join('');
   document.getElementById('pnl-progress').innerHTML=`
-    <div class="prog-grid">
+    <div class="pg-ttl">Progression Tracker</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
       <div class="pg"><div class="pg-v ${parseFloat(totalChg)>0?'neg':'pos'}">${totalChg!==null?(parseFloat(totalChg)>0?'+':'')+totalChg+'kg':'—'}</div><div class="pg-l">Total Change</div></div>
-      <div class="pg"><div class="pg-v">${avg4Wt||'—'}kg</div><div class="pg-l">4-Week Avg</div></div>
+      <div class="pg"><div class="pg-v">${avg4Wt||'—'}kg</div><div class="pg-l">4-Week Avg Weight</div></div>
       <div class="pg"><div class="pg-v ${parseFloat(avgNutr)>=7?'pos':parseFloat(avgNutr)<5?'neg':''}">${avgNutr||'—'}/10</div><div class="pg-l">Avg Nutrition</div></div>
       <div class="pg"><div class="pg-v ${parseFloat(avgSleep)>=7?'pos':parseFloat(avgSleep)<6?'neg':''}">${avgSleep||'—'}h</div><div class="pg-l">Avg Sleep</div></div>
+      <div class="pg"><div class="pg-v ${parseFloat(avgTraining)>=7?'pos':parseFloat(avgTraining)<5?'neg':''}">${avgTraining||'—'}/10</div><div class="pg-l">Avg Training Perf</div></div>
+      <div class="pg"><div class="pg-v">${avgWater||'—'}L</div><div class="pg-l">Avg Water</div></div>
     </div>
     <div class="chart-wrap">
       <div class="chart-ttl">Weight Progression — ${new Date().getFullYear()}</div>
@@ -1015,25 +1258,185 @@ function renderProgress(c){
       <div class="chart-ttl">Volume — Sets per Muscle Group</div>
       ${buildVolumeChart(c)}
     </div>
-    ${cis.length?`<div class="sec">Check-in History</div>
-    <div class="card" style="padding:0;overflow:hidden">
-      ${cis.slice().reverse().slice(0,8).map(ci=>`
-      <div style="padding:10px 13px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:70px 1fr 1fr;gap:8px;align-items:center">
-        <span style="font-size:10px;color:var(--t3)">${fmtDate(ci.date)}</span>
-        <span style="font-size:15px;font-weight:800">${ci.bodyWeight}kg</span>
-        <div style="display:flex;flex-wrap:wrap;gap:4px">
-          <span class="chip">Nutr ${ci.nutritionAccuracy||'—'}/10</span>
-          <span class="chip">Sleep ${ci.sleep||'—'}h</span>
-          ${ci.cardio?`<span class="chip">${ci.cardio}</span>`:''}
-        </div>
-      </div>`).join('')}
-    </div>`:''}
+    <div class="sec">Weekly Check-in Data</div>
+    <div class="card" style="padding:0;overflow:hidden;overflow-x:auto">
+      ${cis.length?`<table class="tbl" style="min-width:640px">
+        <thead><tr>
+          <th>Date</th><th>Weight</th><th style="text-align:center">Change</th>
+          <th style="text-align:center">Nutrition</th><th style="text-align:center">Water</th>
+          <th style="text-align:center">Sleep</th><th style="text-align:center">Training</th>
+          <th style="text-align:center">Cardio</th><th>Digestion</th>
+        </tr></thead>
+        <tbody>${weekRows}</tbody>
+      </table>`:`<div style="padding:24px;text-align:center;color:var(--t4)">No check-ins logged yet. Add check-ins to track weekly averages.</div>`}
+    </div>
     <div style="height:8px"></div>`;
 }
 
 // ══════════════════════════════════════════
 // PROFILE MODALS
 // ══════════════════════════════════════════
+// ══════════════════════════════════════════
+// SUPPLEMENTS TAB
+// ══════════════════════════════════════════
+function renderSupplements(c){
+  if(!c.supplements)c.supplements=[];
+  const catCol={daily:'#60a5fa',pre:'#f87171',post:'#4ade80',evening:'#c4b5fd',other:'#94a3b8'};
+  const catLabel={daily:'Daily',pre:'Pre-workout',post:'Post-workout',evening:'Evening',other:'Other'};
+  const rows=c.supplements.map((s,i)=>`<tr>
+    <td><span style="padding:2px 8px;border-radius:5px;font-size:9px;font-weight:700;background:rgba(255,255,255,.06);color:${catCol[s.category]||'#94a3b8'}">${catLabel[s.category]||s.category}</span></td>
+    <td style="font-weight:700">${s.name}</td>
+    <td>${s.dose}</td>
+    <td style="color:var(--t3)">${s.timing}</td>
+    <td style="color:var(--t3)">${s.purpose}</td>
+    ${isCoach?`<td><button class="btn btn-g btn-sm" style="padding:4px 8px;font-size:10px" onclick="removeSupp(${i})">Remove</button></td>`:'<td></td>'}
+  </tr>`).join('');
+  const schedule=['Morning','Pre-workout','Post-workout','Evening'].map(time=>{
+    const catMap={'Morning':'daily','Pre-workout':'pre','Post-workout':'post','Evening':'evening'};
+    const items=c.supplements.filter(s=>s.category===catMap[time]);
+    return`<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid var(--border)">
+      <div style="min-width:100px;font-size:10px;font-weight:700;color:var(--t4);text-transform:uppercase;letter-spacing:.07em;padding-top:2px">${time}</div>
+      <div style="flex:1;font-size:12px">${items.length?items.map(s=>`<span style="margin-right:10px"><b>${s.name}</b> <span style="color:var(--t3)">${s.dose}</span></span>`).join(''):`<span style="color:var(--t4)">—</span>`}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('pnl-supplements').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="pg-ttl" style="margin:0">Supplements Protocol</div>
+      ${isCoach?`<button class="btn btn-r btn-sm" onclick="openAddSupp()">+ Add Supplement</button>`:''}
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;overflow-x:auto;margin-bottom:10px">
+      <table class="tbl" style="min-width:520px">
+        <thead><tr><th>Category</th><th>Supplement</th><th>Dose</th><th>Timing</th><th>Purpose</th><th></th></tr></thead>
+        <tbody>${rows||`<tr><td colspan="6" style="padding:24px;text-align:center;color:var(--t4)">No supplements added yet.</td></tr>`}</tbody>
+      </table>
+    </div>
+    <div class="sec">Daily Schedule</div>
+    <div class="card" style="padding:0;overflow:hidden">${schedule}</div>`;
+}
+function removeSupp(i){const c=client();c.supplements.splice(i,1);save();renderSupplements(c);}
+function openAddSupp(){openModal('addsupp');}
+function saveAddSupp(){
+  const c=client();if(!c.supplements)c.supplements=[];
+  const name=document.getElementById('as-name').value.trim();if(!name)return;
+  c.supplements.push({id:Date.now(),name,dose:document.getElementById('as-dose').value.trim(),timing:document.getElementById('as-timing').value.trim(),purpose:document.getElementById('as-purpose').value.trim(),category:document.getElementById('as-cat').value,notes:document.getElementById('as-notes').value.trim()});
+  save();closeModal('addsupp');renderSupplements(c);
+}
+
+// ══════════════════════════════════════════
+// PED TRACKING TAB
+// ══════════════════════════════════════════
+function renderPED(c){
+  if(!c.pedTracking)c.pedTracking={status:'off',currentCycle:{name:'',startDate:'',endDate:'',compounds:[],pct:'',notes:''},bloodwork:[]};
+  const pt=c.pedTracking;const cc=pt.currentCycle||{};
+  const statusCol={active:'#4ade80',pct:'#fbbf24',off:'var(--t4)'}[pt.status]||'var(--t4)';
+  const statusLbl={active:'ON CYCLE',pct:'PCT',off:'OFF CYCLE'}[pt.status]||'OFF';
+  const compounds=(cc.compounds||[]).map((cp,i)=>`
+    <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)">
+      <div style="flex:1"><div style="font-size:13px;font-weight:800">${cp.name}</div><div style="font-size:11px;color:var(--t3);margin-top:2px">${cp.route} · ${cp.frequency}</div>${cp.notes?`<div style="font-size:10px;color:var(--t4);margin-top:1px">${cp.notes}</div>`:''}</div>
+      <div style="text-align:right;flex-shrink:0"><div style="font-size:17px;font-weight:900;color:var(--red)">${cp.dose}</div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em">per dose</div></div>
+      ${isCoach?`<button class="btn btn-g btn-sm" style="padding:4px 8px;font-size:10px" onclick="removeCompound(${i})">✕</button>`:''}
+    </div>`).join('');
+  const bwRows=(pt.bloodwork||[]).slice().reverse().map(bw=>`<tr>
+    <td style="color:var(--t3)">${fmtDate(bw.date)}</td>
+    <td class="bloodwork-marker" style="color:${+bw.totalTest>1000?'#f87171':+bw.totalTest>300?'#4ade80':'var(--t3)'}">${bw.totalTest||'—'}</td>
+    <td class="bloodwork-marker" style="color:var(--t2)">${bw.freeTest||'—'}</td>
+    <td class="bloodwork-marker" style="color:${+bw.estradiol>40?'#f87171':'#4ade80'}">${bw.estradiol||'—'}</td>
+    <td class="bloodwork-marker" style="color:${+bw.hematocrit>50?'#f87171':'#60a5fa'}">${bw.hematocrit||'—'}%</td>
+    <td class="bloodwork-marker" style="color:${+bw.ast>40?'#f87171':'#4ade80'}">${bw.ast||'—'}</td>
+    <td class="bloodwork-marker" style="color:${+bw.alt>40?'#f87171':'#4ade80'}">${bw.alt||'—'}</td>
+    <td style="font-size:10px;color:var(--t3)">${bw.notes||''}</td>
+  </tr>`).join('');
+  document.getElementById('pnl-ped').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="pg-ttl" style="margin:0">PED Tracking</div>
+        <span style="padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(255,255,255,.06);color:${statusCol}">${statusLbl}</span>
+      </div>
+      ${isCoach?`<div style="display:flex;gap:8px"><button class="btn btn-g btn-sm" onclick="openAddCompound()">+ Compound</button><button class="btn btn-g btn-sm" onclick="openEditCycle()">Edit Cycle</button><button class="btn btn-r btn-sm" onclick="document.getElementById('bw-date').value=new Date().toISOString().split('T')[0];openModal('addbw')">+ Bloodwork</button></div>`:''}
+    </div>
+    <div class="card" style="margin-bottom:10px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:${compounds?'0':'0'}">
+        <div><div style="font-size:15px;font-weight:800;margin-bottom:3px">${cc.name||'No cycle set'}</div>
+        <div style="font-size:11px;color:var(--t3)">${cc.startDate?fmtDate(cc.startDate)+' → '+fmtDate(cc.endDate):''}</div></div>
+      </div>
+      ${compounds||`<div style="color:var(--t4);font-size:12px;padding:12px 0">No compounds added. ${isCoach?'Click "+ Compound" to add.':''}</div>`}
+      ${cc.pct?`<div style="margin-top:12px;padding:10px 12px;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:9px"><div style="font-size:9px;font-weight:700;color:#fbbf24;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">PCT Protocol</div><div style="font-size:12px;color:var(--t2)">${cc.pct}</div></div>`:''}
+      ${cc.notes?`<div style="margin-top:10px;font-size:11px;color:var(--t3);border-top:1px solid var(--border);padding-top:10px">${cc.notes}</div>`:''}
+    </div>
+    <div class="sec">Bloodwork Log</div>
+    <div class="card" style="padding:0;overflow:hidden;overflow-x:auto">
+      <table class="tbl" style="min-width:560px">
+        <thead><tr><th>Date</th><th style="text-align:center">Total T<br><span style="font-weight:400;text-transform:none">(ng/dL)</span></th><th style="text-align:center">Free T<br><span style="font-weight:400;text-transform:none">(pg/mL)</span></th><th style="text-align:center">E2<br><span style="font-weight:400;text-transform:none">(pg/mL)</span></th><th style="text-align:center">HCT<br><span style="font-weight:400;text-transform:none">(%)</span></th><th style="text-align:center">AST</th><th style="text-align:center">ALT</th><th>Notes</th></tr></thead>
+        <tbody>${bwRows||`<tr><td colspan="8" style="padding:20px;text-align:center;color:var(--t4)">No bloodwork logged yet.</td></tr>`}</tbody>
+      </table>
+    </div>`;
+}
+function openEditCycle(){
+  const c=client();const cc=c.pedTracking?.currentCycle||{};
+  document.getElementById('ec-name').value=cc.name||'';
+  document.getElementById('ec-status').value=c.pedTracking?.status||'off';
+  document.getElementById('ec-start').value=cc.startDate||'';
+  document.getElementById('ec-end').value=cc.endDate||'';
+  document.getElementById('ec-pct').value=cc.pct||'';
+  document.getElementById('ec-notes').value=cc.notes||'';
+  openModal('editcycle');
+}
+function saveEditCycle(){
+  const c=client();if(!c.pedTracking)c.pedTracking={status:'off',currentCycle:{compounds:[]},bloodwork:[]};
+  c.pedTracking.status=document.getElementById('ec-status').value;
+  Object.assign(c.pedTracking.currentCycle,{name:document.getElementById('ec-name').value,startDate:document.getElementById('ec-start').value,endDate:document.getElementById('ec-end').value,pct:document.getElementById('ec-pct').value,notes:document.getElementById('ec-notes').value});
+  save();closeModal('editcycle');renderPED(c);
+}
+function openAddCompound(){openModal('addcompound');}
+function saveAddCompound(){
+  const c=client();const name=document.getElementById('cp-name').value.trim();if(!name)return;
+  if(!c.pedTracking?.currentCycle)return;
+  if(!c.pedTracking.currentCycle.compounds)c.pedTracking.currentCycle.compounds=[];
+  c.pedTracking.currentCycle.compounds.push({name,dose:document.getElementById('cp-dose').value,route:document.getElementById('cp-route').value,frequency:document.getElementById('cp-freq').value,notes:document.getElementById('cp-notes').value});
+  save();closeModal('addcompound');renderPED(c);
+}
+function removeCompound(i){const c=client();c.pedTracking.currentCycle.compounds.splice(i,1);save();renderPED(c);}
+function saveAddBloodwork(){
+  const c=client();if(!c.pedTracking)c.pedTracking={status:'off',currentCycle:{compounds:[]},bloodwork:[]};
+  if(!c.pedTracking.bloodwork)c.pedTracking.bloodwork=[];
+  c.pedTracking.bloodwork.push({date:document.getElementById('bw-date').value,totalTest:document.getElementById('bw-tt').value,freeTest:document.getElementById('bw-ft').value,estradiol:document.getElementById('bw-e2').value,hematocrit:document.getElementById('bw-hct').value,ast:document.getElementById('bw-ast').value,alt:document.getElementById('bw-alt').value,notes:document.getElementById('bw-notes').value});
+  save();closeModal('addbw');renderPED(c);
+}
+
+// ══════════════════════════════════════════
+// NEEDS ANALYSIS TAB
+// ══════════════════════════════════════════
+function renderNeeds(c){
+  if(!c.needsAnalysis)c.needsAnalysis={};
+  const na=c.needsAnalysis;
+  function fi(label,key,type='text'){
+    const val=na[key]||'';
+    if(isCoach)return`<div class="fg"><label class="fl">${label}</label><input class="fi" value="${val}" onchange="updateNA('${key}',this.value)" type="${type}"></div>`;
+    return`<div style="margin-bottom:12px"><div class="na-lbl2">${label}</div><div class="na-val">${val||'—'}</div></div>`;
+  }
+  function ta(label,key){
+    const val=na[key]||'';
+    if(isCoach)return`<div class="fg"><label class="fl">${label}</label><textarea class="fi" rows="3" style="resize:vertical" onchange="updateNA('${key}',this.value)">${val}</textarea></div>`;
+    return`<div style="margin-bottom:12px"><div class="na-lbl2">${label}</div><div class="na-val">${val||'—'}</div></div>`;
+  }
+  document.getElementById('pnl-needs').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="pg-ttl" style="margin:0">Needs Analysis</div>
+      <span style="font-size:11px;color:var(--t3)">${na.assessmentDate?'Assessed '+fmtDate(na.assessmentDate):''}</span>
+    </div>
+    <div class="sec" style="margin-top:0">Personal</div>
+    <div class="card"><div class="two-col">${fi('Occupation','occupation')}${fi('Activity Level','activityLevel')}${fi('Stress Level','stressLevel')}${fi('Avg Sleep (hrs)','sleepAvg','number')}</div></div>
+    <div class="sec">Training Background</div>
+    <div class="card"><div class="three-col">${fi('Training Age','trainingAge')}${fi('Frequency','trainingFrequency')}${fi('Equipment','equipment')}</div>${ta('Training History','trainingHistory')}${ta('Injury History','injuryHistory')}</div>
+    <div class="sec">Nutrition</div>
+    <div class="card"><div class="three-col">${fi('Current Calories','currentCalories','number')}${fi('Current Protein (g)','currentProtein','number')}${fi('Dietary Restrictions','dietaryRestrictions')}</div>${ta('Supplement History','supplementHistory')}</div>
+    <div class="sec">Goals</div>
+    <div class="card"><div class="three-col">${fi('Primary Goal','primaryGoal')}${fi('Timeframe','timeframe')}${fi('Target Weight (kg)','targetWeight','number')}</div></div>
+    <div class="sec">Coach Assessment</div>
+    <div class="card">${ta('Strengths','strengths')}${ta('Weaknesses / Areas to Improve','weaknesses')}${ta('Recommendations','recommendations')}${ta('Coach Notes (private)','coachNotes')}</div>`;
+}
+function updateNA(key,val){const c=client();if(!c.needsAnalysis)c.needsAnalysis={};c.needsAnalysis[key]=val;save();}
+
 function openAddClient(){openModal('addclient');}
 function saveNewClient(){
   const name=document.getElementById('nc-name').value.trim();
