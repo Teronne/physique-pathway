@@ -10,9 +10,11 @@
 <body>
 <div id="boot">Loading Physique Pathway Business HQ…</div>
 <script>
-fetch('business-hq-v3.html?v=6').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(html=>{
-  // Fix supplied logo asset path.
-  html=html.replaceAll('./physique-pathway-logo.png?v=3','assets/physique-pathway-logo.png?v=6');
+fetch('business-hq-v3.html?v=7').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(html=>{
+  const BRAND_LOGO='assets/physique-pathway-logo-transparent.png?v=7';
+
+  // Replace the original image asset everywhere with the clean transparent crop of the user's supplied logo.
+  html=html.replaceAll('./physique-pathway-logo.png?v=3',BRAND_LOGO);
 
   // Preserve Jan-Jul historical revenue, seed 1-10 Aug with the transition estimate,
   // then add actual payment records from the new system on top of August and future months.
@@ -28,7 +30,7 @@ const mrr=()=>S.billing.filter(b=>b.active).reduce((a,b)=>a+Number(b.monthly_equ
 
   html=html.replace(
     /function earnings\(\)\{[\s\S]*?\nfunction planner\(\)/,
-    `function earnings(){if(!owner())return'';let y=new Date().getFullYear(),annual=cashYear(y),nowM=new Date().getMonth()+1,elapsed=Math.max(1,nowM),avg=annual/elapsed;return title('Earnings','Historical revenue preserved, with new payments added automatically.')+\`<div class="grid four"><div class="card"><div class="label">Revenue this year</div><div class="value gold">\${money(annual)}</div></div><div class="card"><div class="label">Revenue this month</div><div class="value">\${money(cashMonth(y,nowM))}</div></div><div class="card"><div class="label">Average / elapsed month</div><div class="value">\${money(avg)}</div></div><div class="card"><div class="label">Current monthly equivalent</div><div class="value green">\${money(mrr())}</div></div></div><div class="note section">January–July 2026 stay exactly as previously recorded. August begins with a R13,000 transition estimate for payments that fell between 1–10 August, then adds payments recorded in the new system. Lump sums count in full in the month received.</div><div class="tablewrap section"><table><thead><tr><th>Month</th><th>Revenue</th><th>Source</th></tr></thead><tbody>\${Array.from({length:12},(_,i)=>{let m=i+1,val=cashMonth(y,m),src=y===2026&&m<=7?'Previous dashboard':y===2026&&m===8?'R13,000 transition estimate + new recorded payments':'Recorded payments';return\`<tr><td>\${new Date(y,i).toLocaleString('en',{month:'long'})}</td><td><b>\${money(val)}</b></td><td><span class="sub">\${src}</span></td></tr>\`}).join('')}</tbody></table></div><div class="card section"><div class="sectionhead"><h2>\${y} income chart</h2></div>\${incomeChart(y)}</div>\`}
+    `function earnings(){if(!owner())return'';let y=new Date().getFullYear(),annual=cashYear(y),nowM=new Date().getMonth()+1,elapsed=Math.max(1,nowM),avg=annual/elapsed;return title('Earnings','Historical revenue preserved, with new payments added automatically.')+\`<div class="grid four"><div class="card"><div class="label">Revenue this year</div><div class="value gold">\${money(annual)}</div></div><div class="card"><div class="label">Revenue this month</div><div class="value gold">\${money(cashMonth(y,nowM))}</div></div><div class="card"><div class="label">Average / elapsed month</div><div class="value">\${money(avg)}</div></div><div class="card"><div class="label">Current monthly equivalent</div><div class="value green">\${money(mrr())}</div></div></div><div class="note section">January–July 2026 stay exactly as previously recorded. August begins with a R13,000 transition estimate for payments that fell between 1–10 August, then adds payments recorded in the new system. Lump sums count in full in the month received.</div><div class="tablewrap section"><table><thead><tr><th>Month</th><th>Revenue</th><th>Source</th></tr></thead><tbody>\${Array.from({length:12},(_,i)=>{let m=i+1,val=cashMonth(y,m),src=y===2026&&m<=7?'Previous dashboard':y===2026&&m===8?'R13,000 transition estimate + new recorded payments':'Recorded payments';return\`<tr><td>\${new Date(y,i).toLocaleString('en',{month:'long'})}</td><td><b>\${money(val)}</b></td><td><span class="sub">\${src}</span></td></tr>\`}).join('')}</tbody></table></div><div class="card section"><div class="sectionhead"><h2>\${y} income chart</h2></div>\${incomeChart(y)}</div>\`}
 function planner()`
   );
 
@@ -40,8 +42,29 @@ function planner()`
 function addContent()`
   );
 
-  // Make show highlighting work with the database's lowercase event types.
   html=html.replaceAll("x.item_type==='Show'","String(x.item_type).toLowerCase()==='show'");
+
+  // Physique Pathway brand pass: use the real supplied logo and the black/red/gold/white system.
+  const brandCSS=`<style id="pp-brand-v7">
+:root{--bg:#070707!important;--p:#111111!important;--p2:#171717!important;--line:#2a2a2a!important;--text:#f5f5f2!important;--muted:#989898!important;--red:#a41624!important;--gold:#d6ae32!important;--green:#58c982!important;--blue:#cfcfcf!important;--bad:#df4052!important}
+html,body{background:#070707!important;color:#f5f5f2!important}
+body{background-image:radial-gradient(circle at 15% -10%,rgba(164,22,36,.10),transparent 30%),linear-gradient(#070707,#090909)!important;background-attachment:fixed!important}
+.logoCrop{overflow:visible!important;position:relative!important;display:flex!important;align-items:center!important}.logoCrop img{position:static!important;width:100%!important;height:100%!important;object-fit:contain!important;max-width:100%!important}.logoLogin{width:min(330px,88%)!important;height:112px!important;margin:0 auto 18px!important}.logoTop{width:225px!important;height:52px!important}
+.authbox{background:#101010!important;border:1px solid #333!important;border-top:3px solid #a41624!important;box-shadow:0 24px 80px rgba(0,0,0,.5)!important}.auth h1{font-weight:850!important;letter-spacing:-.02em!important}.auth .muted{color:#969696!important}
+.top{background:rgba(7,7,7,.96)!important;border-bottom:1px solid #2a2a2a!important;box-shadow:0 10px 30px rgba(0,0,0,.22)!important}.role{background:#2a0d12!important;color:#f0aab3!important;border:1px solid #5b1b24!important}
+aside{background:#0a0a0a!important;border-right:1px solid #262626!important}.nav button{position:relative!important;color:#a7a7a7!important;font-weight:650!important;transition:.16s ease!important}.nav button:hover{background:#151515!important;color:#fff!important}.nav button.on{background:#171717!important;color:#fff!important;box-shadow:inset 3px 0 0 #a41624!important}.nav button.money{color:#d8c88f!important}.nav button.money.on{color:#fff!important}
+.title h1{font-weight:900!important;letter-spacing:-.035em!important}.title p{color:#909090!important}.sectionhead h2,.label{color:#9d9d9d!important}.sectionhead h2{letter-spacing:.13em!important}.value{font-weight:900!important;letter-spacing:-.03em!important}.gold{color:#d6ae32!important}.green{color:#58c982!important}.bad{color:#e85564!important}
+.card,.item,.study{background:#111!important;border:1px solid #292929!important;box-shadow:0 8px 22px rgba(0,0,0,.14)!important}.card:hover,.item:hover{border-color:#383838!important}.tablewrap{background:#101010!important;border-color:#2b2b2b!important}th{background:#0b0b0b!important;color:#9f9f9f!important;border-bottom-color:#303030!important}td{border-bottom-color:#242424!important}tbody tr:hover td{background:#141414!important}
+.input{background:#0c0c0c!important;border-color:#343434!important;color:#fff!important}.input:focus{border-color:#d6ae32!important;box-shadow:0 0 0 2px rgba(214,174,50,.12)!important}select.input{accent-color:#a41624!important}
+.btn{background:#191919!important;border-color:#373737!important;color:#f5f5f2!important;font-weight:700!important}.btn:hover{background:#232323!important;border-color:#4a4a4a!important}.btn.primary{background:#d6ae32!important;border-color:#d6ae32!important;color:#0a0a0a!important;font-weight:900!important;box-shadow:0 5px 18px rgba(214,174,50,.12)!important}.btn.primary:hover{background:#e1bc47!important;border-color:#e1bc47!important}.btn.red{background:#a41624!important;border-color:#a41624!important;color:#fff!important}
+.pill{background:#252525!important;color:#d0d0d0!important;border:1px solid #353535!important}.pill.payfast,.pill.eft{background:#202020!important;color:#ddd!important;border-color:#363636!important}.pill.lump{background:#2c2512!important;color:#e5c960!important;border-color:#504522!important}.pill.ok{background:#10291a!important;color:#72d796!important;border-color:#1f5134!important}.pill.due{background:#33290d!important;color:#e7c35c!important;border-color:#57461b!important}.pill.over{background:#361116!important;color:#ff7e8a!important;border-color:#641c27!important}
+.note{background:#18150c!important;border-color:#403616!important;color:#d9c27c!important}.bar{background:#d6ae32!important}.bar.zero{background:#2c2c2c!important}.chart{border-top-color:#2a2a2a!important}
+.modal{background:rgba(0,0,0,.78)!important;backdrop-filter:blur(6px)!important}.modalbox{background:#111!important;border:1px solid #3a3a3a!important;border-top:3px solid #a41624!important;box-shadow:0 30px 90px rgba(0,0,0,.65)!important}.modalhead h2{font-weight:900!important}
+.col{background:#0d0d0d!important;border-color:#2c2c2c!important}.col:nth-child(2){border-top:2px solid #7d671e!important}.col:nth-child(3){border-top:2px solid #d6ae32!important}.col:nth-child(4){border-top:2px solid #3d9b61!important}.study summary{color:#d6ae32!important}
+.mobileNav{background:rgba(8,8,8,.97)!important;border-top-color:#292929!important}.mobileNav button.on{color:#d6ae32!important;box-shadow:inset 0 3px 0 #a41624!important}
+@media(max-width:580px){.logoTop{width:162px!important;height:42px!important}.logoLogin{width:min(290px,90%)!important;height:98px!important}.top{padding:0 10px!important}}
+</style>`;
+  html=html.replace('</head>',brandCSS+'</head>');
 
   document.open();document.write(html);document.close();
 }).catch(err=>{document.getElementById('boot').textContent='Dashboard failed to load: '+err.message});
