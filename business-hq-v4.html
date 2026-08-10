@@ -10,9 +10,9 @@
 <body>
 <div id="boot">Loading Physique Pathway Business HQ…</div>
 <script>
-fetch('business-hq-v3.html?v=5').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(html=>{
+fetch('business-hq-v3.html?v=6').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(html=>{
   // Fix supplied logo asset path.
-  html=html.replaceAll('./physique-pathway-logo.png?v=3','assets/physique-pathway-logo.png?v=5');
+  html=html.replaceAll('./physique-pathway-logo.png?v=3','assets/physique-pathway-logo.png?v=6');
 
   // Preserve Jan-Jul historical revenue, seed 1-10 Aug with the transition estimate,
   // then add actual payment records from the new system on top of August and future months.
@@ -32,12 +32,16 @@ const mrr=()=>S.billing.filter(b=>b.active).reduce((a,b)=>a+Number(b.monthly_equ
 function planner()`
   );
 
-  // Event form: date is required, time is optional. No time = all-day event.
+  // Calendar table constraints require lowercase item_type values.
+  // Date is required; time is optional. No time = all-day event.
   html=html.replace(
     /function addEvent\(\)\{[\s\S]*?\nfunction addContent\(\)/,
-    `function addEvent(){modal(\`<div class="modalhead"><h2>Add event</h2><button class="btn sm" data-close>Close</button></div><div class="formgrid"><input id="et" class="input full" placeholder="Event / show"><select id="ey" class="input"><option>Show</option><option>Travel</option><option>Business</option><option>Personal</option><option>Deadline</option><option>Client check-in</option></select><input id="ed" class="input" type="date"><input id="etime" class="input" type="time" placeholder="Optional time"><input id="el" class="input full" placeholder="Location"><select id="ev" class="input"><option value="private">Private</option><option value="team">Team</option><option value="all_coaches">All coaches</option></select><button id="es" class="btn primary full">Save event</button></div>\`);$('#es').onclick=async()=>{let title=$('#et').value.trim(),day=$('#ed').value,time=$('#etime').value;if(!title)return alert('Enter an event name.');if(!day)return alert('Choose a date.');let allDay=!time;let start;if(allDay){start=new Date(day+'T12:00:00').toISOString()}else{let dt=new Date(day+'T'+time);if(Number.isNaN(dt.getTime()))return alert('The date or time is invalid.');start=dt.toISOString()}let{error}=await sb.from('calendar_items').insert({title,item_type:$('#ey').value,start_at:start,all_day:allDay,location:$('#el').value||null,visibility:$('#ev').value,assigned_profile_id:S.profile.id,created_by:S.profile.id});if(error)return alert('Could not save event: '+error.message);closeModal();await load();render()}}
+    `function addEvent(){modal(\`<div class="modalhead"><h2>Add event</h2><button class="btn sm" data-close>Close</button></div><div class="formgrid"><input id="et" class="input full" placeholder="Event / show"><select id="ey" class="input"><option value="show">Show</option><option value="travel">Travel</option><option value="business">Business</option><option value="personal">Personal</option><option value="deadline">Deadline</option><option value="client">Client check-in</option><option value="content">Content</option><option value="other">Other</option></select><input id="ed" class="input" type="date"><input id="etime" class="input" type="time" placeholder="Optional time"><input id="el" class="input full" placeholder="Location"><select id="ev" class="input"><option value="private">Private</option><option value="team">Team</option><option value="all_coaches">All coaches</option></select><button id="es" class="btn primary full">Save event</button></div>\`);$('#es').onclick=async()=>{let eventTitle=$('#et').value.trim(),day=$('#ed').value,time=$('#etime').value;if(!eventTitle)return alert('Enter an event name.');if(!day)return alert('Choose a date.');let allDay=!time;let start;if(allDay){start=new Date(day+'T12:00:00').toISOString()}else{let dt=new Date(day+'T'+time);if(Number.isNaN(dt.getTime()))return alert('The date or time is invalid.');start=dt.toISOString()}let{error}=await sb.from('calendar_items').insert({title:eventTitle,item_type:$('#ey').value,start_at:start,all_day:allDay,location:$('#el').value||null,visibility:$('#ev').value,assigned_profile_id:S.profile.id,created_by:S.profile.id});if(error){console.error('calendar insert failed',error);return alert('Could not save event: '+error.message)}closeModal();await load();render();alert('Event saved.')}}
 function addContent()`
   );
+
+  // Make show highlighting work with the database's lowercase event types.
+  html=html.replaceAll("x.item_type==='Show'","String(x.item_type).toLowerCase()==='show'");
 
   document.open();document.write(html);document.close();
 }).catch(err=>{document.getElementById('boot').textContent='Dashboard failed to load: '+err.message});
