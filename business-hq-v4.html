@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Physique Pathway Business HQ</title>
+<meta name="theme-color" content="#090909">
+<style>html,body{margin:0;background:#090909;color:#fff;font-family:Inter,system-ui,sans-serif}#boot{min-height:100vh;display:grid;place-items:center;color:#888;font-size:13px}</style>
+</head>
+<body>
+<div id="boot">Loading Physique Pathway Business HQ…</div>
+<script>
+fetch('business-hq-v3.html?v=4').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(html=>{
+  // Fix supplied logo asset path.
+  html=html.replaceAll('./physique-pathway-logo.png?v=3','assets/physique-pathway-logo.png?v=4');
+
+  // Preserve Jan-Jul historical revenue, seed 1-10 Aug with the transition estimate,
+  // then add actual payment records from the new system on top of August and future months.
+  html=html.replace(
+    /const paid=\(\)=>S\.payments\.filter\(p=>p\.status==='paid'&&p\.received_date\);const cashMonth=[\s\S]*?const mrr=\(\)=>S\.billing\.filter\(b=>b\.active\)\.reduce\(\(a,b\)=>a\+Number\(b\.monthly_equivalent\|\|0\),0\);/,
+    `const paid=()=>S.payments.filter(p=>p.status==='paid'&&p.received_date);
+const historical2026={1:24000,2:22000,3:23000,4:25000,5:24000,6:32200,7:37000,8:13000};
+const recordedCashMonth=(y,m)=>paid().filter(p=>{let d=new Date(p.received_date+'T12:00:00');return d.getFullYear()===y&&d.getMonth()+1===m}).reduce((a,p)=>a+Number(p.amount||0),0);
+const cashMonth=(y,m)=>{let actual=recordedCashMonth(y,m);if(y===2026&&m<=7)return historical2026[m]||0;if(y===2026&&m===8)return (historical2026[8]||0)+actual;return actual};
+const cashYear=y=>Array.from({length:12},(_,i)=>cashMonth(y,i+1)).reduce((a,n)=>a+n,0);
+const mrr=()=>S.billing.filter(b=>b.active).reduce((a,b)=>a+Number(b.monthly_equivalent||0),0);`
+  );
+
+  html=html.replace(
+    /function earnings\(\)\{[\s\S]*?\nfunction planner\(\)/,
+    `function earnings(){if(!owner())return'';let y=new Date().getFullYear(),annual=cashYear(y),nowM=new Date().getMonth()+1,elapsed=Math.max(1,nowM),avg=annual/elapsed;return title('Earnings','Historical revenue preserved, with new payments added automatically.')+\`<div class="grid four"><div class="card"><div class="label">Revenue this year</div><div class="value gold">\${money(annual)}</div></div><div class="card"><div class="label">Revenue this month</div><div class="value">\${money(cashMonth(y,nowM))}</div></div><div class="card"><div class="label">Average / elapsed month</div><div class="value">\${money(avg)}</div></div><div class="card"><div class="label">Current monthly equivalent</div><div class="value green">\${money(mrr())}</div></div></div><div class="note section">January–July 2026 stay exactly as previously recorded. August begins with a R13,000 transition estimate for payments that fell between 1–10 August, then adds payments recorded in the new system. Lump sums count in full in the month received.</div><div class="tablewrap section"><table><thead><tr><th>Month</th><th>Revenue</th><th>Source</th></tr></thead><tbody>\${Array.from({length:12},(_,i)=>{let m=i+1,val=cashMonth(y,m),src=y===2026&&m<=7?'Previous dashboard':y===2026&&m===8?'R13,000 transition estimate + new recorded payments':'Recorded payments';return\`<tr><td>\${new Date(y,i).toLocaleString('en',{month:'long'})}</td><td><b>\${money(val)}</b></td><td><span class="sub">\${src}</span></td></tr>\`}).join('')}</tbody></table></div><div class="card section"><div class="sectionhead"><h2>\${y} income chart</h2></div>\${incomeChart(y)}</div>\`}
+function planner()`
+  );
+
+  document.open();document.write(html);document.close();
+}).catch(err=>{document.getElementById('boot').textContent='Dashboard failed to load: '+err.message});
+</script>
+</body>
+</html>
