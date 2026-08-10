@@ -10,17 +10,7 @@
 <body>
 <div id="boot">Loading Physique Pathway Business HQ…</div>
 <script>
-fetch('business-hq.html?v=2').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(html=>{
-  html=html.replace(
-    '<div class="brand"><div class="mark">PP</div><div><b>PHYSIQUE PATHWAY</b><div class="tag">Results without the guess work</div></div></div>',
-    '<div class="brand" style="display:flex;align-items:center"><img src="assets/physique-pathway-logo.png" alt="Physique Pathway" style="display:block;width:290px;max-width:100%;height:auto;object-fit:contain"></div>'
-  );
-  html=html.replace(
-    '<div class="brand"><div class="mark">PP</div><div><b>PHYSIQUE PATHWAY</b><div class="tag">Business HQ</div></div></div>',
-    '<div class="brand" style="display:flex;align-items:center;gap:10px"><img src="assets/physique-pathway-logo.png" alt="Physique Pathway" style="display:block;width:180px;height:auto;object-fit:contain"><div class="tag" style="white-space:nowrap">Business HQ</div></div>'
-  );
-  document.open();document.write(html);document.close();
-}).catch(err=>{document.getElementById('boot').textContent='Dashboard failed to load: '+err.message});
+fetch('business-hq-v4.html?v=4').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(html=>{document.open();document.write(html);document.close()}).catch(err=>{document.getElementById('boot').textContent='Dashboard failed to load: '+err.message});
 </script>
 </body>
 </html>
