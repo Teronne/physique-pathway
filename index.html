@@ -1,10 +1,178 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv="refresh" content="0; url=physique_pathway_v2.html">
-<title>Physique Pathway</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Physique Pathway Business HQ</title>
+<meta name="theme-color" content="#090909">
+<style>
+:root{--bg:#090909;--panel:#121212;--panel2:#171717;--line:#292929;--txt:#f5f5f3;--muted:#929292;--red:#b31328;--gold:#d2aa38;--green:#57c985;--blue:#61a8e8;--danger:#ff6172}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}.hidden{display:none!important}
+.auth{min-height:100vh;display:grid;place-items:center;padding:24px}.authbox{width:min(430px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px}.brand{display:flex;gap:12px;align-items:center}.mark{width:44px;height:44px;border:3px solid var(--red);border-radius:10px;display:grid;place-items:center;font-weight:900;color:white}.brand b{letter-spacing:.11em}.tag{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-top:3px}.auth h1{margin:26px 0 6px;font-size:24px}.muted{color:var(--muted)}.stack{display:flex;flex-direction:column;gap:10px}.input{width:100%;background:#0e0e0e;border:1px solid #333;color:#fff;border-radius:9px;padding:10px 11px;outline:none}.input:focus{border-color:#555}.btn{background:#1a1a1a;color:white;border:1px solid #3a3a3a;border-radius:8px;padding:9px 12px;cursor:pointer}.btn:hover{background:#202020}.btn.primary{background:var(--gold);color:#111;border-color:var(--gold);font-weight:800}.btn.red{background:var(--red);border-color:var(--red)}.btn.sm{font-size:12px;padding:6px 9px}.btn.danger{color:var(--danger);border-color:#6b2a34;background:transparent}
+.app{min-height:100vh}.top{height:64px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#090909ef;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.top .mark{width:38px;height:38px;font-size:12px}.user{display:flex;align-items:center;gap:10px}.shell{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px)}aside{border-right:1px solid var(--line);padding:18px 12px}.nav{display:flex;flex-direction:column;gap:5px}.nav button{background:transparent;border:0;color:#aaa;text-align:left;padding:11px 12px;border-radius:8px;cursor:pointer}.nav button:hover,.nav button.on{background:#191919;color:#fff}.nav .finance{color:#d6c17a}.rolepill,.pill{display:inline-block;padding:4px 7px;border-radius:5px;font-size:10px;font-weight:700;background:#292929;color:#ccc}.rolepill{background:#261218;color:#df8090}main{padding:26px;max-width:1500px;width:100%;margin:auto}.title{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:20px}.title h1{margin:0;font-size:28px}.title p{margin:5px 0 0;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}.grid{display:grid;gap:13px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}.two{grid-template-columns:1.25fr .75fr}.four{grid-template-columns:repeat(4,1fr)}.card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:16px}.label{font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:var(--muted)}.value{font-size:26px;font-weight:800;margin-top:5px}.gold{color:var(--gold)}.green{color:var(--green)}.redtxt{color:var(--danger)}.section{margin-top:22px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.sectionhead h2{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:#bbb;margin:0}.tablewrap{overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:11px}table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:11px 12px;border-bottom:1px solid #252525;text-align:left}th{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:#8f8f8f;background:#101010}td{font-size:13px}.name{font-weight:700}.sub{font-size:11px;color:var(--muted);margin-top:2px}.pill.payfast{background:#0d2b43;color:#78bff2}.pill.eft{background:#2b2b2b}.pill.lump{background:#271344;color:#bc96ff}.pill.ok{background:#0f311d;color:#69d98f}.pill.due{background:#382703;color:#efbd42}.pill.bad{background:#39131a;color:#ff7887}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:11px}.toolbar .input{width:auto;min-width:150px}.list{display:flex;flex-direction:column;gap:8px}.item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px;display:flex;justify-content:space-between;gap:12px;align-items:center}.item small{color:var(--muted)}.chart{height:250px;display:flex;align-items:flex-end;gap:8px;padding:18px 10px 5px;border-top:1px solid #222;margin-top:12px}.barwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}.bar{width:70%;background:var(--gold);border-radius:4px 4px 0 0;min-height:2px;opacity:.9}.bar.projected{background:#38301c}.barlbl{font-size:9px;color:#777}.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.col{background:#0d0d0d;border:1px solid var(--line);border-radius:10px;padding:10px;min-height:300px}.col h3{font-size:11px;text-transform:uppercase;color:#aaa;letter-spacing:.1em}.study{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:16px}.study h3{margin:8px 0;font-size:16px}.study p,.study li{color:#c9c9c9;line-height:1.5}.study details{border-top:1px solid #292929;padding-top:9px;margin-top:9px}.study summary{cursor:pointer;color:var(--gold)}.modal{position:fixed;inset:0;z-index:50;background:#000a;display:grid;place-items:center;padding:20px}.modalbox{width:min(620px,100%);max-height:90vh;overflow:auto;background:#151515;border:1px solid #383838;border-radius:14px;padding:20px}.modalhead{display:flex;justify-content:space-between;align-items:center}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.full{grid-column:1/-1}.notice{padding:10px 12px;border:1px solid #3b3013;background:#1b180e;color:#d8c078;border-radius:8px;font-size:12px}.empty{padding:24px;text-align:center;color:#777}.mobileNav{display:none}
+@media(max-width:900px){.shell{display:block}aside{display:none}.kpis,.four,.two,.kanban{grid-template-columns:1fr 1fr}main{padding:18px}.mobileNav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#0b0b0bf2;border-top:1px solid var(--line);z-index:30;overflow:auto}.mobileNav button{flex:1;min-width:90px;background:transparent;border:0;color:#888;padding:12px 8px}.mobileNav button.on{color:var(--gold)}main{padding-bottom:80px}}
+@media(max-width:580px){.kpis,.four,.two,.kanban,.formgrid{grid-template-columns:1fr}.title{align-items:flex-start;flex-direction:column}.top{padding:0 12px}.tag{display:none}.user .muted{display:none}.value{font-size:23px}}
+</style>
 </head>
 <body>
-<p>Redirecting to <a href="physique_pathway_v2.html">Physique Pathway</a>…</p>
-</body>
-</html>
+<div id="auth" class="auth">
+ <div class="authbox">
+  <div class="brand"><div class="mark">PP</div><div><b>PHYSIQUE PATHWAY</b><div class="tag">Results without the guess work</div></div></div>
+  <h1>Business HQ</h1><p class="muted">Clients, payments, planning, content and research in one place.</p>
+  <div class="stack">
+   <input id="email" class="input" type="email" placeholder="Email">
+   <input id="password" class="input" type="password" placeholder="Password">
+   <button id="signin" class="btn primary">Sign in</button>
+   <button id="signup" class="btn">Create account</button>
+   <div id="authmsg" class="muted" style="min-height:18px;font-size:12px"></div>
+  </div>
+ </div>
+</div>
+<div id="app" class="app hidden">
+ <header class="top"><div class="brand"><div class="mark">PP</div><div><b>PHYSIQUE PATHWAY</b><div class="tag">Business HQ</div></div></div><div class="user"><span id="who" class="muted"></span><span id="role" class="rolepill"></span><button id="logout" class="btn sm">Log out</button></div></header>
+ <div class="shell"><aside><nav id="nav" class="nav"></nav></aside><main id="main"></main></div><nav id="mobileNav" class="mobileNav"></nav>
+</div>
+<div id="modal" class="modal hidden"><div class="modalbox"><div id="modalBody"></div></div></div>
+<script type="module">
+import {createClient} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+const sb=createClient("https://pcwzqwicscoelycaieka.supabase.co","sb_publishable_05iO7pksLrbFRxPnCVI11w_eqKnFgAh");
+const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const fmt=n=>"R"+Number(n||0).toLocaleString("en-ZA",{maximumFractionDigits:0}).replace(/,/g," ");
+const date=d=>d?new Date((String(d).length===10?d+"T12:00:00":d)).toLocaleDateString("en-ZA",{day:"2-digit",month:"short",year:"numeric"}):"—";
+const today=()=>new Date().toISOString().slice(0,10), addDays=(d,n)=>{let x=new Date(d+"T12:00:00");x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};
+let page="home",S={profile:null,clients:[],billing:[],payments:[],earnings:[],tasks:[],calendar:[],content:[],research:[],coaches:[],coachEarnings:[]};
+const owner=()=>["owner","admin"].includes(S.profile?.role);
+const navs=[["home","Dashboard"],["clients","Clients"],["payments","Payments","finance"],["earnings","Earnings","finance"],["planner","Calendar & Tasks"],["content","Content Planner"],["research","Research"],["coaches","Coaches","finance"]];
+function nav(){let arr=navs.filter(x=>owner()||!x[2]);let h=arr.map(x=>`<button data-page="${x[0]}" class="${page===x[0]?"on":""} ${x[2]||""}">${x[1]}</button>`).join("");$("#nav").innerHTML=h;$("#mobileNav").innerHTML=h;document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{page=b.dataset.page;nav();render()})}
+function title(h,p,a=""){return `<div class="title"><div><h1>${h}</h1><p>${p}</p></div><div class="actions">${a}</div></div>`}
+function pill(t,c=""){return `<span class="pill ${c}">${esc(t||"—")}</span>`}
+function billFor(id){return S.billing.find(x=>x.client_id===id&&x.active)||S.billing.find(x=>x.client_id===id)}
+function client(id){return S.clients.find(x=>x.id===id)}
+function coach(id){return S.coaches.find(x=>x.id===id)}
+async function load(){
+ const q=[["clients","name"],["client_billing","created_at"],["payments","received_date"],["tasks","due_date"],["calendar_items","start_at"],["content_items","scheduled_for"],["research_items","published_date"]];
+ if(owner())q.push(["monthly_earnings","month"],["coaches","display_name"],["coach_earnings","period_start"]);
+ let rs=await Promise.all(q.map(([t,o])=>sb.from(t).select("*").order(o,{ascending:t!=="research_items"})));
+ let i=0;for(const [t] of q){let key={client_billing:"billing",monthly_earnings:"earnings",calendar_items:"calendar",content_items:"content",research_items:"research",coach_earnings:"coachEarnings"}[t]||t;S[key]=rs[i++].data||[]}
+}
+function dueStatus(b){
+ if(!b?.payment_due_date)return ["—",""];
+ let t=today(),w=addDays(t,7);
+ if(b.payment_due_date<t)return ["Overdue","bad"];
+ if(b.payment_due_date<=w)return ["Due soon","due"];
+ return ["Up to date","ok"];
+}
+function home(){
+ const active=S.clients.filter(x=>x.status==="active"),mrr=S.billing.filter(x=>x.active).reduce((a,b)=>a+Number(b.monthly_equivalent||0),0);
+ const ytd=S.earnings.filter(x=>x.year===2026&&x.actual_amount!=null).reduce((a,b)=>a+Number(b.actual_amount),0);
+ const due=S.billing.filter(x=>x.active&&x.payment_due_date).sort((a,b)=>a.payment_due_date.localeCompare(b.payment_due_date));
+ const open=S.tasks.filter(x=>x.status!=="done"), upcoming=S.calendar.filter(x=>String(x.start_at).slice(0,10)>=today()).sort((a,b)=>String(a.start_at).localeCompare(String(b.start_at)));
+ let k=`<div class="grid kpis"><div class="card"><div class="label">Active clients</div><div class="value">${active.length}</div></div>`;
+ if(owner())k+=`<div class="card"><div class="label">Monthly equivalent</div><div class="value gold">${fmt(mrr)}</div></div><div class="card"><div class="label">2026 earned YTD</div><div class="value">${fmt(ytd)}</div></div>`;
+ k+=`<div class="card"><div class="label">Open tasks</div><div class="value ${open.length?"redtxt":""}">${open.length}</div></div></div>`;
+ let chart="";
+ if(owner()){let e=S.earnings.filter(x=>x.year===2026),max=Math.max(1,...e.map(x=>Number(x.actual_amount||x.projected_amount||0)));chart=`<div class="card"><div class="sectionhead"><h2>2026 earnings trend</h2><span class="muted">${fmt(ytd)} actual</span></div><div class="chart">${Array.from({length:12},(_,i)=>{let r=e.find(x=>x.month===i+1),v=Number(r?.actual_amount??r?.projected_amount??0);return `<div class="barwrap"><div class="bar ${r?.actual_amount==null?"projected":""}" style="height:${Math.max(2,v/max*88)}%"></div><div class="barlbl">${new Date(2026,i).toLocaleString("en",{month:"short"})}</div></div>`}).join("")}</div></div>`}
+ return title("Dashboard","The business at a glance.",`<button class="btn primary" data-add="client">+ Add client</button><button class="btn" data-add="task">+ Task</button><button class="btn" data-add="event">+ Event</button>`)
+ +k+`<div class="grid two section">${owner()?chart:""}<div class="card"><div class="sectionhead"><h2>Upcoming</h2><button class="btn sm" data-page="planner">Plan</button></div><div class="list">${upcoming.slice(0,6).map(x=>`<div class="item"><div><div class="name">${esc(x.title)}</div><div class="sub">${date(x.start_at)} · ${esc(x.item_type)}</div></div></div>`).join("")||`<div class="empty">No upcoming events.</div>`}</div></div></div>`
+ +(owner()?`<div class="section"><div class="sectionhead"><h2>Next payments</h2></div><div class="list">${due.slice(0,6).map(b=>{let c=client(b.client_id),st=dueStatus(b);return `<div class="item"><div><div class="name">${esc(c?.name)}</div><small>${fmt(b.monthly_equivalent)} · ${esc(b.payment_method)} · ${date(b.payment_due_date)}</small></div>${pill(st[0],st[1])}</div>`}).join("")||`<div class="empty">No payment dates loaded.</div>`}</div></div>`:"");
+}
+function clientRows(arr=S.clients){return arr.map(c=>{let b=billFor(c.id),co=coach(c.assigned_coach_id),st=dueStatus(b);return `<tr data-edit-client="${c.id}"><td><div class="name">${esc(c.name)}</div><div class="sub">${esc(c.status)}</div></td><td>${esc(c.service_type||"—")}</td><td>${fmt(b?.monthly_equivalent)}</td><td>${pill(b?.billing_type==="lump_sum"?"Lump sum":"Monthly",b?.billing_type==="lump_sum"?"lump":"")}</td><td>${pill(b?.payment_method,b?.payment_method==="PayFast"?"payfast":"eft")}</td><td>${date(b?.payment_due_date)}<div class="sub">${pill(st[0],st[1])}</div></td><td>${esc(co?.display_name||"Head coach")}</td></tr>`}).join("")}
+function clients(){
+ return title("Clients","Roster, service type, billing and coach assignment.",owner()?`<button class="btn primary" data-add="client">+ Add client</button>`:"")
+ +`<div class="toolbar"><input id="cs" class="input" placeholder="Search clients"><select id="serviceFilter" class="input"><option value="">All services</option><option>Contest prep</option><option>Lifestyle</option></select><select id="methodFilter" class="input"><option value="">All methods</option><option>PayFast</option><option>EFT</option></select></div>
+ <div class="tablewrap"><table><thead><tr><th>Client</th><th>Service</th><th>Monthly equiv.</th><th>Billing</th><th>Method</th><th>Due</th><th>Coach</th></tr></thead><tbody id="clientRows">${clientRows()}</tbody></table></div>`;
+}
+function paymentRows(filter="all",method=""){
+ let t=today(),w=addDays(t,7);
+ return S.billing.filter(b=>b.active).filter(b=>!method||b.payment_method===method).filter(b=>filter==="all"||filter==="overdue"&&b.payment_due_date<t||filter==="week"&&b.payment_due_date>=t&&b.payment_due_date<=w||filter==="uptodate"&&(!b.payment_due_date||b.payment_due_date>w)).sort((a,b)=>(a.payment_due_date||"9999").localeCompare(b.payment_due_date||"9999")).map(b=>{let c=client(b.client_id),st=dueStatus(b);return `<tr><td><div class="name">${esc(c?.name)}</div><div class="sub">${esc(c?.service_type||"")}</div></td><td>${esc(b.plan_label||b.billing_type)}</td><td>${fmt(b.monthly_equivalent)}${b.billing_type==="lump_sum"?`<div class="sub">${fmt(b.lump_sum_amount)} package</div>`:""}</td><td>${pill(b.payment_method,b.payment_method==="PayFast"?"payfast":"eft")}</td><td>${date(b.payment_due_date)}<div class="sub">${pill(st[0],st[1])}</div></td><td><button class="btn sm primary" data-paid="${b.id}">Mark paid</button> <button class="btn sm" data-history="${c?.id}">History</button></td></tr>`}).join("")
+}
+function payments(){
+ if(!owner())return title("Payments","Restricted.");
+ let mrr=S.billing.filter(x=>x.active).reduce((a,b)=>a+Number(b.monthly_equivalent||0),0),t=today(),w=addDays(t,7),ov=S.billing.filter(b=>b.active&&b.payment_due_date&&b.payment_due_date<t).length,week=S.billing.filter(b=>b.active&&b.payment_due_date>=t&&b.payment_due_date<=w).length;
+ return title("Payments","Monthly and lump-sum payments, EFT and PayFast.")
+ +`<div class="grid four"><div class="card"><div class="label">Clients</div><div class="value">${S.clients.length}</div></div><div class="card"><div class="label">Overdue</div><div class="value redtxt">${ov}</div></div><div class="card"><div class="label">Due this week</div><div class="value gold">${week}</div></div><div class="card"><div class="label">Monthly equivalent</div><div class="value gold">${fmt(mrr)}</div></div></div>
+ <div class="toolbar section"><button class="btn sm" data-pf="all">All</button><button class="btn sm" data-pf="overdue">Overdue</button><button class="btn sm" data-pf="week">Due this week</button><button class="btn sm" data-pf="uptodate">Up to date</button><select id="paymethod" class="input"><option value="">All methods</option><option>PayFast</option><option>EFT</option></select></div>
+ <div class="tablewrap"><table><thead><tr><th>Client</th><th>Plan</th><th>Amount</th><th>Method</th><th>Due</th><th></th></tr></thead><tbody id="payRows">${paymentRows()}</tbody></table></div>`;
+}
+function earnings(){
+ if(!owner())return "";
+ let yr=2026,d=S.earnings.filter(x=>x.year===yr),act=d.filter(x=>x.actual_amount!=null),ytd=act.reduce((a,b)=>a+Number(b.actual_amount),0),avg=act.length?ytd/act.length:0,mrr=S.billing.filter(x=>x.active).reduce((a,b)=>a+Number(b.monthly_equivalent||0),0),proj=ytd+(12-act.length)*mrr;
+ return title("Earnings","Actual history plus a forward view.")
+ +`<div class="grid four"><div class="card"><div class="label">This year total</div><div class="value gold">${fmt(ytd)}</div></div><div class="card"><div class="label">Monthly avg (actual)</div><div class="value">${fmt(avg)}</div></div><div class="card"><div class="label">Current monthly</div><div class="value">${fmt(mrr)}</div></div><div class="card"><div class="label">Projected full year</div><div class="value green">${fmt(proj)}</div></div></div>
+ <div class="tablewrap section"><table><thead><tr><th>Month</th><th>Actual</th><th>Projected / note</th><th></th></tr></thead><tbody>${Array.from({length:12},(_,i)=>{let r=d.find(x=>x.month===i+1);return `<tr><td>${new Date(yr,i).toLocaleString("en",{month:"long"})}</td><td>${r?.actual_amount!=null?`<b>${fmt(r.actual_amount)}</b>`:"—"}</td><td>${r?.projected_amount?fmt(r.projected_amount):esc(r?.note||"")}</td><td><button class="btn sm" data-earn="${i+1}">Edit</button></td></tr>`}).join("")}</tbody></table></div>`;
+}
+function planner(){
+ let ev=[...S.calendar].sort((a,b)=>String(a.start_at).localeCompare(String(b.start_at))),tasks=[...S.tasks].sort((a,b)=>(a.due_date||"9999").localeCompare(b.due_date||"9999"));
+ return title("Calendar & Tasks","Show dates, travel, deadlines, business and personal planning.",`<button class="btn primary" data-add="event">+ Event</button><button class="btn" data-add="task">+ Task</button>`)
+ +`<div class="grid two"><div><div class="sectionhead"><h2>Calendar / Agenda</h2></div><div class="list">${ev.map(x=>`<div class="item"><div><div class="name">${x.item_type==="Show"?`<span class="redtxt">SHOW</span> · `:""}${esc(x.title)}</div><small>${date(x.start_at)} · ${esc(x.item_type)}${x.location?" · "+esc(x.location):""}</small></div></div>`).join("")||`<div class="empty">Nothing scheduled yet.</div>`}</div></div><div><div class="sectionhead"><h2>To-do</h2></div><div class="list">${tasks.map(x=>`<div class="item"><div><div class="name">${esc(x.title)}</div><small>${x.due_date?date(x.due_date):"No due date"} · ${esc(x.category)} · ${esc(x.priority)}</small></div><button class="btn sm" data-taskdone="${x.id}">${x.status==="done"?"Done":"Complete"}</button></div>`).join("")||`<div class="empty">No tasks yet.</div>`}</div></div></div>`;
+}
+function content(){
+ let sts=["idea","draft","scheduled","posted"];
+ return title("Content Planner","Instagram ideas, hooks, scripts and schedule.",`<button class="btn primary" data-add="content">+ Content idea</button>`)
+ +`<div class="kanban">${sts.map(st=>`<div class="col"><h3>${st}</h3><div class="list">${S.content.filter(x=>x.status===st).map(x=>`<div class="item"><div><div class="name">${esc(x.title)}</div><small>${esc(x.content_type)} · ${esc(x.pillar||"General")}</small>${x.hook?`<div class="sub" style="margin-top:7px">${esc(x.hook)}</div>`:""}</div></div>`).join("")||`<div class="empty">Empty</div>`}</div></div>`).join("")}</div>`;
+}
+function research(){
+ return title("Research","Curated bodybuilding and fitness research library. This is not an automatic live feed yet.")
+ +`<div class="notice">Research entries are curated. The database is ready for a future automation that can add new papers with summaries, context and coaching takeaways.</div><div class="grid two section">${S.research.map(r=>`<article class="study"><div style="display:flex;justify-content:space-between">${pill(r.topic)}<span class="gold">${r.relevance_score??"—"}/10</span></div><h3>${esc(r.title)}</h3><div class="sub">${esc(r.source)} · ${date(r.published_date)} · ${esc(r.study_type)}</div><p><b>Summary:</b> ${esc(r.summary)}</p><p><b>Context:</b> ${esc(r.context)}</p><details><summary>Practical takeaways</summary><ul>${(r.practical_takeaways||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details><details><summary>Things to think about</summary><ul>${(r.things_to_think_about||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>${r.url?`<a class="btn sm" style="display:inline-block;margin-top:10px;text-decoration:none" href="${esc(r.url)}" target="_blank">Open study</a>`:""}</article>`).join("")||`<div class="empty">No research saved yet.</div>`}</div>`;
+}
+function coaches(){
+ if(!owner())return "";
+ return title("Coaches","Future-ready coach management. Company-wide finances remain owner/admin only.")
+ +`<div class="notice">Coach accounts only receive data allowed by Supabase RLS: their assigned clients, their own coach earnings and shared/assigned planning items. Company earnings and other coaches' earnings are blocked at database level.</div>
+ <div class="tablewrap section"><table><thead><tr><th>Coach</th><th>Commission</th><th>Rate</th><th>Clients</th><th>Revenue managed</th><th>Owed / paid</th></tr></thead><tbody>${S.coaches.map(c=>{let cs=S.clients.filter(x=>x.assigned_coach_id===c.id),rev=cs.reduce((a,x)=>a+Number(billFor(x.id)?.monthly_equivalent||0),0),ce=S.coachEarnings.filter(x=>x.coach_id===c.id),owed=ce.filter(x=>x.status!=="paid").reduce((a,x)=>a+Number(x.coach_amount||0),0);return `<tr><td><b>${esc(c.display_name)}</b></td><td>${esc(c.commission_type)}</td><td>${c.commission_type==="percentage"?Number(c.commission_rate||0)+"%":fmt(c.flat_amount)}</td><td>${cs.length}</td><td>${fmt(rev)}</td><td>${fmt(owed)}</td></tr>`}).join("")||`<tr><td colspan="6" class="empty">No coaches approved yet.</td></tr>`}</tbody></table></div>`;
+}
+function render(){let f={home,clients,payments,earnings,planner,content,research,coaches}[page];$("#main").innerHTML=f?f():"";wire()}
+function closeModal(){$("#modal").classList.add("hidden")}
+function modal(h){$("#modalBody").innerHTML=h;$("#modal").classList.remove("hidden");document.querySelectorAll("[data-close]").forEach(x=>x.onclick=closeModal)}
+function clientForm(id){
+ let c=id?client(id):{},b=id?billFor(id):{},coOpts=`<option value="">Head coach / unassigned</option>`+S.coaches.map(x=>`<option value="${x.id}" ${c.assigned_coach_id===x.id?"selected":""}>${esc(x.display_name)}</option>`).join("");
+ modal(`<div class="modalhead"><h2>${id?"Edit":"Add"} client</h2><button class="btn sm" data-close>Close</button></div><div class="formgrid">
+ <input id="fName" class="input full" placeholder="Full name" value="${esc(c.name||"")}"><input id="fEmail" class="input" placeholder="Email" value="${esc(c.email||"")}"><input id="fPhone" class="input" placeholder="Phone" value="${esc(c.phone||"")}">
+ <select id="fService" class="input"><option ${c.service_type==="Contest prep"?"selected":""}>Contest prep</option><option ${c.service_type==="Lifestyle"?"selected":""}>Lifestyle</option></select><select id="fStatus" class="input"><option value="active">active</option><option value="inactive" ${c.status==="inactive"?"selected":""}>inactive</option></select>
+ ${owner()?`<select id="fCoach" class="input full">${coOpts}</select>`:""}
+ <select id="fBilling" class="input"><option value="monthly">Monthly</option><option value="lump_sum" ${b.billing_type==="lump_sum"?"selected":""}>Lump sum</option></select><select id="fMethod" class="input"><option ${b.payment_method==="PayFast"?"selected":""}>PayFast</option><option ${b.payment_method==="EFT"?"selected":""}>EFT</option></select>
+ <input id="fMonthly" class="input" type="number" placeholder="Monthly equivalent" value="${b.monthly_equivalent??""}"><input id="fLump" class="input" type="number" placeholder="Lump sum amount" value="${b.lump_sum_amount??""}">
+ <input id="fDue" class="input" type="date" value="${b.payment_due_date||""}"><input id="fTerm" class="input" type="number" placeholder="Term months (3/6/12)" value="${b.term_months??""}">
+ <input id="fStart" class="input" type="date" value="${b.term_start_date||""}"><input id="fEnd" class="input" type="date" value="${b.term_end_date||""}">
+ <textarea id="fNotes" class="input full" rows="3" placeholder="Notes">${esc(c.notes||"")}</textarea>
+ <button class="btn full" data-close>Cancel</button><button id="saveClient" class="btn primary full">Save client</button></div>`);
+ $("#saveClient").onclick=()=>saveClient(id,b?.id)
+}
+async function saveClient(id,bid){
+ let rec={name:$("#fName").value,service_type:$("#fService").value,status:$("#fStatus").value,email:$("#fEmail").value||null,phone:$("#fPhone").value||null,notes:$("#fNotes").value||null};
+ if(owner())rec.assigned_coach_id=$("#fCoach").value||null;
+ let res=id?await sb.from("clients").update(rec).eq("id",id).select().single():await sb.from("clients").insert({...rec,created_by:S.profile.id}).select().single();
+ if(res.error)return alert(res.error.message);id=res.data.id;
+ if(owner()){let br={client_id:id,billing_type:$("#fBilling").value,term_months:Number($("#fTerm").value)||null,plan_label:$("#fBilling").value==="monthly"?"Monthly":($("#fTerm").value?$("#fTerm").value+" month term":"Lump sum"),monthly_equivalent:Number($("#fMonthly").value)||0,lump_sum_amount:Number($("#fLump").value)||null,payment_method:$("#fMethod").value,payment_due_date:$("#fDue").value||null,term_start_date:$("#fStart").value||null,term_end_date:$("#fEnd").value||null,active:true};
+ let r=bid?await sb.from("client_billing").update(br).eq("id",bid):await sb.from("client_billing").insert(br);if(r.error)return alert(r.error.message)}
+ closeModal();await load();render()
+}
+function addTask(){modal(`<div class="modalhead"><h2>Add task</h2><button class="btn sm" data-close>Close</button></div><div class="formgrid"><input id="tTitle" class="input full" placeholder="Task"><input id="tDate" class="input" type="date"><select id="tCat" class="input"><option>Business</option><option>Client</option><option>Content</option><option>Personal</option></select><select id="tPri" class="input"><option>normal</option><option>high</option><option>low</option></select><select id="tVis" class="input"><option value="private">Private</option><option value="team">Team</option><option value="all_coaches">All coaches</option></select><button id="saveTask" class="btn primary full">Save task</button></div>`);$("#saveTask").onclick=async()=>{let {error}=await sb.from("tasks").insert({title:$("#tTitle").value,due_date:$("#tDate").value||null,category:$("#tCat").value,priority:$("#tPri").value,status:"open",visibility:$("#tVis").value,assigned_profile_id:S.profile.id,created_by:S.profile.id});if(error)return alert(error.message);closeModal();await load();render()}}
+function addEvent(){modal(`<div class="modalhead"><h2>Add event</h2><button class="btn sm" data-close>Close</button></div><div class="formgrid"><input id="eTitle" class="input full" placeholder="Event / show"><select id="eType" class="input"><option>Show</option><option>Travel</option><option>Business</option><option>Personal</option><option>Deadline</option><option>Client check-in</option></select><input id="eDate" class="input" type="datetime-local"><input id="eLoc" class="input full" placeholder="Location"><select id="eVis" class="input"><option value="private">Private</option><option value="team">Team</option><option value="all_coaches">All coaches</option></select><button id="saveEvent" class="btn primary full">Save event</button></div>`);$("#saveEvent").onclick=async()=>{let {error}=await sb.from("calendar_items").insert({title:$("#eTitle").value,item_type:$("#eType").value,start_at:new Date($("#eDate").value).toISOString(),all_day:false,location:$("#eLoc").value||null,visibility:$("#eVis").value,assigned_profile_id:S.profile.id,created_by:S.profile.id});if(error)return alert(error.message);closeModal();await load();render()}}
+function addContent(){modal(`<div class="modalhead"><h2>Add content idea</h2><button class="btn sm" data-close>Close</button></div><div class="formgrid"><input id="ctTitle" class="input full" placeholder="Post idea"><select id="ctType" class="input"><option>Reel</option><option>Carousel</option><option>Story</option><option>Photo</option></select><input id="ctPillar" class="input" placeholder="Pillar"><textarea id="ctHook" class="input full" rows="3" placeholder="Hook / angle"></textarea><textarea id="ctCaption" class="input full" rows="5" placeholder="Caption / script"></textarea><button id="saveContent" class="btn primary full">Save idea</button></div>`);$("#saveContent").onclick=async()=>{let {error}=await sb.from("content_items").insert({title:$("#ctTitle").value,platform:"Instagram",content_type:$("#ctType").value,status:"idea",pillar:$("#ctPillar").value||null,hook:$("#ctHook").value||null,caption:$("#ctCaption").value||null,assigned_profile_id:S.profile.id,visibility:"private",created_by:S.profile.id});if(error)return alert(error.message);closeModal();await load();render()}}
+async function markPaid(id){let b=S.billing.find(x=>x.id===id),amount=b.billing_type==="lump_sum"&&b.lump_sum_amount?b.lump_sum_amount:b.monthly_equivalent;if(!confirm(`Record ${fmt(amount)} as paid?`))return;let {error}=await sb.from("payments").insert({client_id:b.client_id,billing_id:b.id,due_date:b.payment_due_date,received_date:today(),amount,method:b.payment_method,payment_type:b.billing_type,status:"paid",recorded_by:S.profile.id});if(error)return alert(error.message);alert("Payment recorded.");await load();render()}
+function history(id){let p=S.payments.filter(x=>x.client_id===id).sort((a,b)=>(b.received_date||"").localeCompare(a.received_date||""));modal(`<div class="modalhead"><h2>${esc(client(id)?.name)} · Payment history</h2><button class="btn sm" data-close>Close</button></div><div class="list section">${p.map(x=>`<div class="item"><div><div class="name">${fmt(x.amount)}</div><small>${date(x.received_date)} · ${esc(x.method)} · ${esc(x.payment_type)}</small></div>${pill(x.status,"ok")}</div>`).join("")||`<div class="empty">No recorded payments yet.</div>`}</div>`)}
+function editEarning(month){let r=S.earnings.find(x=>x.year===2026&&x.month===month);modal(`<div class="modalhead"><h2>Edit ${new Date(2026,month-1).toLocaleString("en",{month:"long"})}</h2><button class="btn sm" data-close>Close</button></div><div class="formgrid"><input id="ea" class="input" type="number" placeholder="Actual amount" value="${r?.actual_amount??""}"><input id="ep" class="input" type="number" placeholder="Projected amount" value="${r?.projected_amount??""}"><input id="en" class="input full" placeholder="Note" value="${esc(r?.note||"")}"><button id="saveEarn" class="btn primary full">Save</button></div>`);$("#saveEarn").onclick=async()=>{let rec={year:2026,month,actual_amount:$("#ea").value===""?null:Number($("#ea").value),projected_amount:$("#ep").value===""?null:Number($("#ep").value),note:$("#en").value||null};let q=r?sb.from("monthly_earnings").update(rec).eq("id",r.id):sb.from("monthly_earnings").insert(rec),{error}=await q;if(error)return alert(error.message);closeModal();await load();render()}}
+function wire(){
+ document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{page=b.dataset.page;nav();render()});
+ document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>({client:()=>clientForm(),task:addTask,event:addEvent,content:addContent}[b.dataset.add]?.()));
+ document.querySelectorAll("[data-edit-client]").forEach(x=>x.onclick=()=>owner()&&clientForm(x.dataset.editClient));
+ document.querySelectorAll("[data-paid]").forEach(x=>x.onclick=()=>markPaid(x.dataset.paid));
+ document.querySelectorAll("[data-history]").forEach(x=>x.onclick=()=>history(x.dataset.history));
+ document.querySelectorAll("[data-taskdone]").forEach(x=>x.onclick=async()=>{await sb.from("tasks").update({status:"done"}).eq("id",x.dataset.taskdone);await load();render()});
+ document.querySelectorAll("[data-earn]").forEach(x=>x.onclick=()=>editEarning(Number(x.dataset.earn)));
+ let cs=$("#cs");if(cs)cs.oninput=()=>{$("#clientRows").innerHTML=clientRows(S.clients.filter(x=>x.name.toLowerCase().includes(cs.value.toLowerCase())))};
+ let sf=$("#serviceFilter"),mf=$("#methodFilter");if(sf)sf.onchange=mf.onchange=()=>{$("#clientRows").innerHTML=clientRows(S.clients.filter(c=>(!sf.value||c.service_type===sf.value)&&(!mf.value||billFor(c.id)?.payment_method===mf.value)))};
+ let pf="all";document.querySelectorAll("[data-pf]").forEach(x=>x.onclick=()=>{pf=x.dataset.pf;$("#payRows").innerHTML=paymentRows(pf,$("#paymethod").value)});let pm=$("#paymethod");if(pm)pm.onchange=()=>$("#payRows").innerHTML=paymentRows(pf,pm.value)
+}
+async function bootstrap(){
+ let {data:{session}}=await sb.auth.getSession();if(!session)return;
+ await sb.rpc("claim_first_owner");
+ let {data:p,error}=await sb.from("profiles").select("*").eq("id",session.user.id).single();if(error){$("#authmsg").textContent="Profile setup error: "+error.message;return}
+ S.profile=p;$("#who").textContent=p.full_name||session.user.email;$("#role").textContent=p.role;$("#auth").classList.add("hidden");$("#app").classList.remove("hidden");await load();nav();render()
+}
+$("#signin").onclick=async()=>{let {error}=await sb.auth.signInWithPassword({email:$("#email").value,password:$("#password").value});if(error)return $("#authmsg").textContent=error.message;bootstrap()};
+$("#signup").onclick=async()=>{let {data,error}=await sb.auth.signUp({email:$("#email").value,password:$("#password").value,options:{data:{full_name:$("#email").value.split("@")[0]}}});if(error)return $("#authmsg").textContent=error.message;$("#authmsg").textContent=data.session?"Account created. Loading…":"Account created. Check your email if confirmation is required.";if(data.session)bootstrap()};
+$("#logout").onclick=async()=>{await sb.auth.signOut();location.reload()};$("#modal").onclick=e=>{if(e.target.id==="modal")closeModal()};
+bootstrap();
+</script>
+</body></html>
