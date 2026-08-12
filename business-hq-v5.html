@@ -10,16 +10,26 @@
 <body>
 <div id="boot">Loading Physique Pathway Business HQ…</div>
 <script>
-fetch('business-hq-v4.html?v=8').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(src=>{
+fetch('business-hq-v4.html?v=9').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(src=>{
   const marker='  document.open();document.write(html);document.close();';
   const patch=`
-  // Client service-type compatibility: UI labels stay friendly, DB receives allowed enum values.
+  // Client service-type compatibility: UI labels stay friendly, DB receives allowed values.
   html=html.replaceAll("service_type:$('#fs').value","service_type:($('#fs').value==='Contest prep'?'contest_prep':$('#fs').value==='Lifestyle'?'lifestyle':$('#fs').value==='Other'?'other':$('#fs').value)");
   html=html.replaceAll("c.service_type==='Contest prep'","(c.service_type==='Contest prep'||c.service_type==='contest_prep')");
   html=html.replaceAll("c.service_type==='Lifestyle'","(c.service_type==='Lifestyle'||c.service_type==='lifestyle')");
   html=html.replaceAll("c.service_type===sf.value","c.service_type===(sf.value==='Contest prep'?'contest_prep':sf.value==='Lifestyle'?'lifestyle':sf.value==='Other'?'other':sf.value)");
   html=html.replaceAll("esc(c.service_type||'—')","esc(c.service_type==='contest_prep'?'Contest prep':c.service_type==='lifestyle'?'Lifestyle':c.service_type==='other'?'Other':c.service_type||'—')");
   html=html.replaceAll("esc(c?.service_type||'')","esc(c?.service_type==='contest_prep'?'Contest prep':c?.service_type==='lifestyle'?'Lifestyle':c?.service_type==='other'?'Other':c?.service_type||'')");
+
+  // Make the client billing dates self-explanatory.
+  html=html.replace('</style>','.fieldLabel{display:flex;flex-direction:column;gap:6px}.fieldLabel>span{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#9a9a9a;font-weight:750}.fieldLabel .input{width:100%}.fieldLabel.readonly .input{color:#d8c16c;background:#11110d!important;border-color:#4a4020!important}</style>');
+  html=html.replaceAll("<input id=\"fd\" class=\"input\" type=\"date\" value=\"\${b.payment_due_date||''}\">","<label class=\"fieldLabel\"><span>Payment / next due date</span><input id=\"fd\" class=\"input\" type=\"date\" value=\"\${b.payment_due_date||''}\"></label>");
+  html=html.replaceAll("<input id=\"ft\" class=\"input\" type=\"number\" placeholder=\"Term months: 3 / 6 / 12\" value=\"\${b.term_months??''}\">","<label class=\"fieldLabel\"><span>Package term (months)</span><input id=\"ft\" class=\"input\" type=\"number\" min=\"1\" placeholder=\"3 / 6 / 12\" value=\"\${b.term_months??''}\"></label>");
+  html=html.replaceAll("<input id=\"fstart\" class=\"input\" type=\"date\" value=\"\${b.term_start_date||''}\">","<label class=\"fieldLabel\"><span>Package start date</span><input id=\"fstart\" class=\"input\" type=\"date\" value=\"\${b.term_start_date||''}\"></label>");
+  html=html.replaceAll("<input id=\"fend\" class=\"input\" type=\"date\" value=\"\${b.term_end_date||''}\">","<label class=\"fieldLabel readonly\"><span>Package end date (auto)</span><input id=\"fend\" class=\"input\" type=\"date\" readonly value=\"\${b.term_end_date||''}\"></label>");
+
+  // Auto-calculate package end from package start + term months.
+  html=html.replace("$('#saveClient').onclick=()=>saveClient(id,b?.id)}","$('#saveClient').onclick=()=>saveClient(id,b?.id);const syncEnd=()=>{let start=$('#fstart').value,months=Number($('#ft').value);if(start&&months){let x=new Date(start+'T12:00:00');x.setMonth(x.getMonth()+months);$('#fend').value=x.toISOString().slice(0,10)}};$('#ft').oninput=syncEnd;$('#fstart').onchange=syncEnd;if(!$('#fend').value)syncEnd()}");
   `;
   if(!src.includes(marker)) throw new Error('Dashboard patch point not found');
   src=src.replace(marker,patch+'\n'+marker);
