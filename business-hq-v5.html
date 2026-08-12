@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Physique Pathway Business HQ</title>
+<meta name="theme-color" content="#070707">
+<style>html,body{margin:0;background:#070707;color:#fff;font-family:Inter,system-ui,sans-serif}#boot{min-height:100vh;display:grid;place-items:center;color:#888;font-size:13px}</style>
+</head>
+<body>
+<div id="boot">Loading Physique Pathway Business HQ…</div>
+<script>
+fetch('business-hq-v4.html?v=8').then(r=>{if(!r.ok)throw new Error('Unable to load dashboard');return r.text()}).then(src=>{
+  const marker='  document.open();document.write(html);document.close();';
+  const patch=`
+  // Client service-type compatibility: UI labels stay friendly, DB receives allowed enum values.
+  html=html.replaceAll("service_type:$('#fs').value","service_type:($('#fs').value==='Contest prep'?'contest_prep':$('#fs').value==='Lifestyle'?'lifestyle':$('#fs').value==='Other'?'other':$('#fs').value)");
+  html=html.replaceAll("c.service_type==='Contest prep'","(c.service_type==='Contest prep'||c.service_type==='contest_prep')");
+  html=html.replaceAll("c.service_type==='Lifestyle'","(c.service_type==='Lifestyle'||c.service_type==='lifestyle')");
+  html=html.replaceAll("c.service_type===sf.value","c.service_type===(sf.value==='Contest prep'?'contest_prep':sf.value==='Lifestyle'?'lifestyle':sf.value==='Other'?'other':sf.value)");
+  html=html.replaceAll("esc(c.service_type||'—')","esc(c.service_type==='contest_prep'?'Contest prep':c.service_type==='lifestyle'?'Lifestyle':c.service_type==='other'?'Other':c.service_type||'—')");
+  html=html.replaceAll("esc(c?.service_type||'')","esc(c?.service_type==='contest_prep'?'Contest prep':c?.service_type==='lifestyle'?'Lifestyle':c?.service_type==='other'?'Other':c?.service_type||'')");
+  `;
+  if(!src.includes(marker)) throw new Error('Dashboard patch point not found');
+  src=src.replace(marker,patch+'\n'+marker);
+  document.open();document.write(src);document.close();
+}).catch(err=>{document.getElementById('boot').textContent='Dashboard failed to load: '+err.message});
+</script>
+</body>
+</html>
