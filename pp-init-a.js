@@ -1,0 +1,6 @@
+import{$,S,sb,load,toast}from'./pp-lib.js';
+import{renderNav,render,setPage,clientRows}from'./pp-views.js';
+import{clientForm,markPaid,addEvent,addTask}from'./pp-forms.js';
+function paint(){renderNav();render();wire()}
+function wire(){document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>{setPage(b.dataset.page);paint()});document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>({client:()=>clientForm(null,paint),event:()=>addEvent(paint),task:()=>addTask(paint)}[b.dataset.add]?.()));document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>clientForm(b.dataset.edit,paint));document.querySelectorAll('[data-paid]').forEach(b=>b.onclick=()=>markPaid(b.dataset.paid,paint));document.querySelectorAll('[data-done]').forEach(b=>b.onclick=async()=>{let r=await sb.from('tasks').update({status:'done'}).eq('id',b.dataset.done);if(r.error)return toast(r.error.message,true);await load();paint()});if($('#search'))$('#search').oninput=e=>$('#rows').innerHTML=clientRows(S.clients.filter(c=>c.name.toLowerCase().includes(e.target.value.toLowerCase())))}
+export{paint,wire};
